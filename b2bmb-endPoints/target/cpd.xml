@@ -1,0 +1,2550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd>
+<duplication lines="209" tokens="1178">
+<file line="135" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFTPProducer.java"/>
+<file line="136" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbSFTPProducer.java"/>
+<codefragment>
+<![CDATA[
+                this.endpoint.setConfiguration(ftpConfiguration);
+                Object overrule = exchange.getIn().getHeader(Exchange.OVERRULE_FILE_NAME);
+                if (overrule != null) {
+                    if (overrule instanceof Expression) {
+                        value = overrule;
+                    } else {
+                        value = exchange.getContext().getTypeConverter().convertTo(String.class, exchange, overrule);
+                    }
+                } else {
+                    value = exchange.getIn().getHeader(Exchange.FILE_NAME);
+                }
+
+                // if we have an overrule then override the existing header to use the overrule computed name
+                // from this point forward
+                if (overrule != null) {
+                    exchange.getIn().setHeader(Exchange.FILE_NAME, value);
+                }
+
+                if (value != null && value instanceof String && StringHelper.hasStartToken((String) value, "simple")) {
+                    log.warn("Simple expression: {} detected in header: {} of type String. This feature has been " +
+                            "removed (see CAMEL-6748).", value, Exchange.FILE_NAME);
+                }
+
+                // expression support
+                Expression expression = endpoint.getFileName();
+                if (value != null && value instanceof Expression) {
+                    expression = (Expression) value;
+                }
+
+                // evaluate the name as a String from the value
+                String name;
+                if (expression != null) {
+                    log.trace("Filename evaluated as expression: {}", expression);
+                    name = expression.evaluate(exchange, String.class);
+                } else {
+                    name = exchange.getContext().getTypeConverter().convertTo(String.class, exchange, value);
+                }
+
+                // flatten name
+                if (name != null && endpoint.isFlatten()) {
+                    // check for both windows and unix separators
+                    int pos = Math.max(name.lastIndexOf("/"), name.lastIndexOf("\\"));
+                    if (pos != -1) {
+                        name = name.substring(pos + 1);
+                    }
+                }
+
+                // compute path by adding endpoint starting directory
+                String endpointPath = endpoint.getConfiguration().getDirectory();
+                String baseDir = "";
+                if (endpointPath.length() > 0) {
+                    // Its a directory so we should use it as a base path for the filename
+                    // If the path isn't empty, we need to add a trailing / if it isn't already there
+                    baseDir = endpointPath;
+                    boolean trailingSlash = endpointPath.endsWith("/") || endpointPath.endsWith("\\");
+                    if (!trailingSlash) {
+                        baseDir += getFileSeparator();
+                    }
+                }
+                if (name != null) {
+                    answer = baseDir + name;
+                } else {
+                    // use a generated filename if no name provided
+                    answer = baseDir + endpoint.getGeneratedFileName(exchange.getIn());
+                }
+
+                if (endpoint.getConfiguration().needToNormalize()) {
+                    // must normalize path to cater for Windows and other OS
+                    answer = normalizePath(answer);
+                }
+
+                return answer;
+            } else {
+                if(LOG.isWarnEnabled()) {
+                    LOG.warn("A file was passed for a Communication Configuration:"+cc.getRefName() +
+                      " but the connection is not active.  The file will be stored in directory:"+
+                       b2bmbDirectoryName);
+                }
+
+                String fileName = exchange.getIn().getHeader(Exchange.FILE_NAME, String.class);
+                FileSystemEntry parentFileSystemEntry = null;
+                try {
+                    parentFileSystemEntry = getEndpoint().getFileSystemEntryDAO()
+                            .getByRefName(b2bmbDirectoryName, dataDomain);
+                } catch (B2BTransactionFailed e) {
+                    throw new IllegalStateException("Could not get fileSystemEntry for path:"+b2bmbDirectoryName,
+                            e);
+                }
+                if (parentFileSystemEntry == null) {
+                    throw new IllegalStateException("Directory does not exist. Domain: " + dataDomain
+                            + " Path: " + b2bmbDirectoryName);
+                }
+
+                InputStream message = exchange.getIn().getBody(InputStream.class);
+                try {
+                    getEndpoint().getFileSystemEntryDAO().createFileFromStream(exchange.getExchangeId(),
+                            fileName,
+                            parentFileSystemEntry.getId(), exchange.getIn().getBody(InputStream.class),
+                            "application/octet-stream", parentFileSystemEntry.getDataDomain(),
+                            parentFileSystemEntry.getOwnerUserProfileRefName(),
+                            exchange.getProperty(B2bmbCamelConstants.TRANSMISSION_ID, String.class));
+                    return null;
+                } catch (B2BNotFoundException e) {
+                    throw new IllegalStateException("Could not save file path:"+b2bmbDirectoryName,
+                            e);
+                } catch (B2BTransactionFailed e) {
+                    throw new IllegalStateException("Could not save file path:"+b2bmbDirectoryName, e);
+                }
+            }
+        } else {
+            throw new IllegalStateException("No Communication Configuration found for directory:"+
+                    b2bmbDirectoryName+ " can not send file.");
+        }
+    }
+
+
+    /**
+     * @param exchange created exchange
+     * @throws Exception thrown by camel
+     */
+    private void storeFile(Exchange exchange, String filePath, String dataDomain) throws Exception {
+        FileSystemEntry parentFileSystemEntry = getEndpoint().getFileSystemEntryDAO()
+                .getByRefName(filePath, dataDomain);
+        if (parentFileSystemEntry == null) {
+            throw new B2BNotFoundException("Directory does not exist. Domain: " + dataDomain
+                    + " Path: " + filePath);
+        }
+
+        //moved to success directory
+        List<FileSystemEntry> fileSystemEntries = null;
+
+        DynamicSearchRequest dynamicSearchRequest = new DynamicSearchRequest();
+        DynamicAttribute parentAttribute = new DynamicAttribute();
+        parentAttribute.setType(DynamicAttributeType.String);
+        parentAttribute.setValue(parentFileSystemEntry.getId());
+        parentAttribute.setRefName("parentFileEntryId");
+        dynamicSearchRequest.getSearchFields().getAttributes().put("parentFileEntryId", parentAttribute);
+
+        DynamicAttribute directoryOnlyAttribute = new DynamicAttribute();
+        directoryOnlyAttribute.setType(DynamicAttributeType.String);
+        directoryOnlyAttribute.setValue(FileSystemEntryType.Directory.value());
+        directoryOnlyAttribute.setRefName("type");
+        dynamicSearchRequest.getSearchFields().getAttributes().put("type", directoryOnlyAttribute);
+
+        DynamicAttribute directoryNameAttribute = new DynamicAttribute();
+        directoryNameAttribute.setType(DynamicAttributeType.String);
+        directoryNameAttribute.setValue(".processed");
+
+        directoryNameAttribute.setRefName("name");
+        dynamicSearchRequest.getSearchFields().getAttributes().put("name", directoryNameAttribute);
+
+        List<String> dataDomains = new ArrayList<String>();
+        dataDomains.add(parentFileSystemEntry.getDataDomain());
+
+        fileSystemEntries = getEndpoint().getFileSystemEntryDAO().getList(
+                dynamicSearchRequest, 0, 1, null, dataDomains);
+
+        FileSystemEntry moveToDirectory = null;
+        if (fileSystemEntries.isEmpty()) {
+            //create directory since it doesn't exist
+            FileSystemEntry newDirectory = new FileSystemEntry();
+            newDirectory.setParentFileEntryId(parentFileSystemEntry.getId());
+            newDirectory.setOwnerUserProfileRefName(parentFileSystemEntry.getOwnerUserProfileRefName());
+            newDirectory.setName(".processed");
+            newDirectory.setType(FileSystemEntryType.Directory);
+            newDirectory.setDataDomain(parentFileSystemEntry.getDataDomain());
+            moveToDirectory = getEndpoint().getFileSystemEntryDAO().save(newDirectory);
+        } else {
+            moveToDirectory = fileSystemEntries.get(0);
+        }
+
+        //default content type
+        String contentType = "application/octet-stream";
+        if (exchange.getIn().getHeader(Exchange.CONTENT_TYPE, String.class) != null) {
+            contentType = exchange.getIn().getHeader(Exchange.CONTENT_TYPE, String.class);
+        }
+
+        String fileName = exchange.getIn().getHeader(Exchange.FILE_NAME, String.class);
+        if (fileName == null)
+        {
+            fileName = exchange.getIn().getHeader("DOWNLOADED_FILE", String.class);
+
+        }
+
+        if (fileName == null)
+        {
+            throw new IllegalStateException("File Name could not be resolved, need either:" + Exchange.FILE_NAME +
+                    " or " + "DOWNLOADED_FILE in header");
+        }
+
+
+        InputStream in = exchange.getIn().getBody(InputStream.class);
+
+        if ( in != null)
+        {
+            getEndpoint().getFileSystemEntryDAO().createFileFromStream(exchange.getExchangeId(),
+                    fileName,
+                    moveToDirectory.getId(), in,
+                    contentType, parentFileSystemEntry.getDataDomain(),
+                    parentFileSystemEntry.getOwnerUserProfileRefName(),
+                    exchange.getProperty(B2bmbCamelConstants.TRANSMISSION_ID, String.class));
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Endpoint URI at createFileSystemEntry method :: " + getEndpoint().getEndpointUri());
+            }
+        }
+
+    }
+
+    private FtpConfiguration buildFtpConfiguration(CommunicationConfiguration cc) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="115" tokens="712">
+<file line="305" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbB2BProfileDirectoryConsumer.java"/>
+<file line="197" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFileSystemConsumer.java"/>
+<codefragment>
+<![CDATA[
+                                        B2bmbB2BProfileDirectoryEndpoint endpoint, Exchange exchange,
+                                        boolean isSuccessful) {
+        try {
+            //moved to success directory
+            List<FileSystemEntry> fileSystemEntries = null;
+
+            DynamicSearchRequest dynamicSearchRequest = new DynamicSearchRequest();
+            DynamicAttribute parentAttribute = new DynamicAttribute();
+            parentAttribute.setType(DynamicAttributeType.String);
+            parentAttribute.setValue(parentFileSystemEntry.getId());
+            parentAttribute.setRefName("parentFileEntryId");
+            dynamicSearchRequest.getSearchFields().getAttributes().put("parentFileEntryId", parentAttribute);
+
+            DynamicAttribute directoryOnlyAttribute = new DynamicAttribute();
+            directoryOnlyAttribute.setType(DynamicAttributeType.String);
+            directoryOnlyAttribute.setValue(FileSystemEntryType.Directory.value());
+            directoryOnlyAttribute.setRefName("type");
+            dynamicSearchRequest.getSearchFields().getAttributes().put("type", directoryOnlyAttribute);
+
+            DynamicAttribute directoryNameAttribute = new DynamicAttribute();
+            directoryNameAttribute.setType(DynamicAttributeType.String);
+            if (isSuccessful) {
+                directoryNameAttribute.setValue(endpoint.getSuccessDirectory());
+            } else {
+                directoryNameAttribute.setValue(endpoint.getErrorDirectory());
+            }
+            directoryNameAttribute.setRefName("name");
+            dynamicSearchRequest.getSearchFields().getAttributes().put("name", directoryNameAttribute);
+
+            List<String> dataDomains = new ArrayList<String>();
+            dataDomains.add(parentFileSystemEntry.getDataDomain());
+
+            fileSystemEntries = endpoint.getFileSystemEntryDAO().getList(dynamicSearchRequest, 0, 1, null, dataDomains);
+
+            FileSystemEntry moveToDirectory = null;
+            if (fileSystemEntries.isEmpty()) {
+                //create directory since it doesn't exist
+                FileSystemEntry newDirectory = new FileSystemEntry();
+                newDirectory.setParentFileEntryId(parentFileSystemEntry.getId());
+                newDirectory.setOwnerUserProfileRefName(parentFileSystemEntry.getOwnerUserProfileRefName());
+                if (isSuccessful) {
+                    newDirectory.setName(endpoint.getSuccessDirectory());
+                } else {
+                    newDirectory.setName(endpoint.getErrorDirectory());
+                }
+                newDirectory.setType(FileSystemEntryType.Directory);
+                newDirectory.setDataDomain(parentFileSystemEntry.getDataDomain());
+                moveToDirectory = endpoint.getFileSystemEntryDAO().save(newDirectory);
+            } else {
+                moveToDirectory = fileSystemEntries.get(0);
+            }
+            fileSystemEntry.setParentFileEntryId(moveToDirectory.getId());
+            //update file name w/ timestamp to avoid duplicates
+            String fileName = fileSystemEntry.getName();
+            if (fileSystemEntry.getCreateDate() != null) {
+                fileName = fileSystemEntry.getCreateDate().getTime() + "_" + fileName;
+            } else {
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug(String.format("Somehow fileSystemEntry with id %s domain %s refname %s " +
+                                    "did not have a create date set", fileSystemEntry.getId(),
+                            fileSystemEntry.getDataDomain(), fileSystemEntry.getRefName()));
+                }
+                fileName = Calendar.getInstance().getTime().getTime() + "_" + fileName;
+            }
+            fileSystemEntry.setName(fileName);
+            endpoint.getFileSystemEntryDAO().save(fileSystemEntry);
+
+        } catch (B2BTransactionFailed |B2BNotFoundException | ValidationException e) {
+
+            if (LOG.isErrorEnabled()) {
+                LOG.error("processRouteCompletion failed for fileSystemEntry " + fileSystemEntry.getId() +
+                        "route was " + (isSuccessful?"successful":"unsuccessful"), e);
+            }
+        } finally {
+            getEndpoint().getInProgressRepository().remove(fileSystemEntry.getId());
+        }
+    }
+    @Override
+    public int processBatch(Queue<Object> exchanges) {
+
+        final int total = exchanges.size();
+
+        for (int index = 0; index < total && isBatchAllowed(); index++) {
+            // only loop if we are started (allowed to run)
+            Exchange exchange = (Exchange) exchanges.poll();
+            // add current index and total as properties
+            exchange.setProperty(Exchange.BATCH_INDEX, index);
+            exchange.setProperty(Exchange.BATCH_SIZE, total);
+            exchange.setProperty(Exchange.BATCH_COMPLETE, index == total - 1);
+
+            // update pending number of exchanges
+            pendingExchanges = total - index - 1;
+            String mailboxEntryId = exchange.getProperty("FileSystemEntryId").toString();
+
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Sending FSE " + index + " of " + total);
+            }
+            // process the current exchange
+            try {
+                getProcessor().process(exchange);
+//CHECKSTYLE:OFF
+            } catch (Exception e) {
+                if (LOG.isErrorEnabled()) {
+                    LOG.error("Exception occurred on processing exchange", e);
+                }
+                getEndpoint().getInProgressRepository().remove(mailboxEntryId);
+            }
+//CHECKSTYLE:ON
+        }
+        return total;
+    }
+
+
+    @Override
+    public B2bmbB2BProfileDirectoryEndpoint getEndpoint() {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="52" tokens="450">
+<file line="52" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\interceptor\CamelTransmissionInterceptor.java"/>
+<file line="56" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\notifier\CamelConsumerTransmissionGenerator.java"/>
+<codefragment>
+<![CDATA[
+                try {
+                    String transmissionId = exchange.getProperty(B2bmbCamelConstants.TRANSMISSION_ID, String.class);
+                    Transmission transmission = null;
+                    if (transmissionId != null) {
+                        transmission = transmissionDAO.getById(transmissionId);
+                    } else if(exchange.getIn().getHeader(B2bmbCamelConstants.TRANSMISSION_ID) != null) {
+                        transmissionId = exchange.getIn().getHeader(B2bmbCamelConstants.TRANSMISSION_ID, String.class);
+                        transmission = transmissionDAO.getById(transmissionId);
+                    }
+                    if (transmission == null) {
+                        transmission = new Transmission();
+                        //this would be very weird but maybe you preset the id in the route so supporting
+                        if (transmissionId != null) {
+                            transmission.setId(transmissionId);
+                        }
+                        transmission.setDataDomain(CamelDataDomainHelper.getDataDomainFromExchange(exchange));
+                        transmission.setDirection(TransmissionDirection.INBOUND);
+                        transmission.setStartDateTime(Calendar.getInstance().getTime());
+                        if (exchange.getIn().getHeader(Exchange.FILE_NAME) != null) {
+                            transmission.setFileNames(exchange.getIn().getHeader(Exchange.FILE_NAME, String.class));
+                        }
+                        transmission.setTransmissionObjectId(exchange.getExchangeId());
+                        transmission.setTransmissionObjectIdType("Route Contents");
+                        transmission.setStatus(TransmissionStatus.ROUTED);
+                        transmission.setFromUser("Route:" + exchange.getFromRouteId());
+                        transmission = transmissionDAO.save(transmission);
+                        transmissionId = transmission.getId();
+                        exchange.setProperty(B2bmbCamelConstants.TRANSMISSION_ID, transmissionId);
+                        exchange.getIn().setHeader(B2bmbCamelConstants.TRANSMISSION_ID, transmissionId);
+                    }
+
+                    if(transmission.getDataDomain() != null &&
+                            !transmission.getDataDomain().equals(
+                                    CamelDataDomainHelper.getDataDomainFromExchange(exchange))) {
+                        transmission.getDataDomains().add(CamelDataDomainHelper.getDataDomainFromExchange(exchange));
+                    } else if(transmission.getDataDomain() == null) {
+                        transmission.getDataDomains().add(CamelDataDomainHelper.getDataDomainFromExchange(exchange));
+                    }
+                    TransmissionEvent transmissionEvent = new TransmissionEvent();
+                    transmissionEvent.setStartDateTime(Calendar.getInstance().getTime());
+                    transmissionEvent.setTimestamp(System.nanoTime());
+
+                    transmissionEvent.setDataDomain(transmission.getDataDomain());
+                    if(transmissionEvent.getDataDomain() != null && !transmissionEvent.getDataDomain().equals(
+                            CamelDataDomainHelper.getDataDomainFromExchange(exchange))) {
+                        transmissionEvent.getDataDomains().add(
+                                CamelDataDomainHelper.getDataDomainFromExchange(exchange));
+                    } else if(transmissionEvent.getDataDomain() == null) {
+                        transmissionEvent.getDataDomains().add(
+                                CamelDataDomainHelper.getDataDomainFromExchange(exchange));
+                    }
+                    transmissionEvent.setTransmissionId(transmissionId);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="67" tokens="420">
+<file line="249" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\util\EDIFACTTransactionListener.java"/>
+<file line="236" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\util\EDITransactionListener.java"/>
+<codefragment>
+<![CDATA[
+        builder.append("UNZ"+elementDelimiter+"1"+elementDelimiter+interchangeContolNumber+lineTerminator);
+        String fileName =  documentId + "|" + interchangeContolNumber +"|"+functionalGroupControlNumber+
+                "|"+e.controlNumber;
+        String path = mailbox.getDataDomain().replace(".", "/") + "/" + mailbox.getRefName() + "/" +
+                fileName;
+
+        String refName = fileName.replaceAll("\\s", "") + "|" +UUID.randomUUID();
+        String contentType = "application/octet-stream";
+        BlobMetaData metaData = blobStore.createMetaDataObject();
+        metaData.setDataDomain(mailbox.getDataDomain());
+
+        metaData.setPathString(path);
+        metaData.setTxId(SecureSession.getTxId());
+        Blob blob = null;
+
+        try {
+            blob = blobStore
+                    .createBlobFromStream(refName, IOUtils.toInputStream(builder.toString()),
+                            contentType, metaData);
+        } catch (BlobStoreException e1) {
+            throw new IllegalStateException("Could not create blob for transaction:"+fileName);
+        }
+
+        Attachment att = new Attachment();
+        att.setInlinePayload(false);
+        String fileId = blob.getIdAsString();
+
+        att.setPayloadId(fileId);
+        att.setFileSize(blob.getSize());
+
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Done, file id: " + fileId);
+        }
+
+        att.setContentType(contentType);
+        att.setFileName(fileName);
+        att.setRefName(path);
+        att.setDataDomain(mailbox.getDataDomain());
+        att.setId(String.valueOf(UUID.randomUUID()));
+
+        MailboxEntry mailboxEntry = new MailboxEntry();
+        mailboxEntry.getAttachments().add(att);
+        mailboxEntry.setMailboxId(mailbox.getId());
+        mailboxEntry.setDataDomain(mailbox.getDataDomain());
+        mailboxEntry.setTransmissionId(transmissionId);
+        mailboxEntry.setSubject(fileName);
+        mailboxEntry.setToUserId(toAddress);
+        mailboxEntry.setFromUserId(fromAddress);
+        mailboxEntry.setRefName(refName);
+        mailboxEntry.setId(String.valueOf(UUID.randomUUID()));
+
+
+        mailboxEntry.getMetaData().put(B2bmbCamelConstants.DOCUMENT_TYPE,
+                documentId);
+
+        mailboxEntry.getMetaData().put(B2bmbCamelConstants.REFERENCE_DATA,
+                referenceData);
+
+        try {
+            mailboxEntryDAO.save(mailboxEntry);
+        } catch (B2BTransactionFailed b2BTransactionFailed) {
+            throw new IllegalStateException("Could not save mailbox entry for transaction:"+fileName);
+        } catch (B2BNotFoundException e1) {
+            throw new IllegalStateException("Could not save mailbox entry for transaction:"+fileName);
+        } catch (ValidationException e1) {
+            throw new IllegalStateException("Could not save mailbox entry for transaction:"+fileName);
+        }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="58" tokens="330">
+<file line="218" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbB2BProfileDirectoryConsumer.java"/>
+<file line="123" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFileSystemConsumer.java"/>
+<codefragment>
+<![CDATA[
+                                    null, fDataDomains);
+                            offsetMultiple++;
+
+                            if (fileSystemEntries == null || fileSystemEntries.size() == 0) {
+                                queryFileSystemAgain = false;
+                            } else {
+                                for (final FileSystemEntry fileSystemEntry : fileSystemEntries) {
+                                    if (exchanges.size() < maxMessagesPerPoll) {
+                                        //make sure we havent created an exchange in this loop or in an earlier poll
+                                        if (!getEndpoint().getInProgressRepository().contains(
+                                                fileSystemEntry.getId())) {
+
+                                            getEndpoint().getInProgressRepository().add(fileSystemEntry.getId());
+                                            //get the blob
+                                            Blob fileContents = getEndpoint().getBlobStore().getBlobByStringId(
+                                                    fileSystemEntry.getBlobId());
+                                            Exchange exchange = getEndpoint().createExchange();
+                                            exchange.getIn().setBody(fileContents);
+                                            exchange.getIn().setHeader(Exchange.FILE_NAME, fileSystemEntry.getName());
+                                            exchange.getIn().setHeader(Exchange.FILE_LENGTH, fileSystemEntry.getSize());
+                                            exchange.getIn().setHeader(Exchange.CONTENT_TYPE,
+                                                    fileSystemEntry.getContentType());
+                                            exchange.setProperty(B2bmbCamelConstants.TRANSMISSION_ID,
+                                                    fileSystemEntry.getTransmissionId());
+                                            exchange.getIn().setHeader(B2bmbCamelConstants.TRANSMISSION_ID,
+                                                    fileSystemEntry.getTransmissionId());
+                                            exchange.setProperty("FileSystemEntryId", fileSystemEntry.getId());
+                                            exchange.addOnCompletion(new SynchronizationAdapter() {
+                                                @Override
+                                                public void onComplete(Exchange exchange) {
+                                                    processRouteCompletion(fileSystemEntry, parentFileSystemEntry,
+                                                            getEndpoint(), exchange, true);
+                                                }
+
+                                                @Override
+                                                public void onFailure(Exchange exchange) {
+                                                    processRouteCompletion(fileSystemEntry, parentFileSystemEntry,
+                                                            getEndpoint(), exchange, false);
+                                                }
+
+                                                @Override
+                                                public boolean allowHandover() {
+                                                    return false;
+                                                }
+
+                                                @Override
+                                                public String toString() {
+                                                    return "B2bmbFileSystemConsumerOnCompletion";
+                                                }
+                                            });
+                                            exchanges.add(exchange);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (exchanges.size() > 0) {
+                            Deque<Exchange> q = exchanges;
+]]>
+</codefragment>
+</duplication>
+<duplication lines="35" tokens="253">
+<file line="119" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFTPConsumer.java"/>
+<file line="114" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbSFTPConsumer.java"/>
+<codefragment>
+<![CDATA[
+                            }
+
+                            long delta = stop.stop();
+                            if (this.log.isDebugEnabled()) {
+                                this.log.debug("Took {} to poll: {}", TimeUtils.printDuration((double) delta), name);
+                            }
+
+                            if (limitHit) {
+                                this.log.debug("Limiting maximum messages to poll at {} files as there was more " +
+                                        "messages in this poll.", Integer.valueOf(this.maxMessagesPerPoll));
+                            }
+
+                            if (this.endpoint.getSorter() != null) {
+                                Collections.sort(files, this.endpoint.getSorter());
+                            }
+
+                            LinkedList exchanges = new LinkedList();
+                            Iterator q = files.iterator();
+
+                            while (q.hasNext()) {
+                                GenericFile total = (GenericFile) q.next();
+                                Exchange polledMessages = this.endpoint.createExchange(total);
+                                polledMessages.getIn().setHeader("B2BDirectoryName", cc.getLocalInDirectoryName());
+                                polledMessages.getIn().setHeader("B2BActiveConnection", cc.getActive());
+                                this.endpoint.configureExchange(polledMessages);
+                                this.endpoint.configureMessage(total, polledMessages.getIn());
+                                exchanges.add(polledMessages);
+                            }
+
+                            if (this.endpoint.getSortBy() != null) {
+                                Collections.sort(exchanges, this.endpoint.getSortBy());
+                            }
+
+                            if (!this.eagerLimitMaxMessagesPerPoll && this.maxMessagesPerPoll > 0 &&
+                                    files.size() > this.maxMessagesPerPoll) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="68" tokens="244">
+<file line="114" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\endpts\ftp\FTPUserRealm.java"/>
+<file line="129" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\endpts\ssh\nsoftware\SFTPServerRealm.java"/>
+<codefragment>
+<![CDATA[
+                throw new AuthenticationException("Error occured while Authenticating credentials" + e);
+            }
+            info = new SimpleAuthenticationInfo(userId,
+                    password, "SFTPServerRealm");
+
+        } else if (token instanceof PublicKeyToken) {
+
+            PublicKeyToken upt = (PublicKeyToken) token;
+            userId = (String) upt.getPrincipal();
+
+            String[] splitUserId = userId.split("\\.");
+            if (splitUserId.length == 2) {
+                userId = splitUserId[1];
+                realm = splitUserId[0];
+            }
+
+            String key = (String) upt.getCredentials();
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("PublicKeyToken::Logging in with credentials userID:" + userId
+                        + "realm:" + realm);
+
+                LOG.debug("UPT Principles:" + upt.getPrincipal().toString());
+            }
+
+            try {
+
+
+                sftpUser = serverUserDAO.authenticateByKey(userId, key.replaceAll("\\r\\n|\\n", ""), realm);
+
+            } catch (B2BException e) {
+                throw new AuthenticationException(e);
+            } catch (IOException e) {
+                throw new AuthenticationException(e);
+            }
+
+
+            SecurityUtils.getSubject().getSession().setAttribute("sftpUser", sftpUser);
+            info = new SimpleAuthenticationInfo(userId, key
+                    , "SFTPServerRealm");
+
+        } else {
+            if (LOG.isWarnEnabled()) {
+                LOG.warn("Could not use token as its not a UserPassword Token?");
+            }
+        }
+
+        if (sftpUser == null) {
+            throw new IllegalStateException(
+                    "unable to find sftp user with id ::" + userId);
+        }
+
+
+        return info;
+
+    }
+
+    /**
+     * Retrieves the AuthorizationInfo for the given principals from the underlying data store.  When returning
+     * an instance from this method, you might want to consider using an instance of
+     * {@link org.apache.shiro.authz.SimpleAuthorizationInfo SimpleAuthorizationInfo}, as it is suitable in most cases.
+     *
+     * @param principals the primary identifying principals of the AuthorizationInfo that should be retrieved.
+     * @return the AuthorizationInfo associated with this principals.
+     * @see org.apache.shiro.authz.SimpleAuthorizationInfo
+     */
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="79" tokens="239">
+<file line="317" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\util\EDIFACTTransactionListener.java"/>
+<file line="305" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\util\EDITransactionListener.java"/>
+<codefragment>
+<![CDATA[
+        transactions.add(mailboxEntry.getId());
+
+    }
+
+    /**
+     * Method that captures the start of the loop segment.
+     *
+     * @param e - EdireaderStartLoopEvent
+     */
+    public void startLoop(EdireaderStartLoopEvent e) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("StartLoop: " + e.name);
+        }
+    }
+
+    /**
+     * Method that captures the end of the loop segment.
+     *
+     * @param e - EdireaderEndLoopEvent
+     */
+    public void endLoop(EdireaderEndLoopEvent e) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("EndLoop");
+        }
+        //functionalGroupBuilder.append("END").append("\n");
+    }
+
+    /**
+     * Method that captures when an error occurs.
+     *
+     * @param e - EdireaderErrorEvent
+     */
+    public void error(EdireaderErrorEvent e) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("ERROR: " + e.errorCode + ":" + e.description);
+        }
+    }
+
+    /**
+     * Method that captures when the schema is resolved.
+     *
+     * @param e - EdireaderResolveSchemaEvent
+     */
+    public void resolveSchema(EdireaderResolveSchemaEvent e) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("ResolveSchema: " + e.transactionCode);
+
+        }
+    }
+
+    /**
+     * Method that captures when a segment is read
+     *
+     * @param e - EdireaderSegmentEvent
+     */
+    public void segment(EdireaderSegmentEvent e) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Segment: " + e.name + "|L:" + e.loop + "|t:" + e.tag + "|F:" + e.fullSegment);
+        }
+
+        if(recordTransaction) {
+            String fullSeqment = e.fullSegment;
+            builder.append(fullSeqment);
+            getReferenceData(e.tag, e.fullSegment);
+        }
+
+
+    }
+
+    /**
+     * Method that captures when a warning occurs.
+     *
+     * @param e - EdireaderWarningEvent
+     */
+    public void warning(EdireaderWarningEvent e) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("WARNING: " + e.warnCode + ": " + e.message);
+        }
+    }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="47" tokens="224">
+<file line="36" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\magento\MagentoCancelSalesOrder.java"/>
+<file line="38" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\magento\MagentoSalesOrderHold.java"/>
+<file line="36" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\magento\MagentoSalesOrderUnhold.java"/>
+<codefragment>
+<![CDATA[
+    @Autowired
+    SalesOrderDAO salesOrderDAO;
+
+    /**
+     * Accepts a salesOrder json. Following are the required fields on the json
+     * - salesOrder.header.salesOrderNumber
+     * - salesOrder.refName
+     * - dataDomain should exist in the domain and a valid salesOrder should exist for the refName and dataDomain
+     *
+     * After successfully cancel operarion in Magento, salesOrder.magentoSalesOrderCancelStatus will be
+     * updated with a value of 'Y'
+     */
+    @Override
+    Object process(String json, String sessionId, VelocityEngine ve, Exchange exchange,
+                   ProducerTemplate template, String endPoint) throws IOException, XPathExpressionException,
+            TransformerException, B2BNotAuthorizedException, B2BTransactionFailed, B2BNotAuthenticatedException,
+            B2BNotFoundException, ValidationException {
+        String dataDomain = CamelDataDomainHelper.getDataDomainFromExchange(exchange);
+        checkNotNull(dataDomain, "dataDomain cannot be null");
+
+        ObjectMapper objectMapper = createObjectMapper();
+        SalesOrder salesOrder = objectMapper.readValue(json,
+                SalesOrder.class);
+        checkNotNull(salesOrder, "Not able to serialise salesOrder");
+        checkNotNull(salesOrder.getHeader(), "SalesOrderHeader is null");
+        String magentoOrderId = null;
+        if(salesOrder.getHeader().getOriginalOrderNumber() != null) {
+            magentoOrderId = salesOrder.getHeader().getOriginalOrderNumber();
+        } else {
+            for (Reference referenceIdentification : salesOrder.getReferenceData()) {
+                if (referenceIdentification.getType().equals("originalSalesNumber")) {
+                    magentoOrderId = referenceIdentification.getValue();
+                }
+            }
+        }
+
+        checkNotNull(magentoOrderId,
+                "Original Sales Number from Magento is null, but expected to be there for order "
+                        + salesOrder.getId());
+
+        SalesOrder so = salesOrderDAO.getByRefName(salesOrder.getRefName(), dataDomain);
+        checkNotNull(so, "Sales Order with refNumber " + salesOrder.getRefName()
+                + "Not found for datadomain " + dataDomain);
+
+        SalesOrderEntity magentoSalesOrder = getSalesOrderEntity(sessionId,
+                magentoOrderId, ve, exchange, template, endPoint);
+        boolean magentoOrderAlreadyCancelled = magentoSalesOrder.isOrderCancelled();
+]]>
+</codefragment>
+</duplication>
+<duplication lines="167" tokens="220">
+<file line="70" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbB2BProfileDirectoryEndpoint.java"/>
+<file line="62" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFileSystemEndpoint.java"/>
+<codefragment>
+<![CDATA[
+    }
+
+    @Override
+    public boolean isSingleton() {
+        return true;
+    }
+
+    /**
+     * Return the filePath
+     * @return file path
+     */
+    public String getFilePath() {
+        return filePath;
+    }
+
+    /**
+     * Set the filePath
+     * @param filePath path for file
+     */
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    /**
+     * Get the data domain
+     * @return domain data domain
+     */
+    public String getDomain() {
+        return domain;
+    }
+
+    /**
+     * Set the data domain
+     * @param domain data domain
+     */
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    /**
+     * Get the regex filter for refname
+     * @return regexFilter
+     */
+    public String getRegexFilter() {
+        return regexFilter;
+    }
+
+    /**
+     * Set the regex filter for refname
+     * @param regexFilter regex filter
+     */
+    public void setRegexFilter(String regexFilter) {
+        this.regexFilter = regexFilter;
+    }
+
+    /**
+     * Get the refname
+     * @return refName refName in uri
+     */
+    public String getRefName() {
+        return refName;
+    }
+
+    /**
+     * Set the refname
+     * @param refName refName in uri
+     */
+    public void setRefName(String refName) {
+        this.refName = refName;
+    }
+
+    /**
+     * Set the contentType
+     * @return contentType
+     */
+    public String getContentType() {
+        return contentType;
+    }
+
+    /**
+     * Get the contentType
+     * @param contentType contentType in uri
+     */
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    /**
+     * Get the name of directory to move files to if route is successful
+     * Default is .processed
+     * @return directory name
+     */
+    public String getSuccessDirectory() {
+        return successDirectory;
+    }
+
+    /**
+     * Get the name of directory to move files to if route is successful
+     * @param successDirectory directory name
+     */
+    public void setSuccessDirectory(String successDirectory) {
+        this.successDirectory = successDirectory;
+    }
+
+    /**
+     * Get the name of directory to move files to if route is unsuccessful
+     * Default is .errored
+     * @return directory name
+     */
+    public String getErrorDirectory() {
+        return errorDirectory;
+    }
+
+    /**
+     * Set the name of directory to move files to if route is unsuccessful
+     * @param errorDirectory directory name
+     */
+    public void setErrorDirectory(String errorDirectory) {
+        this.errorDirectory = errorDirectory;
+    }
+
+    /**
+     * An indicator Y or N that indicates if the poll will be from several directories passed in
+     * as a Camel Header : B2BDirectoryList.  If this is set to Y and there is a B2BDirectoryList
+     * passed in, the file path on the uri will not be used and it will loop over the list of
+     * values in the B2BDirectoryList to find files.
+     *
+     * @return - indicator Y or N that indicates if we will be polling a list of directories
+     */
+    public String getSearchDirectoryList() {
+        return searchDirectoryList;
+    }
+
+    /**
+     * Sets an indicator Y or N that indicates if the poll will be from several directories passed in
+     * as a Camel Header : B2BDirectoryList.  If this is set to Y and there is a B2BDirectoryList
+     * passed in, the file path on the uri will not be used and it will loop over the list of
+     * values in the B2BDirectoryList to find files.
+     *
+     * @param searchDirectoryList - indicator Y or N that indicates if we will be polling a list of directories
+     */
+    public void setSearchDirectoryList(String searchDirectoryList) {
+        this.searchDirectoryList = searchDirectoryList;
+    }
+
+    /**
+     * Get the fileSystemEntryDAO
+     * @return fileSystemEntryDAO
+     */
+    public FileSystemEntryDAO getFileSystemEntryDAO() {
+        return fileSystemEntryDAO;
+    }
+
+    /**
+     * Set the fileSystemEntryDAO
+     * @param fileSystemEntryDAO fileSystemEntryDAO
+     */
+    public void setFileSystemEntryDAO(FileSystemEntryDAO fileSystemEntryDAO) {
+        this.fileSystemEntryDAO = fileSystemEntryDAO;
+    }
+
+    /**
+     * Set the ediProfileDAO.
+     *
+     * @return ediProfileDAO
+     */
+    public EDIProfileDAO getEdiProfileDAO() {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="167" tokens="218">
+<file line="68" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbEDITransactionSplitterEndpoint.java"/>
+<file line="79" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMailboxEndpoint.java"/>
+<codefragment>
+<![CDATA[
+    }
+
+    /**
+     * to create singleton  object of endpoint
+     *
+     * @return boolean
+     */
+
+    public boolean isSingleton() {
+        return true;
+    }
+
+    /**
+     * Get to user
+     * @return to user
+     */
+    public String getTo() {
+        return to;
+    }
+
+    /**
+     * Set to user
+     * @param to user
+     */
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    /**
+     * Get from user
+     * @return from user
+     */
+    public String getFrom() {
+        return from;
+    }
+
+    /**
+     * Set from user
+     * @param from user
+     */
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    /**
+     * Get domain
+     * @return domain
+     */
+    public String getDomain() {
+        return domain;
+    }
+
+    /**
+     * Set domain
+     * @param domain dataDomain
+     */
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    /**
+     * Get mailbox name
+     * @return mailbox name
+     */
+    public String getMailboxName() {
+        return mailboxName;
+    }
+
+    /**
+     * Set mailbox name
+     * @param mailboxName mailbox refName
+     */
+    public void setMailboxName(String mailboxName) {
+        this.mailboxName = mailboxName;
+    }
+
+    /**
+     * Get subject
+     * @return subject
+     */
+    public String getSubject() {
+        return subject;
+    }
+
+    /**
+     * Set subject
+     * @param subject subject for message
+     */
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    /**
+     * Get error mailbox name
+     * @return error mailbox name
+     */
+    public String getErrorMailboxName() {
+        return errorMailboxName;
+    }
+
+    /**
+     * Set error mailbox name
+     * @param errorMailboxName error mailbox name
+     */
+    public void setErrorMailboxName(String errorMailboxName) {
+        this.errorMailboxName = errorMailboxName;
+    }
+
+    /**
+     * Get processed mailbox name
+     * @return processed mailbox name
+     */
+    public String getProcessedMailboxName() {
+        return processedMailboxName;
+    }
+
+    /**
+     * Set processed mailbox name
+     * @param processedMailboxName processed mailbox name
+     */
+    public void setProcessedMailboxName(String processedMailboxName) {
+        this.processedMailboxName = processedMailboxName;
+    }
+
+    /**
+     * Get parameter that indicates if mail should be sorted by email addresses and
+     * sequence number.
+     * @return 'true' if we want to sort
+     */
+    public String getSortMail() {
+        return sortMail;
+    }
+
+    /**
+     * Sets parameter that indicates if mail should be sorted by email addresses and
+     * sequence number.
+     * @param sortMail -  'true' if we want to sort
+     */
+    public void setSortMail(String sortMail) {
+        this.sortMail = sortMail;
+    }
+
+    /**
+     * Gets the parameter that indicates if we just want the mailbox entry id as the
+     * body of the message.
+     *
+     * @return 'true' if we want just the id in the body
+     */
+    public String getIdAsBody() {
+        return idAsBody;
+    }
+
+    /**
+     * Gets the parameter that indicates if we just want the mailbox entry id as the
+     * body of the message.
+     *
+     * @param idAsBody 'true' if we want just the id in the body
+     */
+    public void setIdAsBody(String idAsBody) {
+        this.idAsBody = idAsBody;
+    }
+
+    /**
+     * Get mailboxEntryDAO
+     * @return mailboxEntryDAO
+     */
+    public MailboxEntryDAO getMailboxEntryDAO() {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="44" tokens="218">
+<file line="275" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbScriptConsumer.java"/>
+<file line="248" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbScriptProducer.java"/>
+<codefragment>
+<![CDATA[
+                String msg = "There was a problem executing script:" + script.getRefName() + " from route:" +
+                        exchange.getFromRouteId() +
+                        " problem was:" + se.getMessage();
+                if (LOG.isErrorEnabled()) {
+                    LOG.error(msg);
+                }
+                script.setBlacklisted(true);
+                script.setBlacklistReason(msg);
+                exceptionOccurred = true;
+                throw se;
+            } finally {
+                if (exceptionOccurred) {
+                    try {
+                        scriptDAO.save(script);
+
+                    } catch (B2BTransactionFailed e) {
+                        if (LOG.isErrorEnabled()) {
+                            LOG.error("There was a problem saving the script:" + script.getRefName() + " exception:" +
+                                    e.getMessage());
+                        }
+                    } catch (B2BNotFoundException e) {
+                        if (LOG.isErrorEnabled()) {
+                            LOG.error("There was a problem saving the script:" + script.getRefName() + " exception:" +
+                                    e.getMessage());
+                        }
+                    } catch (ValidationException e) {
+                        if (LOG.isErrorEnabled()) {
+                            LOG.error("There was a problem saving the script:" + script.getRefName() + " exception:" +
+                                    e.getMessage());
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            throw new B2BNotFoundException("Script " + script + "was not found.");
+        }
+    }
+
+    @Override
+    public B2bmbScriptEndpoint getEndpoint() {
+
+        return (B2bmbScriptEndpoint) super.getEndpoint();
+    }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="53" tokens="209">
+<file line="179" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbScriptConsumer.java"/>
+<file line="187" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbScriptProducer.java"/>
+<codefragment>
+<![CDATA[
+                            SecureSession.setUser(dbu);
+
+                            TenancyManagerService tm = getEndpoint().getTenancyManagerService();
+
+                            SecureSession.setSecurityManager(tm);
+                            SecureSession.setAction("RUN SCRIPT");
+
+
+                        }
+                        else {
+
+
+                            if (LOG.isWarnEnabled()) {
+                                LOG.warn(">> Running script with no associated userProfile, service calls will fail");
+
+                            }
+
+
+                        }
+
+                        JSRunner runner = new JSRunner();
+                        returnScript = runner.runJS(script, blackListedPackages);
+
+                    } finally {
+
+
+                        if (useRunAs) {
+                            Subject s = SecurityUtils.getSubject();
+                            s.releaseRunAs();
+                            s.logout();
+                            SecureSession.clearAll();
+                        }
+
+                        if (threadState != null) {
+                            threadState.restore();
+                        }
+
+                    }
+
+
+                    //set outputs
+                    if (returnScript.getType() != null && returnScript.getType().getOutputs() != null
+                            && returnScript.getType().getOutputs().getAttributes() != null) {
+
+                        for (DynamicAttribute attribute : returnScript.getType().getOutputs().getAttributes().values
+                                ()) {
+
+                            String attributeName = attribute.getRefName();
+
+                            if (attributeName != null) {
+
+                                if ("body".equals(attributeName)) {
+                                    exchange.getIn().setBody(attribute.getValue());
+]]>
+</codefragment>
+</duplication>
+<duplication lines="36" tokens="193">
+<file line="96" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFTPProducer.java"/>
+<file line="97" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbSFTPProducer.java"/>
+<codefragment>
+<![CDATA[
+        B2bmbFTPEndpoint sftpEndpoint = (B2bmbFTPEndpoint) endpoint;
+        String dataDomain = sftpEndpoint.getDataDomain();
+        dataDomains.add(dataDomain);
+        CommunicationConfiguration cc = null;
+        try {
+            List<CommunicationConfiguration> communicationConfigurations =
+                    sftpEndpoint.getCommunicationConfigurationDAO().getList(
+                            dynamicSearchRequest, 0, 10, null, dataDomains);
+
+            if(communicationConfigurations == null || communicationConfigurations.size() == 0) {
+                throw new IllegalStateException("No Communication Configuration found for directory:"+
+                  b2bmbDirectoryName+ " can not send file.");
+            } else if(communicationConfigurations.size() > 1) {
+                throw new IllegalStateException("Multiple Communication Configurations found for directory:"+
+                        b2bmbDirectoryName+ " can not send file.");
+            } else {
+                cc = communicationConfigurations.get(0);
+            }
+
+        } catch (B2BTransactionFailed e) {
+            if(LOG.isErrorEnabled()) {
+                LOG.error("Could not query for Communication Configurations", e);
+            }
+
+            throw new IllegalStateException("Could not query for Communication Configurations", e);
+        }
+
+        if(cc != null) {
+            if("Y".equals(cc.getActive())) {
+                try {
+                    storeFile(exchange, b2bmbDirectoryName, dataDomain);
+                    //CHECKSTYLE:OFF
+                } catch (Exception e) {
+                    throw new IllegalStateException("Could not store file in directory:" + b2bmbDirectoryName
+                            + " in dataDomain:" + dataDomain, e);
+                }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="31" tokens="192">
+<file line="563" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMapForceServerProducer.java"/>
+<file line="185" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\EDIFactValidator.java"/>
+<codefragment>
+<![CDATA[
+        }
+    }
+
+    private void createMailboxEntryForRejectedDocument(Mailbox mailbox, Exchange exchange,
+                                                       Attachment doc997, Attachment docMain)
+            throws NoSuchHeaderException, BlobStoreException, ValidationException, B2BTransactionFailed,
+            B2BNotFoundException {
+
+        MailboxEntry mailboxEntry = new MailboxEntry();
+        mailboxEntry.getAttachments().add(doc997);
+        mailboxEntry.getAttachments().add(docMain);
+        mailboxEntry.setMailboxId(mailbox.getId());
+        mailboxEntry.setDataDomain(mailbox.getDataDomain());
+        mailboxEntry.setTransmissionId(exchange.getProperty(B2bmbCamelConstants.TRANSMISSION_ID, String.class));
+        mailboxEntry.setSequenceNumber(
+                exchange.getIn().getHeader(B2bmbCamelConstants.MAIL_SEQUENCE_NUMBER,
+                        BigInteger.class));
+
+
+        //these could be on from the endpoint or from headers...endpoint are default.  seems good
+        mailboxEntry.setToUserId(ExchangeHelper.getMandatoryHeader(exchange, B2bmbCamelConstants.TO, String.class));
+        mailboxEntry.setFromUserId( ExchangeHelper.getMandatoryHeader(exchange, B2bmbCamelConstants.FROM,
+                String.class));
+        String subject = exchange.getIn().getHeader(B2bmbCamelConstants.SUBJECT, String.class);
+
+        if (subject == null) {
+            //fall back to filename
+            subject = "Document has been rejected. Check 997 and original document.";
+        }
+        mailboxEntry.setSubject(subject);
+        mailboxEntry.setRefName(UUID.randomUUID()+"-Rejected");
+]]>
+</codefragment>
+</duplication>
+<duplication lines="45" tokens="187">
+<file line="49" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\endpts\ftp\FTPUserRealm.java"/>
+<file line="63" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\endpts\ssh\nsoftware\SFTPServerRealm.java"/>
+<codefragment>
+<![CDATA[
+    }
+
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(
+            AuthenticationToken token) throws AuthenticationException {
+
+        AuthenticationInfo info = null;
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(">>> Attempting authentication of user:"
+                    + token.toString());
+        }
+
+        if (token == null) {
+            if (LOG.isErrorEnabled()) {
+                LOG.error("Null token received throwing illegal argument exception");
+            }
+            throw new IllegalArgumentException("token can not be null");
+        }
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Getting AuthenticationInfo");
+        }
+
+        String userId = null;
+        String password = null;
+        String realm = null;
+
+        SFTPServerUser sftpUser = null;
+
+        if (token instanceof UsernamePasswordToken) {
+
+            UsernamePasswordToken upt = (UsernamePasswordToken) token;
+            userId = upt.getUsername();
+
+            String[] splitUserId = userId.split("\\.");
+            if (splitUserId.length == 2) {
+                userId = splitUserId[1];
+                realm = splitUserId[0];
+            }
+
+            password = new String(upt.getPassword());
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("UserNamePasswordToken::Logging in with credentials userID:" + userId
+                        + " password:" + password + "realm:" + realm);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="34" tokens="178">
+<file line="85" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\api\v1\services\impl\RouteExecuterServiceImpl.java"/>
+<file line="126" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\api\v1\services\impl\RouteExecuterServiceImpl.java"/>
+<codefragment>
+<![CDATA[
+    public RouteDef resume(String refName, String domainName) throws B2BNotAuthenticatedException,
+            B2BTransactionFailed, B2BNotAuthorizedException, B2BNotFoundException, ValidationException {
+        // first check that the routeDef making the call is authenticated.
+        Subject subject = SecurityUtils.getSubject();
+
+        if (routeExecuterHelper == null) {
+            throw new IllegalArgumentException("routeExecuterHelper is not injected properly into the service");
+        }
+        if (refName == null) {
+            throw new IllegalArgumentException("refName can not be null");
+        }
+        if (domainName == null) {
+            domainName = SecureSession.getUser().getDataDomain();
+        }
+        if (!subject.isAuthenticated()) {
+            throw new B2BNotAuthenticatedException("Subject is not authenticated, " +
+                    "while this call requires an authenticated subject, please authenticate before making this call",
+                    B2BSecurityException.REASON_CODE.NOT_AUTHENTICATED);
+        }
+
+        RouteDef routeDef = routeDefDAO.getByRefName(refName, domainName);
+
+        if (routeDef != null) {
+            if (!subject.isPermitted("RouteDef:Execute:" + domainName)) {
+                throw new B2BNotAuthorizedException("The Subject:" + subject.getPrincipal() + " does not have the " +
+                        "privilege: RouteDef:Execute:" + domainName + " refusing request",
+                        B2BSecurityException.REASON_CODE.NOT_AUTHORIZED);
+            }
+        } else {
+            throw new B2BNotFoundException("The route with the refName:" + refName + " in data domain: " + domainName
+                    + " was not found");
+        }
+
+        routeDef = routeExecuterHelper.resume(routeDef);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="32" tokens="174">
+<file line="85" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\api\v1\services\impl\RouteExecuterServiceImpl.java"/>
+<file line="126" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\api\v1\services\impl\RouteExecuterServiceImpl.java"/>
+<file line="168" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\api\v1\services\impl\RouteExecuterServiceImpl.java"/>
+<codefragment>
+<![CDATA[
+    public RouteDef resume(String refName, String domainName) throws B2BNotAuthenticatedException,
+            B2BTransactionFailed, B2BNotAuthorizedException, B2BNotFoundException, ValidationException {
+        // first check that the routeDef making the call is authenticated.
+        Subject subject = SecurityUtils.getSubject();
+
+        if (routeExecuterHelper == null) {
+            throw new IllegalArgumentException("routeExecuterHelper is not injected properly into the service");
+        }
+        if (refName == null) {
+            throw new IllegalArgumentException("refName can not be null");
+        }
+        if (domainName == null) {
+            domainName = SecureSession.getUser().getDataDomain();
+        }
+        if (!subject.isAuthenticated()) {
+            throw new B2BNotAuthenticatedException("Subject is not authenticated, " +
+                    "while this call requires an authenticated subject, please authenticate before making this call",
+                    B2BSecurityException.REASON_CODE.NOT_AUTHENTICATED);
+        }
+
+        RouteDef routeDef = routeDefDAO.getByRefName(refName, domainName);
+
+        if (routeDef != null) {
+            if (!subject.isPermitted("RouteDef:Execute:" + domainName)) {
+                throw new B2BNotAuthorizedException("The Subject:" + subject.getPrincipal() + " does not have the " +
+                        "privilege: RouteDef:Execute:" + domainName + " refusing request",
+                        B2BSecurityException.REASON_CODE.NOT_AUTHORIZED);
+            }
+        } else {
+            throw new B2BNotFoundException("The route with the refName:" + refName + " in data domain: " + domainName
+                    + " was not found");
+        }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="16" tokens="157">
+<file line="241" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMailboxProducer.java"/>
+<file line="112" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\GetMailByIdProcessor.java"/>
+<codefragment>
+<![CDATA[
+        if (exchange.getIn().getHeader(B2bmbCamelConstants.MAIL_SEQUENCE_NUMBER) != null) {
+            mailboxEntry.setSequenceNumber(
+                    exchange.getIn().getHeader(B2bmbCamelConstants.MAIL_SEQUENCE_NUMBER,
+                            BigInteger.class));
+        }
+
+        if (exchange.getIn().getHeader(B2bmbCamelConstants.DOCUMENT_TYPE, String.class) != null) {
+            mailboxEntry.getMetaData().put(B2bmbCamelConstants.DOCUMENT_TYPE,
+                    exchange.getIn().getHeader(B2bmbCamelConstants.DOCUMENT_TYPE, String.class));
+        }
+
+        if (exchange.getIn().getHeader(B2bmbCamelConstants.REFERENCE_DATA, Map.class) != null) {
+            Map<String, Object> referenceData = (Map<String, Object>) exchange.getIn().getHeader(
+                    B2bmbCamelConstants.REFERENCE_DATA, Map.class);
+            mailboxEntry.getMetaData().putAll(referenceData);
+        }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="31" tokens="153">
+<file line="56" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbEDITransactionSplitterComponent.java"/>
+<file line="72" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMailboxComponent.java"/>
+<codefragment>
+<![CDATA[
+    @Override
+    protected void validateURI(String uri, String path, Map parameters)
+            throws ResolveEndpointFailedException {
+        super.validateURI(uri, path, parameters);
+        if (!path.contains("/")) {
+            throw new ResolveEndpointFailedException("Data domain and mailbox refname must be in the uri");
+        }
+        String dataDomain = path.substring(0, path.indexOf('/'));
+        String mailboxName = path.substring(path.indexOf('/') + 1);
+
+
+        try {
+            Mailbox mailbox = mailboxDAO.getByRefName(mailboxName, dataDomain);
+            if (mailbox == null) {
+                throw new ResolveEndpointFailedException("Unable to resolve mailbox with data domain " +
+                        dataDomain + " and mailbox name " + mailboxName);
+            }
+        } catch (B2BTransactionFailed b2BTransactionFailed) {
+            throw new ResolveEndpointFailedException("Unable to resolve mailbox with data domain " +
+                    dataDomain + " and mailbox name " + mailboxName);
+        }
+    }
+
+    /**
+     * @param uri        endpoint uri
+     * @param remaining  string of uri ,after //
+     * @param parameters map of parameters
+     * @return endpoint created endpoint
+     * @throws Exception exception thrown by camel runtime system
+     */
+    protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="28" tokens="152">
+<file line="40" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFileSystemProducer.java"/>
+<file line="303" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFTPProducer.java"/>
+<file line="304" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbSFTPProducer.java"/>
+<codefragment>
+<![CDATA[
+                    + " Path: " + getEndpoint().getFilePath());
+        }
+        //default content type
+        String contentType = "application/octet-stream";
+        if (exchange.getIn().getHeader(Exchange.CONTENT_TYPE, String.class) != null) {
+            contentType = exchange.getIn().getHeader(Exchange.CONTENT_TYPE, String.class);
+        }
+
+        String fileName = exchange.getIn().getHeader(Exchange.FILE_NAME, String.class);
+        if (fileName == null)
+        {
+            fileName = exchange.getIn().getHeader("DOWNLOADED_FILE", String.class);
+
+        }
+
+        if (fileName == null)
+        {
+            throw new IllegalStateException("File Name could not be resolved, need either:" + Exchange.FILE_NAME +
+                    " or " + "DOWNLOADED_FILE in header");
+        }
+
+
+        InputStream in = exchange.getIn().getBody(InputStream.class);
+
+        if ( in != null)
+        {
+            getEndpoint().getFileSystemEntryDAO().createFileFromStream(exchange.getExchangeId(),
+                    fileName,
+]]>
+</codefragment>
+</duplication>
+<duplication lines="35" tokens="147">
+<file line="1599" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\endpts\ssh\nsoftware\SFTPServerHelper.java"/>
+<file line="1679" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\endpts\ssh\nsoftware\SFTPServerHelper.java"/>
+<codefragment>
+<![CDATA[
+                    String handle = createNewHandle(path, metaData);
+                                /*blobService.createBlobHandle(e.path,metaData);*/
+                    OutputStream out = getOutputStreamForHandle(handle);
+                    //blobService.getStreamForHandle (handle);
+
+
+                    OpenFile openFile = new OpenFile();
+                    openFile.connectionId = event.connectionId;
+                    openFile.path = path;
+                    openFile.setUser(event.user);
+                    openFile.setFlag(event.flags);
+                    openFile.setOutputStream(out);
+                    event.handle = handle;
+                    openFile.setHandle(event.handle);
+
+                    LOG.debug("Setting handle for the open file :: handle >> "
+                            + openFile.getHandle() + " :: openFile" +
+                            ".getKey() >> " + openFile.getKey());
+
+                    openFiles.put(openFile.getKey(), openFile);
+                    handle2Path.put(event.connectionId + ":" + openFile.getHandle(), path);
+
+                    statusCode = SFTPServer.SSH_FX_OK; // SSH_FX_FILE_ALREADY_EXISTS
+
+                }
+                else {
+                    if (LOG.isErrorEnabled()) {
+                        LOG.error("Unsupported operation");
+                    }
+
+                    statusCode = SFTPServer.SSH_FX_OP_UNSUPPORTED; // SSH_FX_OP_UNSUPPORTED
+                }
+
+
+            }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="35" tokens="145">
+<file line="23" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFileSystemComponent.java"/>
+<file line="29" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbValidatorComponent.java"/>
+<codefragment>
+<![CDATA[
+    private static final Logger LOG = LoggerFactory.getLogger(B2bmbFileSystemComponent.class);
+
+    /**
+     * fileSystemEntryDAO - injected by camel
+     */
+    @Autowired
+    protected FileSystemEntryDAO fileSystemEntryDAO;
+
+    /**
+     * blobStore - injected by camel
+     */
+    @Autowired
+    protected BlobStore blobStore;
+
+    @Override
+    protected void validateURI(String uri, String path, Map parameters)
+            throws ResolveEndpointFailedException {
+        super.validateURI(uri, path, parameters);
+        if (!path.contains("/")) {
+            throw new ResolveEndpointFailedException("Data domain and file path must be in the uri");
+        }
+        String dataDomain = path.substring(0, path.indexOf('/'));
+        String filePath = path.substring(path.indexOf('/') + 1);
+
+        try {
+            FileSystemEntry fileSystemEntry = fileSystemEntryDAO.getByRefName(filePath, dataDomain);
+            if (fileSystemEntry == null) {
+                throw new ResolveEndpointFailedException("Unable to resolve file path with data domain " +
+                        dataDomain + " and file path " + filePath);
+            }
+        } catch (B2BTransactionFailed b2BTransactionFailed) {
+            throw new ResolveEndpointFailedException("Unable to resolve file path with data domain " +
+                    dataDomain + " and file path " + filePath);
+        }
+    }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="17" tokens="145">
+<file line="236" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMailboxProducer.java"/>
+<file line="130" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\util\MailboxEntryHelper.java"/>
+<codefragment>
+<![CDATA[
+        mailboxEntry.setMailboxId(mailbox.getId());
+        mailboxEntry.setDataDomain(mailbox.getDataDomain());
+        mailboxEntry.setTransmissionId(exchange.getIn().getHeader(B2bmbCamelConstants.TRANSMISSION_ID,
+                String.class));
+
+        if (exchange.getIn().getHeader(B2bmbCamelConstants.MAIL_SEQUENCE_NUMBER) != null) {
+            mailboxEntry.setSequenceNumber(
+                    exchange.getIn().getHeader(B2bmbCamelConstants.MAIL_SEQUENCE_NUMBER,
+                            BigInteger.class));
+        }
+
+        if (exchange.getIn().getHeader(B2bmbCamelConstants.DOCUMENT_TYPE, String.class) != null) {
+            mailboxEntry.getMetaData().put(B2bmbCamelConstants.DOCUMENT_TYPE,
+                    exchange.getIn().getHeader(B2bmbCamelConstants.DOCUMENT_TYPE, String.class));
+        }
+
+        if (exchange.getIn().getHeader(B2bmbCamelConstants.REFERENCE_DATA, Map.class) != null) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="34" tokens="143">
+<file line="121" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbScriptConsumer.java"/>
+<file line="132" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbScriptProducer.java"/>
+<codefragment>
+<![CDATA[
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    boolean useRunAs = false;
+
+                    if (script.getRunAsId() != null &&
+                            userProfileDAO != null) {
+                        useRunAs = true;
+                    }
+
+                    //Subject s = SecurityUtils.getSubject();
+                    ThreadState threadState = null;
+                    Script returnScript = null;
+
+                    try {
+                        if (useRunAs) {
+                            PrincipalCollection pc = new SimplePrincipalCollection(script.getRunAsId(),
+                                    "MultiTenantRealm");
+
+                            Subject s = new Subject.Builder().principals(pc).sessionCreationEnabled(true)
+                                    .authenticated(true).buildSubject();
+                            threadState = new SubjectThreadState(s);
+                            threadState.bind();
+
+                            if (LOG.isInfoEnabled()) {
+                                LOG.info("Running script under with RunAs with Id:" + script.getRunAsId());
+                            }
+
+                            UserProfile dbu = userProfileDAO.getByUserId(script.getRunAsId());
+                            if (dbu == null) {
+                                throw new B2BNotFoundException("the user with userId:" + script.getRunAsId()
+]]>
+</codefragment>
+</duplication>
+<duplication lines="20" tokens="143">
+<file line="404" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\util\EDIFACTTransactionListener.java"/>
+<file line="381" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\util\EDITransactionListener.java"/>
+<codefragment>
+<![CDATA[
+    }
+
+    private void getReferenceData(String tag, String segment) {
+
+        if (availableDocumentDAO != null) {
+
+            try {
+                if (availableDocument == null) {
+                    availableDocument = availableDocumentDAO.getAvailableDocument(documentId, version);
+                }
+                if (availableDocument != null) {
+                    LinkedHashMap<String, SegmentData> segmentDatas = availableDocument.getSegmentDatas();
+                    if (segmentDatas.size() > 0) {
+                        Collection<SegmentData> datas = segmentDatas.values();
+                        for (SegmentData segmentData : datas) {
+                            if (segmentData.getSegmentTag().equals(tag)) {
+                                List<String> refData = null;
+                                segment = segment.replace("\r", "").replace("\n", "");
+                                String[] elementComponents = segment.split("[" + elementDelimiter + "]");
+                                String elementComponent = elementComponents[segmentData.getElementPosition()];
+]]>
+</codefragment>
+</duplication>
+<duplication lines="45" tokens="142">
+<file line="308" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbEDITransactionSplitterEndpoint.java"/>
+<file line="372" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMailboxEndpoint.java"/>
+<codefragment>
+<![CDATA[
+    }
+
+    /**
+     * Get the repository for mailbox entries in process of being sent
+     * @return inProgressRepository
+     */
+    public IdempotentRepository<String> getInProgressRepository() {
+        return inProgressRepository;
+    }
+
+    /**
+     * Set the repository for mailbox entries in process of being sent
+     * @param inProgressRepository repository
+     */
+    public void setInProgressRepository(IdempotentRepository<String> inProgressRepository) {
+        this.inProgressRepository = inProgressRepository;
+    }
+
+    @Override
+    protected void doStart() throws Exception {
+        ServiceHelper.startServices(inProgressRepository);
+        super.doStart();
+    }
+
+    @Override
+    protected void doStop() throws Exception {
+        super.doStop();
+        ServiceHelper.stopServices(inProgressRepository);
+    }
+
+    @Override
+    public String toString() {
+        return "B2bmbMailboxEndpoint{" +
+                "to='" + to + '\'' +
+                ", from='" + from + '\'' +
+                ", subject='" + subject + '\'' +
+                ", domain='" + domain + '\'' +
+                ", mailboxName='" + mailboxName + '\'' +
+                ", errorMailboxName='" + errorMailboxName + '\'' +
+                ", processedMailboxName='" + processedMailboxName + '\'' +
+                ", sortMail='" + sortMail + '\'' +
+                ", idAsBody='" + idAsBody + '\'' +
+                '}';
+    }
+}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="100" tokens="142">
+<file line="93" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFTPEndpoint.java"/>
+<file line="88" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbSFTPEndpoint.java"/>
+<codefragment>
+<![CDATA[
+        return new B2bmbFTPConsumer(this, processor, createRemoteFileOperations());
+    }
+
+
+    /**
+     * to create singleton  object of endpoint
+     *
+     * @return boolean
+     */
+
+    public boolean isSingleton() {
+        return true;
+    }
+
+
+    @Override
+    protected void doStart() throws Exception {
+        ServiceHelper.startServices(inProgressRepository);
+        super.doStart();
+    }
+
+    @Override
+    protected void doStop() throws Exception {
+        super.doStop();
+        ServiceHelper.stopServices(inProgressRepository);
+    }
+
+
+
+    /**
+     * @return String domain
+     */
+    public String getDataDomain() {
+        return dataDomain;
+    }
+
+    /**
+     * Set the domain
+     *
+     * @param dataDomainx name
+     */
+    public void setDataDomain(String dataDomainx) {
+        this.dataDomain = dataDomainx;
+    }
+
+    /**
+     * Returns a string which identifies if the Communication Configurations should be filtered
+     * by a specific vendor.
+     *
+     * @return - String identifying the vendor to filter by
+     */
+    public String getVendor() {
+        return vendor;
+    }
+
+    /**
+     * Sets a string which identifies if the Communication Configurations should be filtered
+     * by a specific vendor.
+     *
+     * @param vendor - string identify the vendor to filter by
+     */
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+
+    /**
+     * Returns the String identifying which directory location from the Communication Configuration
+     * should be used - inDirectoryName or outDirectoryName.
+     *
+     * @return - the String identifying which directory
+     */
+    public String getB2bDirectoryLocation() {
+        return b2bDirectoryLocation;
+    }
+
+    /**
+     * Sets the String identifying which directory location from the Communication Configuration
+     * should be used - inDirectoryName or outDirectoryName.
+     *
+     * @param b2bDirectoryLocation - String identifying which directory location should be used
+     */
+    public void setB2bDirectoryLocation(String b2bDirectoryLocation) {
+        this.b2bDirectoryLocation = b2bDirectoryLocation;
+    }
+
+    /**
+     * Get the Communication Configuration DAO
+     * @return the DAO
+     */
+    public CommunicationConfigurationDAO getCommunicationConfigurationDAO() {
+        return communicationConfigurationDAO;
+    }
+
+    /**
+     * Set the DAO implementation to use
+     *
+     * @param communicationConfigurationDAO the dao
+     */
+    public void setCommunicationConfigurationDAO(CommunicationConfigurationDAO communicationConfigurationDAO) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="15" tokens="134">
+<file line="93" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbScriptConsumer.java"/>
+<file line="65" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbScriptProducer.java"/>
+<codefragment>
+<![CDATA[
+            boolean exceptionOccurred = false;
+            try {
+                if (!script.isBlacklisted()) {
+                    //I guess should do this?
+                    List<String> blackListedPackages = new ArrayList<String>();
+                    Correlation correlation = correlationDAO.getByRefName("BlackListScriptPackages",
+                            Constants.B2BMAILBOX_APP_DATADOMAIN);
+                    if (correlation != null) {
+                        blackListedPackages = (List<String>) correlation.getValue();
+                    }
+                    //set inputs
+                    if (script.getType() != null && script.getType().getInputs() != null
+                            && script.getType().getInputs().getAttributes() != null) {
+                        for (DynamicAttribute attribute : script.getType().getInputs().getAttributes().values()) {
+                            String attributeName = attribute.getRefName();
+]]>
+</codefragment>
+</duplication>
+<duplication lines="9" tokens="133">
+<file line="77" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMapForceServerProducer.java"/>
+<file line="626" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMapForceServerProducer.java"/>
+<codefragment>
+<![CDATA[
+            String to = getEndpoint().getTo() != null ? getEndpoint().getTo()
+                    : ExchangeHelper.getMandatoryHeader(exchange, B2bmbCamelConstants.TO, String.class);
+            String from = getEndpoint().getFrom() != null ? getEndpoint().getFrom()
+                    : ExchangeHelper.getMandatoryHeader(exchange, B2bmbCamelConstants.FROM, String.class);
+
+            String subject = getEndpoint().getSubject() != null ? getEndpoint().getSubject()
+                    : ExchangeHelper.getMandatoryHeader(exchange, B2bmbCamelConstants.SUBJECT, String.class);
+            String fileType = exchange.getIn().getHeader(B2bmbCamelConstants.FILE_TYPE, String.class);
+            String dataDomain = CamelDataDomainHelper.getDataDomainFromExchange(exchange);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="23" tokens="133">
+<file line="110" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\util\MailboxEntryHelper.java"/>
+<file line="272" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\util\EDIFACTTransactionListener.java"/>
+<file line="259" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\util\EDITransactionListener.java"/>
+<codefragment>
+<![CDATA[
+                .createBlobFromStream(blobRefName, inputStream, contentType, metaData);
+
+
+        att.setInlinePayload(false);
+        String fileId = blob.getIdAsString();
+
+        att.setPayloadId(fileId);
+        att.setFileSize(blob.getSize());
+
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Done, file id: " + fileId);
+        }
+        att.setContentType(contentType);
+        att.setFileName(fileName);
+        att.setRefName(path);
+        att.setDataDomain(mailbox.getDataDomain());
+        att.setId(String.valueOf(UUID.randomUUID()));
+
+        MailboxEntry mailboxEntry = new MailboxEntry();
+        mailboxEntry.getAttachments().add(att);
+        mailboxEntry.setMailboxId(mailbox.getId());
+        mailboxEntry.setDataDomain(mailbox.getDataDomain());
+        mailboxEntry.setTransmissionId(exchange.getIn().getHeader(B2bmbCamelConstants.TRANSMISSION_ID,
+]]>
+</codefragment>
+</duplication>
+<duplication lines="22" tokens="132">
+<file line="14" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\B2BMBErrorHandler.java"/>
+<file line="14" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\B2BMBExceptionHandler.java"/>
+<codefragment>
+<![CDATA[
+public class B2BMBErrorHandler  implements Processor {
+
+    @Autowired
+    NotifyAndCreateTaskHelper taskHelper;
+
+    @Override
+    public void process(Exchange exchange) throws Exception {
+        // the caused by exception is stored in a property on the exchange
+        Throwable caused = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
+        String subject = "B2B Exception:"+caused.getMessage();
+        StringBuilder builder = new StringBuilder();
+        builder.append("\nException Trace\n:");
+        for (StackTraceElement ste : exchange.getException().getStackTrace()) {
+            builder.append(ste.toString() + "\n");
+        }
+        String body = builder.toString();
+        taskHelper.notifyAndCreateTask("Error:"+String.valueOf(UUID.randomUUID()),  subject,
+                body, subject, CamelDataDomainHelper.getDataDomainFromExchange(exchange),
+                "System Error", "exceptions", "Tony Costanzo");
+    }
+
+}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="34" tokens="131">
+<file line="38" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFTPProducer.java"/>
+<file line="38" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbSFTPProducer.java"/>
+<codefragment>
+<![CDATA[
+    public B2bmbFTPProducer(B2bmbFTPEndpoint endpoint, FtpOperations operations) {
+
+        super(endpoint, operations);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("creating  B2bmbRemoteFileProducer  object  ");
+        }
+    }
+
+    @Override
+    public void process(Exchange exchange) throws Exception {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Inside process method of B2bRemoteFileProducer ");
+        }
+        if (exchange == null) {
+            throw new IllegalArgumentException("The exchange cannot be null");
+        }
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Inside process method of B2bRemoteFileProducer ");
+        }
+
+        String target = createFileName(exchange);
+        if(target != null) {
+            processExchange(exchange, target);
+        }
+
+    }
+
+    @Override
+    public String createFileName(Exchange exchange) {
+        String answer;
+
+        // overrule takes precedence
+        Object value;
+        String b2bmbDirectoryName = exchange.getIn().getHeader("B2BDirectoryName", String.class);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="43" tokens="130">
+<file line="354" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbB2BProfileDirectoryEndpoint.java"/>
+<file line="237" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFileSystemEndpoint.java"/>
+<codefragment>
+<![CDATA[
+    }
+
+    /**
+     * Get the repository for mailbox entries in process of being sent
+     * @return inProgressRepository
+     */
+    public IdempotentRepository<String> getInProgressRepository() {
+        return inProgressRepository;
+    }
+
+    /**
+     * Set the repository for mailbox entries in process of being sent
+     * @param inProgressRepository repository
+     */
+    public void setInProgressRepository(IdempotentRepository<String> inProgressRepository) {
+        this.inProgressRepository = inProgressRepository;
+    }
+
+    @Override
+    protected void doStart() throws Exception {
+        ServiceHelper.startServices(inProgressRepository);
+        super.doStart();
+    }
+
+    @Override
+    protected void doStop() throws Exception {
+        super.doStop();
+        ServiceHelper.stopServices(inProgressRepository);
+    }
+
+    @Override
+    public String toString() {
+        return "B2bmbFileSystemEndpoint{" +
+                "regexFilter='" + regexFilter + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", refName='" + refName + '\'' +
+                ", successDirectory='" + successDirectory + '\'' +
+                ", errorDirectory='" + errorDirectory + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", domain='" + domain + '\'' +
+                '}';
+    }
+}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="24" tokens="125">
+<file line="41" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\api\v1\services\impl\RouteExecuterServiceImpl.java"/>
+<file line="85" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\api\v1\services\impl\RouteExecuterServiceImpl.java"/>
+<file line="126" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\api\v1\services\impl\RouteExecuterServiceImpl.java"/>
+<file line="168" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\api\v1\services\impl\RouteExecuterServiceImpl.java"/>
+<codefragment>
+<![CDATA[
+    public RouteDef pause(String refName, String domainName) throws B2BNotAuthenticatedException,
+            B2BTransactionFailed, B2BNotAuthorizedException, B2BNotFoundException, ValidationException {
+        // first check that the routeDef making the call is authenticated.
+        Subject subject = SecurityUtils.getSubject();
+
+        if (routeExecuterHelper == null) {
+            throw new IllegalArgumentException("routeExecuterHelper is not injected properly into the service");
+        }
+        if (refName == null) {
+            throw new IllegalArgumentException("refName can not be null");
+        }
+        if (domainName == null) {
+            domainName = SecureSession.getUser().getDataDomain();
+        }
+        if (!subject.isAuthenticated()) {
+            throw new B2BNotAuthenticatedException("Subject is not authenticated, " +
+                    "while this call requires an authenticated subject, please authenticate before making this call",
+                    B2BSecurityException.REASON_CODE.NOT_AUTHENTICATED);
+        }
+
+        RouteDef routeDef = routeDefDAO.getByRefName(refName, domainName);
+
+        if (routeDef != null) {
+            if (!subject.isPermitted("RouteDef:Execute:" + routeDef.getDataDomain())) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="17" tokens="125">
+<file line="309" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbB2BProfileDirectoryConsumer.java"/>
+<file line="200" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFileSystemConsumer.java"/>
+<file line="264" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFTPProducer.java"/>
+<file line="265" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbSFTPProducer.java"/>
+<codefragment>
+<![CDATA[
+            List<FileSystemEntry> fileSystemEntries = null;
+
+            DynamicSearchRequest dynamicSearchRequest = new DynamicSearchRequest();
+            DynamicAttribute parentAttribute = new DynamicAttribute();
+            parentAttribute.setType(DynamicAttributeType.String);
+            parentAttribute.setValue(parentFileSystemEntry.getId());
+            parentAttribute.setRefName("parentFileEntryId");
+            dynamicSearchRequest.getSearchFields().getAttributes().put("parentFileEntryId", parentAttribute);
+
+            DynamicAttribute directoryOnlyAttribute = new DynamicAttribute();
+            directoryOnlyAttribute.setType(DynamicAttributeType.String);
+            directoryOnlyAttribute.setValue(FileSystemEntryType.Directory.value());
+            directoryOnlyAttribute.setRefName("type");
+            dynamicSearchRequest.getSearchFields().getAttributes().put("type", directoryOnlyAttribute);
+
+            DynamicAttribute directoryNameAttribute = new DynamicAttribute();
+            directoryNameAttribute.setType(DynamicAttributeType.String);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="21" tokens="116">
+<file line="658" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMapForceServerProducer.java"/>
+<file line="272" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\EDIFactValidator.java"/>
+<codefragment>
+<![CDATA[
+                .createBlobFromStream(refName,inputStream, "text/plain", metaData);
+
+        att.setInlinePayload(false);
+        String fileId = blob.getIdAsString();
+
+        att.setPayloadId(fileId);
+        att.setFileSize(blob.getSize());
+
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Done, file id: " + fileId);
+        }
+        att.setContentType("text/plain");
+        att.setFileSize(blob.getSize());
+        att.setFileName(newFileName);
+        att.setRefName(path);
+        att.setDataDomain(mailbox.getDataDomain());
+        att.setId(String.valueOf(UUID.randomUUID()));
+        return att;
+    }
+
+    private EDIProfile getEDIProfile(String fromAddress, String toAddress, Exchange exchange)
+]]>
+</codefragment>
+</duplication>
+<duplication lines="40" tokens="116">
+<file line="154" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\magento\MagentoCancelSalesOrder.java"/>
+<file line="150" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\magento\MagentoSalesOrderHold.java"/>
+<file line="149" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\magento\MagentoSalesOrderUnhold.java"/>
+<codefragment>
+<![CDATA[
+        String salesOrderId;
+
+        MagentoResponse(boolean callFailed, String salesOrderId) {
+            this.callFailed = callFailed;
+            this.salesOrderId = salesOrderId;
+        }
+
+        public boolean isCallFailed() {
+            return callFailed;
+        }
+
+        public void setCallFailed(boolean callFailed) {
+            this.callFailed = callFailed;
+        }
+
+        public double getFailureCount() {
+            return failureCount;
+        }
+
+        public void setFailureCount(double failureCount) {
+            this.failureCount = failureCount;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getSalesOrderId() {
+            return salesOrderId;
+        }
+
+        public void setSalesOrderId(String salesOrderId) {
+            this.salesOrderId = salesOrderId;
+        }
+    }
+}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="21" tokens="115">
+<file line="117" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\magento\MagentoCancelSalesOrder.java"/>
+<file line="113" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\magento\MagentoSalesOrderUnhold.java"/>
+<codefragment>
+<![CDATA[
+                failureCount = ((Integer) so.getDynAttributes().get("numMagentoCancelAttempts"));
+                failureCount++;
+            }
+            LOG.error("Magento call failed - Response from Magento " + callResponse);
+            magentoResponse.setFailureCount(failureCount);
+            return objectMapper.writeValueAsString(magentoResponse);
+        }
+    }
+
+    @Override
+    Object handleLoginErrors(String json, Exchange exchange) throws IOException, B2BTransactionFailed {
+
+        String dataDomain = CamelDataDomainHelper.getDataDomainFromExchange(exchange);
+
+        ObjectMapper objectMapper = createObjectMapper();
+        SalesOrder salesOrder = objectMapper.readValue(json,
+                SalesOrder.class);
+        SalesOrder so = salesOrderDAO.getByRefName(salesOrder.getRefName(), dataDomain);
+        MagentoResponse magentoResponse = new MagentoResponse(true, so.getId());
+        Integer failureCount = 0;
+        if(so.getDynAttributes().get("numMagentoCancelAttempts") == null) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="14" tokens="114">
+<file line="63" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbSFTPConsumer.java"/>
+<file line="86" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbSFTPProducer.java"/>
+<codefragment>
+<![CDATA[
+        dynamicSearchRequest.getSearchFields().getAttributes().put("communicationProtocol", parentAttribute);
+
+        if(getEndpoint().getVendor() != null && !"".equals(getEndpoint().getVendor())) {
+            DynamicAttribute connectionAttribute = new DynamicAttribute();
+            connectionAttribute.setType(DynamicAttributeType.String);
+            connectionAttribute.setValue(getEndpoint().getVendor());
+            connectionAttribute.setRefName("vendor");
+            dynamicSearchRequest.getSearchFields().getAttributes().put("vendor", connectionAttribute);
+        }
+
+        List<String> dataDomains = new ArrayList<String>();
+        B2bmbSFTPEndpoint sftpEndpoint = (B2bmbSFTPEndpoint) endpoint;
+        String dataDomain = sftpEndpoint.getDataDomain();
+        dataDomains.add(dataDomain);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="13" tokens="113">
+<file line="61" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFTPConsumer.java"/>
+<file line="61" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbSFTPConsumer.java"/>
+<codefragment>
+<![CDATA[
+        parentAttribute.setValue("FTP");
+        parentAttribute.setRefName("communicationProtocol");
+        dynamicSearchRequest.getSearchFields().getAttributes().put("communicationProtocol", parentAttribute);
+
+        if(getEndpoint().getVendor() != null && !"".equals(getEndpoint().getVendor())) {
+            DynamicAttribute connectionAttribute = new DynamicAttribute();
+            connectionAttribute.setType(DynamicAttributeType.String);
+            connectionAttribute.setValue(getEndpoint().getVendor());
+            connectionAttribute.setRefName("vendor");
+            dynamicSearchRequest.getSearchFields().getAttributes().put("vendor", connectionAttribute);
+        }
+
+        List<String> dataDomains = new ArrayList<String>();
+]]>
+</codefragment>
+</duplication>
+<duplication lines="15" tokens="109">
+<file line="281" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMailboxConsumer.java"/>
+<file line="108" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\GetMailByIdProcessor.java"/>
+<codefragment>
+<![CDATA[
+        try {
+            Mailbox mailbox = null;
+
+            if(exchange.getIn().getHeader(B2bmbCamelConstants.MAIL_SEQUENCE_NUMBER) != null){
+                mailboxEntry.setSequenceNumber(
+                        exchange.getIn().getHeader(B2bmbCamelConstants.MAIL_SEQUENCE_NUMBER,
+                                BigInteger.class));
+            }
+
+            if(exchange.getIn().getHeader(B2bmbCamelConstants.DOCUMENT_TYPE, String.class) != null) {
+                mailboxEntry.getMetaData().put(B2bmbCamelConstants.DOCUMENT_TYPE,
+                        exchange.getIn().getHeader(B2bmbCamelConstants.DOCUMENT_TYPE, String.class));
+            }
+
+            if(exchange.getIn().getHeader(B2bmbCamelConstants.FILE_TYPE, String.class) != null) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="49" tokens="106">
+<file line="292" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbEDITransactionSplitterEndpoint.java"/>
+<file line="221" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFileSystemEndpoint.java"/>
+<codefragment>
+<![CDATA[
+    }
+
+    /**
+     * Get blobStore
+     * @return blobStore
+     */
+    public BlobStore getBlobStore() {
+        return blobStore;
+    }
+
+    /**
+     * Set blobStore
+     * @param blobStore blobStore
+     */
+    public void setBlobStore(BlobStore blobStore) {
+        this.blobStore = blobStore;
+    }
+
+    /**
+     * Get the repository for mailbox entries in process of being sent
+     * @return inProgressRepository
+     */
+    public IdempotentRepository<String> getInProgressRepository() {
+        return inProgressRepository;
+    }
+
+    /**
+     * Set the repository for mailbox entries in process of being sent
+     * @param inProgressRepository repository
+     */
+    public void setInProgressRepository(IdempotentRepository<String> inProgressRepository) {
+        this.inProgressRepository = inProgressRepository;
+    }
+
+    @Override
+    protected void doStart() throws Exception {
+        ServiceHelper.startServices(inProgressRepository);
+        super.doStart();
+    }
+
+    @Override
+    protected void doStop() throws Exception {
+        super.doStop();
+        ServiceHelper.stopServices(inProgressRepository);
+    }
+
+    @Override
+    public String toString() {
+        return "B2bmbMailboxEndpoint{" +
+]]>
+</codefragment>
+</duplication>
+<duplication lines="12" tokens="106">
+<file line="118" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\interceptor\CamelTransmissionInterceptor.java"/>
+<file line="121" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\notifier\CamelConsumerTransmissionGenerator.java"/>
+<codefragment>
+<![CDATA[
+                        for (String headerKey : exchange.getIn().getHeaders().keySet()) {
+                            if(!headerKey.equals(B2bmbCamelConstants.REFERENCE_DATA)) {
+                                DynamicAttribute headerAttribute = new DynamicAttribute();
+                                headerAttribute.setType(DynamicAttributeType.Text);
+                                headerAttribute.setLabel(headerKey + ":");
+                                headerAttribute.setRequired(false);
+                                headerAttribute.setRefName(headerKey);
+                                headerAttribute.setValue(String.valueOf(exchange.getIn().getHeader(headerKey)));
+                                das.getAttributes().put(headerKey, headerAttribute);
+                            }
+                        }
+                        if (exchange.getException() != null) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="19" tokens="105">
+<file line="379" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbB2BProfileDirectoryConsumer.java"/>
+<file line="270" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbFileSystemConsumer.java"/>
+<file line="348" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMailboxConsumer.java"/>
+<codefragment>
+<![CDATA[
+            getEndpoint().getInProgressRepository().remove(fileSystemEntry.getId());
+        }
+    }
+    @Override
+    public int processBatch(Queue<Object> exchanges) {
+
+        final int total = exchanges.size();
+
+        for (int index = 0; index < total && isBatchAllowed(); index++) {
+            // only loop if we are started (allowed to run)
+            Exchange exchange = (Exchange) exchanges.poll();
+            // add current index and total as properties
+            exchange.setProperty(Exchange.BATCH_INDEX, index);
+            exchange.setProperty(Exchange.BATCH_SIZE, total);
+            exchange.setProperty(Exchange.BATCH_COMPLETE, index == total - 1);
+
+            // update pending number of exchanges
+            pendingExchanges = total - index - 1;
+            String mailboxEntryId = exchange.getProperty("FileSystemEntryId").toString();
+]]>
+</codefragment>
+</duplication>
+<duplication lines="12" tokens="104">
+<file line="284" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMailboxConsumer.java"/>
+<file line="241" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\component\B2bmbMailboxProducer.java"/>
+<file line="112" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\GetMailByIdProcessor.java"/>
+<file line="135" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\util\MailboxEntryHelper.java"/>
+<codefragment>
+<![CDATA[
+            if(exchange.getIn().getHeader(B2bmbCamelConstants.MAIL_SEQUENCE_NUMBER) != null){
+                mailboxEntry.setSequenceNumber(
+                        exchange.getIn().getHeader(B2bmbCamelConstants.MAIL_SEQUENCE_NUMBER,
+                                BigInteger.class));
+            }
+
+            if(exchange.getIn().getHeader(B2bmbCamelConstants.DOCUMENT_TYPE, String.class) != null) {
+                mailboxEntry.getMetaData().put(B2bmbCamelConstants.DOCUMENT_TYPE,
+                        exchange.getIn().getHeader(B2bmbCamelConstants.DOCUMENT_TYPE, String.class));
+            }
+
+            if(exchange.getIn().getHeader(B2bmbCamelConstants.FILE_TYPE, String.class) != null) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="18" tokens="103">
+<file line="120" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\magento\MagentoCancelSalesOrder.java"/>
+<file line="117" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\magento\MagentoSalesOrderHold.java"/>
+<file line="116" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\camel\custom\processor\magento\MagentoSalesOrderUnhold.java"/>
+<codefragment>
+<![CDATA[
+            LOG.error("Magento call failed - Response from Magento " + callResponse);
+            magentoResponse.setFailureCount(failureCount);
+            return objectMapper.writeValueAsString(magentoResponse);
+        }
+    }
+
+    @Override
+    Object handleLoginErrors(String json, Exchange exchange) throws IOException, B2BTransactionFailed {
+
+        String dataDomain = CamelDataDomainHelper.getDataDomainFromExchange(exchange);
+
+        ObjectMapper objectMapper = createObjectMapper();
+        SalesOrder salesOrder = objectMapper.readValue(json,
+                SalesOrder.class);
+        SalesOrder so = salesOrderDAO.getByRefName(salesOrder.getRefName(), dataDomain);
+        MagentoResponse magentoResponse = new MagentoResponse(true, so.getId());
+        Integer failureCount = 0;
+        if(so.getDynAttributes().get("numMagentoCancelAttempts") == null) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="29" tokens="101">
+<file line="146" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\util\EDIFACTTransactionListener.java"/>
+<file line="136" path="D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\src\main\java\com\eis\b2bmb\util\EDITransactionListener.java"/>
+<codefragment>
+<![CDATA[
+    }
+
+    /**
+     * Method that captures the end of the interchange segment.
+     *
+     * @param e - EdireaderEndInterchangeEvent
+     */
+    public void endInterchange(EdireaderEndInterchangeEvent e) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("EndInterchange: " + " Tag:" + e.tag + " Control Number:" + e.controlNumber + " FullSegment:"
+                    + e.fullSegment);
+        }
+
+        endInterchange = e.fullSegment;
+    }
+
+    /**
+     * Method that captures the start of the functional group segment.
+     *
+     * @param e - EdireaderStartFunctionalGroupEvent
+     */
+    public void startFunctionalGroup(EdireaderStartFunctionalGroupEvent e) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("StartFunctionalGroup: " + " Tag:" + e.tag + " Control Number:" + e.controlNumber
+                    + " FullSegment:" + e.fullSegment);
+        }
+
+        startFunctionalGroup = e.fullSegment;
+        functionalGroupControlNumber = e.controlNumber;
+]]>
+</codefragment>
+</duplication>
+</pmd-cpd>

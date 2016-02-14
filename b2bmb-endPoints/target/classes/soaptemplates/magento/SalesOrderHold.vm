@@ -1,0 +1,8 @@
+<ns1:salesOrderHold
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+        xmlns:ns1="urn:Magento">
+    <sessionId xsi:type="xsd:string">$sessionId</sessionId>
+    <orderIncrementId xsi:type="xsd:string">$orderIncrementId</orderIncrementId>
+</ns1:salesOrderHold>

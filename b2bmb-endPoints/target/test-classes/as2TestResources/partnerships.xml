@@ -1,0 +1,111 @@
+<partnerships>
+	<!-- <partner name="OpenAS2A"
+		as2_id="OpenAS2A"
+		x509_alias="OpenAS2A"
+		email="OpenAS2 A email"/>
+	<partner name="OpenAS2B"
+		as2_id="OpenAS2B"
+		x509_alias="OpenAS2B"
+		email="OpenAS2 A email"/>	 -->
+		
+		
+		<partner name="679d8262-9574-4681-84e9-7de248e08246"
+		as2_id="679d8262-9574-4681-84e9-7de248e08246"
+		x509_alias="679d8262-9574-4681-84e9-7de248e08246"
+		email="OpenAS2 A email"/>
+	<partner name="bb2241ff-2a4f-4569-8718-b09cf5349eff"
+		as2_id="bb2241ff-2a4f-4569-8718-b09cf5349eff"
+		x509_alias="bb2241ff-2a4f-4569-8718-b09cf5349eff"
+		email="OpenAS2 A email"/>
+		
+			
+		<partner name="chetu1"
+		as2_id="chetu1"
+		x509_alias="chetu1"
+		email="OpenAS2 A email"/>
+		
+		
+		
+		
+	   <partner name="walmart2"
+		as2_id="walmart2"
+		x509_alias="walmart2"
+		email="OpenAS2 A email"/>
+		
+		
+
+	<!--  <partnership name="OpenAS2A-OpenAS2B">
+		<sender name="OpenAS2A"/>
+		<receiver name="OpenAS2B"/>
+		<attribute name="protocol" value="as2"/>
+		<attribute name="subject" value="From OpenAS2A to OpenAS2B"/>
+		<attribute name="as2_url" value="http://localhost:10080"/>
+		<attribute name="as2_mdn_to" value="http://localhost:10080"/>
+		<attribute name="as2_mdn_options" value="signed-receipt-protocol=optional, pkcs7-signature; signed-receipt-micalg=optional, sha1"/>
+		<attribute name="encrypt" value="3des"/>
+		<attribute name="sign" value="md5"/>
+	</partnership>
+	
+	<partnership name="OpenAS2B-OpenAS2A">
+		<sender name="OpenAS2B"/>
+		<receiver name="OpenAS2A"/>
+		<attribute name="protocol" value="as2"/>
+		<attribute name="subject" value="From OpenAS2B to OpenAS2A"/>
+		<attribute name="as2_url" value="http://localhost:10080"/>
+		<attribute name="as2_mdn_to" value="http://localhost:10080"/>
+		<attribute name="as2_mdn_options" value="signed-receipt-protocol=optional, pkcs7-signature; signed-receipt-micalg=optional, sha1"/>
+		<attribute name="encrypt" value="3des"/>
+		<attribute name="sign" value="sha1"/>
+	</partnership>  -->
+	
+	
+	<partnership name="chetu-walmart">
+		<sender name="chetu1"/>
+		<receiver name="walmart2"/>
+		<attribute name="protocol" value="as2"/>
+		<attribute name="subject" value="From chetu to walmart"/>
+		<attribute name="as2_url" value="http://localhost:10080"/>
+		<attribute name="as2_mdn_to" value="http://localhost:10080"/>
+		<!-- <attribute name="as2_mdn_options" value="signed-receipt-protocol=optional, pkcs7-signature; signed-receipt-micalg=optional, sha1"/>
+		<attribute name="encrypt" value="3des"/>
+		<attribute name="sign" value="md5"/> -->
+	</partnership>
+	<partnership name="chetu-walmart-mdn">
+		<sender name="walmart2"/>
+		<receiver name="chetu1"/>
+		<attribute name="protocol" value="as2"/>
+		<attribute name="subject" value="From chetu to walmart"/>
+		<attribute name="as2_url" value="http://localhost:10080"/>
+		<attribute name="as2_mdn_to" value="http://localhost:10080"/>
+		<!-- <attribute name="as2_mdn_options" value="signed-receipt-protocol=optional, pkcs7-signature; signed-receipt-micalg=optional, sha1"/>
+		<attribute name="encrypt" value="3des"/>
+		<attribute name="sign" value="md5"/> -->
+	</partnership>
+	
+	<partnership name="as2client1-as2client">
+		<sender name="bb2241ff-2a4f-4569-8718-b09cf5349eff"/>
+		<receiver name="679d8262-9574-4681-84e9-7de248e08246"/>
+		<attribute name="protocol" value="as2"/>
+		<attribute name="subject" value="From as2client1 to as2client"/>
+		<attribute name="as2_url" value="http://localhost:10080"/>
+		<!-- <attribute name="as2_mdn_to" value="http://localhost:10080"/>
+		<attribute name="as2_mdn_options" value="signed-receipt-protocol=optional, pkcs7-signature; signed-receipt-micalg=optional, sha1"/>
+		<attribute name="encrypt" value="3des"/>
+		<attribute name="sign" value="sha1"/> -->
+	</partnership>
+	<partnership name="as2client1-as2client-mdn">
+		<sender name="679d8262-9574-4681-84e9-7de248e08246"/>
+		<receiver name="bb2241ff-2a4f-4569-8718-b09cf5349eff"/>
+		<attribute name="protocol" value="as2"/>
+		<attribute name="subject" value="From as2client1 to as2client"/>
+		<attribute name="as2_url" value="http://localhost:10080"/>
+		<!-- <attribute name="as2_mdn_to" value="http://localhost:10080"/>
+		<attribute name="as2_mdn_options" value="signed-receipt-protocol=optional, pkcs7-signature; signed-receipt-micalg=optional, sha1"/>
+		<attribute name="encrypt" value="3des"/>
+		<attribute name="sign" value="sha1"/> -->
+	</partnership>
+</partnerships>
+
+
+
+

@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<ruleset name="B2B Gateway PMD Rules" xmlns="http://pmd.sf.net/ruleset/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+	xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+	<description>B2B Mailbox PMD Rules</description>
+
+	<!--
+        See http://pmd.sourceforge.net/rules/index.html for information on 
+		the rules used below
+    -->
+
+	<!-- Include standard rulesets in their entirety -->
+	<rule ref="rulesets/basic.xml" />
+	<rule ref="rulesets/braces.xml" />
+	<rule ref="rulesets/imports.xml">
+		<!-- Exclude TooManyStaticImports because we customize it below -->
+		<exclude name="TooManyStaticImports" />
+	</rule>
+	<rule ref="rulesets/strings.xml">
+		<!-- Exclude AvoidDuplicateLiterals because we customize it below -->
+		<exclude name="AvoidDuplicateLiterals" />
+	</rule>
+	<rule ref="rulesets/unusedcode.xml">
+    <priority>1</priority>
+    </rule>
+
+	<!-- Specific rules from standard rulesets go here -->
+
+	<!-- Do not call system.exit() -->
+	<rule ref="rulesets/j2ee.xml/DoNotCallSystemExit" />
+
+	<!-- Exception rules -->
+	<rule ref="rulesets/strictexception.xml/AvoidCatchingNPE" />
+	<rule ref="rulesets/strictexception.xml/AvoidThrowingNewInstanceOfSameException" />
+	<rule ref="rulesets/strictexception.xml/AvoidThrowingNullPointerException" />
+	<rule ref="rulesets/strictexception.xml/DoNotExtendJavaLangError" />
+	<rule ref="rulesets/strictexception.xml/DoNotThrowExceptionInFinally" />
+	<rule ref="rulesets/strictexception.xml/ExceptionAsFlowControl" />
+
+	<!-- Customize TooManyStaticImports inside imports ruleset -->
+	<rule ref="rulesets/imports.xml/TooManyStaticImports">
+		<properties>
+			<property name="maximumStaticImports" value="8" />
+		</properties>
+	</rule>
+
+	<!--
+        Code size rules. All of the property values used below are 2x or 3x 
+		the default values.
+    -->
+	<rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+		<properties>
+			<property name="minimum" value="200" />
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/ExcessiveParameterList">
+		<properties>
+			<property name="minimum" value="20" />
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/ExcessiveClassLength">
+		<properties>
+			<property name="minimum" value="2000" />
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+		<properties>
+			<property name="reportLevel" value="30" />
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/ExcessivePublicCount">
+		<properties>
+			<property name="minimum" value="90" />
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/TooManyFields">
+		<properties>
+			<property name="maxfields" value="30" />
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/NcssMethodCount">
+		<properties>
+			<property name="minimum" value="200" />
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/NcssTypeCount">
+		<properties>
+			<property name="minimum" value="3000" />
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/NcssConstructorCount">
+		<properties>
+			<property name="minimum" value="200" />
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/TooManyMethods">
+		<properties>
+			
+			<property name="maxmethods" value="50" />
+			<property name="xpath">
+				<value>
+                    <![CDATA[
+                    //ClassOrInterfaceDeclaration[
+                        not(descendant::ExtendsList/ClassOrInterfaceType/@Image = "TestCase") and
+                        not(@Image = "ObjectFactory")
+                    ]/ClassOrInterfaceBody[
+                        count(descendant::MethodDeclarator[
+                            not (
+                                starts-with(@Image,'get') or starts-with(@Image,'set')
+                            )
+                        ]) > $maxmethods
+                    ]
+                    ]]>
+                </value>
+			</property>
+		</properties>
+	</rule>
+    <!-- All log calls must be wrapped with an if guard -->
+	<rule name="GuardDebugLogging"
+		message="Error: log.debug() must be guarded with if (log.isDebugEnabled())"
+		class="net.sourceforge.pmd.rules.XPathRule">
+		<priority>1</priority>
+		<properties>
+			<property name="xpath">
+				<value>
+                    <![CDATA[
+                        //PrimaryPrefix[ends-with(Name/@Image, '.debug') and
+                        count(../descendant::AdditiveExpression) >= 0 and 
+                        count(ancestor::IfStatement/descendant::PrimaryExpression[ends-with(descendant::PrimaryPrefix/Name/@Image, 
+                        'isDebugEnabled')]) = 0]
+                    ]]>
+               </value>
+			</property>
+		</properties>
+	</rule>
+    <rule name="GuardInfoLogging"
+        message="Error: log.info() must be guarded with if (log.isInfoEnabled())"
+        class="net.sourceforge.pmd.rules.XPathRule">
+        <priority>1</priority>
+        <properties>
+            <property name="xpath">
+                <value>
+                    <![CDATA[
+                        //PrimaryPrefix[ends-with(Name/@Image, '.info') and
+                        count(../descendant::AdditiveExpression) >= 0 and 
+                        count(ancestor::IfStatement/descendant::PrimaryExpression[ends-with(descendant::PrimaryPrefix/Name/@Image, 
+                        'isInfoEnabled')]) = 0]
+                    ]]>
+               </value>
+            </property>
+        </properties>
+    </rule>
+    <rule name="GuardWarnLogging"
+        message="Error: log.warn() must be guarded with if (log.isWarnEnabled())"
+        class="net.sourceforge.pmd.rules.XPathRule">
+        <priority>1</priority>
+        <properties>
+            <property name="xpath">
+                <value>
+                    <![CDATA[
+                        //PrimaryPrefix[ends-with(Name/@Image, '.warn') and
+                        count(../descendant::AdditiveExpression) >= 0 and 
+                        count(ancestor::IfStatement/descendant::PrimaryExpression[ends-with(descendant::PrimaryPrefix/Name/@Image, 
+                        'isWarnEnabled')]) = 0]
+                    ]]>
+               </value>
+            </property>
+        </properties>
+    </rule>
+    <rule name="GuardErrorLogging"
+        message="Error: log.error() must be guarded with if (log.isErrorEnabled())"
+        class="net.sourceforge.pmd.rules.XPathRule">
+        <priority>1</priority>
+        <properties>
+            <property name="xpath">
+                <value>
+                    <![CDATA[
+                        //PrimaryPrefix[ends-with(Name/@Image, '.error') and
+                        count(../descendant::AdditiveExpression) >= 0 and 
+                        count(ancestor::IfStatement/descendant::PrimaryExpression[ends-with(descendant::PrimaryPrefix/Name/@Image, 
+                        'isErrorEnabled')]) = 0]
+                    ]]>
+               </value>
+            </property>
+        </properties>
+    </rule>
+    <!-- Prevent System.out.println and System.err.println -->
+	<rule name="SystemOutErrPrintlnProhibited"
+		message="Error: System.out.println() and System.err.println() should not be used"
+		class="net.sourceforge.pmd.rules.XPathRule">
+		<priority>1</priority>
+		<properties>
+			<property name="xpath">
+				<value>
+                    <![CDATA[
+                        //Name[
+                                starts-with(@Image, 'System.out.print')
+                                or
+                                starts-with(@Image, 'System.err.print')
+                              ]
+                    ]]>
+               </value>
+			</property>
+		</properties>
+	</rule>
+
+</ruleset>

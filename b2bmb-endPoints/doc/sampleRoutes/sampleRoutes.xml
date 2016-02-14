@@ -1,0 +1,31 @@
+<routes xmlns="http://camel.apache.org/schema/spring">
+   <route id="mailBoxToMailBox" autostartup="false">
+    <from uri="b2bmbFileSystem://com.mycompanyxyz/testTracking"/>
+    <to uri="b2bmbMailBox://com.mycompanyxyz/Inbox"/>
+   </route>
+</routes>
+
+
+<routes xmlns="http://camel.apache.org/schema/spring">
+   <route id="mailBoxToMailBox" autostartup="false">
+    <from uri="b2bmbMailBox://com.mycompanyxyz/Inbox"/>
+    <to uri="b2bmbMailBox://com.mycompanyxyz/test"/>
+   </route>
+</routes>
+
+<routes xmlns="http://camel.apache.org/schema/spring">
+   <route id="mailBoxToMailBox" autostartup="false">
+    <from uri="b2bmbMailBox://com.mycompanyxyz/Inbox"/>
+    <to uri="b2bmbFileSystem://com.mycompanyxyz/testTracking"/>
+   </route>
+</routes>
+
+<routes xmlns="http://camel.apache.org/schema/spring">
+    
+   <route id="mailBoxToAs2" autostartup="false">
+       
+    <from uri="b2bmbMailBox://com.mycompanyxyz/Inbox"/>
+    <to uri="b2bmbAs2://com.mycompanyxyz/PerformanceBikesAS2/ShimanoAS2"/>
+   </route>
+</routes>
+

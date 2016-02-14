@@ -1,0 +1,55 @@
+AS2-From: RetailerA
+AS2-To: SupplierA
+AS2-Version: 1.2
+EDIINT-Features: multiple-attachments
+Subject: Message Disposition Notification
+Content-Description: MIME Message
+Message-ID: <ca94acd512fbf215_705d939a_15091bbcc98_-7ff9@SupplierA>
+MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha1; boundary="boundaryvUBZdA=="
+
+--boundaryvUBZdA==
+Content-Type: multipart/report; report-type=disposition-notification; boundary="MDNBoundary"
+
+
+--MDNBoundary
+Content-Type: text/plain
+
+The incoming message from SupplierA to RetailerA with Id <ca94acd512fbf215_705d939a_15091bbcc98_-7ffb@ca94acd512fbf215_705d939a_15091bbcc98_-7ffa> was received successfully. This is not a guarantee that the message has been processed by the receiving translator.
+
+--MDNBoundary
+Content-Type: message/disposition-notification
+
+Original-Recipient: rfc822;RetailerA
+Final-Recipient: rfc822;RetailerA
+Original-Message-ID: <ca94acd512fbf215_705d939a_15091bbcc98_-7ffb@ca94acd512fbf215_705d939a_15091bbcc98_-7ffa>
+Disposition: automatic-action/MDN-sent-automatically; processed
+Received-Content-MIC: 3/zoNvU9vaFA3fW9ZDwJPld3rYQ=, sha1
+
+--MDNBoundary--
+
+--boundaryvUBZdA==
+Content-Type: application/pkcs7-signature;  	name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIID4wYJKoZIhvcNAQcCoIID1DCCA9ACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHAaCCAjIw
+ggIuMIIBlwIgf9Xsf8zn4/i2gI/AQTm9AmgmoyyG9wuEjKpi4sJDYlswDQYJKoZIhvcNAQELBQAw
+UDESMBAGA1UEAwwJcmV0YWlsZXJhMRIwEAYDVQQLDAlyZXRhaWxlcmExEjAQBgNVBAoMCXJldGFp
+bGVyYTESMBAGA1UEBhMJcmV0YWlsZXJhMB4XDTE1MTAyMzIyNDcwM1oXDTE2MTAyMTIyNDcwM1ow
+UDESMBAGA1UEAwwJcmV0YWlsZXJhMRIwEAYDVQQLDAlyZXRhaWxlcmExEjAQBgNVBAoMCXJldGFp
+bGVyYTESMBAGA1UEBhMJcmV0YWlsZXJhMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBQaUQ
+aRAaGncnPm3iAXtWe7tT1gtGgVl9nYSJfVoZ+IGy6ErszpkIqt6sa9x6r2zpFol/BN0YOuzIMuQU
+1u39h9UAD4oz7QzvQBpmt97/lPdc2cHD5P/2mT6HlcG6SulP3Kqs16AQcD59KwzXMD2eSPl1njpe
+N6q9K9enNsnoxwIDAQABMA0GCSqGSIb3DQEBCwUAA4GBAGBIVXO/xNKMNH0tt+Ny1F7NkBvpmL9+
+4s/RYM6hSzfMLwWsHlNGK3W8ZQCU1tSO8TrbAxvjjn/+GHrL/KvoAymCqgr2hdIDhNR8+/mTlerm
+ZHwN8VN0p6WdW8hqgWUFRIUhufYHRcmJ5zjDQiTEyZPFUPyu7bDeTPUpIKo3TvMjMYIBeTCCAXUC
+AQEwdDBQMRIwEAYDVQQDDAlyZXRhaWxlcmExEjAQBgNVBAsMCXJldGFpbGVyYTESMBAGA1UECgwJ
+cmV0YWlsZXJhMRIwEAYDVQQGEwlyZXRhaWxlcmECIH/V7H/M5+P4toCPwEE5vQJoJqMshvcLhIyq
+YuLCQ2JbMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJ
+BTEPFw0xNTEwMjIyMjQ3MDVaMCMGCSqGSIb3DQEJBDEWBBRkXkIvr7E82OnzaemQpR2oKo2f6zAN
+BgkqhkiG9w0BAQEFAASBgKV+wMCbLl5OHvCh46HGrcmraWhz7hI9V10xV4GV3RjFD/8xVQanX0Ke
+uCm1Q7/g/j2LT/DlI/g21Vw503VYbwOBd6V3bUkVIl23xMw5ueQdb5w5iYSjrkFCevrt/28jyEAb
+Y1GilCFS3/AOb69q3d2/79yYA0F4O5JNf7nUHcVY
+
+--boundaryvUBZdA==--

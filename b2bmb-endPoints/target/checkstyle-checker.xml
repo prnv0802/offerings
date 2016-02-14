@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<!-- 
+    Rules commented out below are covered by PMD
+    and the PMD ruleset, B2BMailboxPMDRuleSet.xml
+-->
+
+
+
+<!-- B2B Mailbox checkstyle configuration -->
+<module name="Checker">
+
+
+
+   <!-- <module name="SuppressionCommentFilter" /> -->
+    <module name="SuppressionCommentFilter"/>
+
+
+    <!-- Checks for maximum file length -->
+    <module name="FileLength">
+        <property name="max" value="5000" />
+    </module>
+
+    <!-- Checks source files for tab characters -->
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true" />
+    </module>
+
+    <module name="TreeWalker">
+
+        <property name="tabWidth" value="4" />
+
+        <module name="FileContentsHolder" />
+
+        <!-- Left curly brace policy -->
+<!--         <module name="LeftCurly"> -->
+<!--             <property name="option" value="eol" /> -->
+<!--         </module> -->
+
+        <!-- Right curly brace policy -->
+<!--         <module name="RightCurly"> -->
+<!--             <property name="option" value="same" /> -->
+<!--         </module> -->
+
+        <!-- Maximum line length -->
+          <module name="LineLength">
+              <property name="max" value="120" />
+              <property name="ignorePattern" value="@version|@see|@todo|TODO|FIXME" />
+              <property name="severity" value="warning"/>
+         </module>
+
+        <!-- Checks for Javadoc comments. -->
+        <module name="JavadocMethod">
+            <property name="severity" value="warning" />
+            <property name="scope" value="protected" />
+            <!-- Allow @throws inside Javadoc for RuntimeExceptions -->
+            <property name="allowUndeclaredRTE" value="true"/>
+        </module>
+        <module name="JavadocType">
+            <property name="scope" value="protected" />
+        </module>
+        <module name="JavadocVariable">
+            <property name="severity" value="info" />
+            <property name="scope" value="protected" />
+        </module>
+
+        <!-- Checks for Naming Conventions. -->
+        <module name="ConstantName" />
+        <module name="LocalFinalVariableName" />
+        <module name="LocalVariableName" />
+        <module name="MemberName" />
+        <module name="MethodName" />
+        <module name="PackageName" />
+        <module name="ParameterName" />
+        <module name="StaticVariableName" />
+        <module name="TypeName" />
+
+
+
+
+        <!-- Checks for imports
+       <module name="AvoidStarImport">
+            <property name="severity" value="warning" />
+       </module> -->
+<!--         <module name="IllegalImport" /> -->
+<!--         <module name="RedundantImport" /> -->
+        <module name="UnusedImports">
+            <property name="severity" value="warning" />
+        </module>
+
+
+        <!-- Checks for Size Violations. -->
+<!--         <module name="MethodLength" /> -->
+<!--         <module name="ParameterNumber" /> -->
+
+        <!-- Checks for whitespace padding -->
+<!--         <module name="EmptyForIteratorPad"> -->
+<!--             <property name="option" value="space" /> -->
+<!--         </module> -->
+<!--         <module name="OperatorWrap" /> -->
+<!--         <module name="ParenPad"> -->
+<!--             <property name="option" value="space" /> -->
+<!--         </module> -->
+<!--         <module name="WhitespaceAfter" /> -->
+<!--         <module name="WhitespaceAround" /> -->
+<!--         <module name="MethodParamPad" /> -->
+
+        <!-- Modifier Checks -->
+<!--         <module name="ModifierOrder" /> -->
+<!--         <module name="RedundantModifier" /> -->
+
+        <!-- Checks for blocks. You know, those {}'s -->
+        <!-- <module name="AvoidNestedBlocks" /> -->
+
+<!--         <module name="EmptyBlock"> -->
+<!--             <property name="option" value="text" /> -->
+<!--         </module> -->
+<!--         <module name="NeedBraces" /> -->
+
+        <!-- Checks for common coding problems -->
+<!--         <module name="DoubleCheckedLocking" /> -->
+<!--         <module name="EmptyStatement" /> -->
+              <module name="EqualsHashCode" />
+        <module name="HiddenField">
+            <property name="severity" value="warning" />
+            <property name="ignoreSetter" value="true" />
+            <property name="ignoreConstructorParameter" value="true" />
+        </module>
+<!--         <module name="IllegalInstantiation" /> -->
+        <module name="InnerAssignment" />
+<!--         <module name="MagicNumber"> -->
+<!--             <property name="ignoreNumbers" -->
+<!--                 value="-4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32, 64, 100, 128, 256, 512, 1000, 1024" /> -->
+<!--         </module> -->
+        <module name="MissingSwitchDefault" />
+<!--         <module name="RedundantThrows" /> -->
+        <module name="SimplifyBooleanExpression" />
+        <module name="SimplifyBooleanReturn" />
+         <module name="IllegalCatch">
+             <property name="illegalClassNames" value="java.lang.Exception, java.lang.RuntimeException"/>
+             <property name="severity" value="warning"/>
+       </module>
+         <module name="IllegalThrows" />
+
+        <!-- Checks for class design -->
+        <module name="InterfaceIsType" />
+        <module name="VisibilityModifier">
+            <property name="protectedAllowed" value="true" />
+            <property name="packageAllowed" value="true" />
+        </module>
+
+        <!-- Miscellaneous other checks. -->
+        <module name="UpperEll" />
+
+    </module>
+</module>

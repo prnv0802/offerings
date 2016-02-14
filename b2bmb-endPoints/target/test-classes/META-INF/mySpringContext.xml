@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/batch
+	http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/data/mongo
+    http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-3.2.xsd
+    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+
+<import resource="file:src/test/resources/META-INF/context.xml" />
+    <!-- spring batch job context -->
+    
+    <bean id="order" class="com.eis.b2mb.router.springBatch.mypoc.Order" scope="prototype" />
+
+    
+
+    <batch:job id="csvToXmlJob">
+        <batch:step id="step1">
+            <batch:tasklet>
+                <batch:chunk reader="cvsFileItemReader" writer="xmlWriter"
+                             commit-interval="10">
+                </batch:chunk>
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
+
+    <bean id="cvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+
+        <!-- Read a csv file -->
+        <property name="resource" value="classpath:springData/csv/input/order.csv" />
+
+        <property name="lineMapper">
+            <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+                <property name="lineTokenizer">
+                    <bean
+                            class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+                        <property name="names" value="sno,to,quantity,item" />
+                    </bean>
+                </property>
+                <property name="fieldSetMapper">
+                    <bean
+                            class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+                        <property name="prototypeBeanName" value="order" />
+                    </bean>
+                </property>
+            </bean>
+        </property>
+
+    </bean>
+    
+    <!-- write xml file to specified folder/ directory -->
+    
+  <bean id="xmlWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
+	<property name="resource" value="file:xml/outputs/orders.xml" />
+	<property name="marshaller" ref="orderUnmarshaller" />
+	<property name="rootTagName" value="orders" />
+  </bean>
+ 
+  <bean id="orderUnmarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+	<property name="aliases">
+		<util:map id="aliases">
+			<entry key="order" value="com.eis.b2mb.router.springBatch.mypoc.Order" />
+		</util:map>
+	</property>
+  </bean>
+
+  <camelContext xmlns="http://camel.apache.org/schema/spring" id="camelContext">
+        <jmxAgent id="agent" disabled="true"/>
+  </camelContext>
+
+</beans>

@@ -1,0 +1,306 @@
+12:52:01,123 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=UTN-USERFirst-Hardware, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:01,125 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Chambers of Commerce Root, OU=http://www.chambersign.org, O=AC Camerfirma SA CIF A82743287, C=EU
+12:52:01,125 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Swisscom Root CA 2, OU=Digital Certificate Services, O=Swisscom, C=ch
+12:52:01,126 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=VeriSign Class 3 Public Primary Certification Authority - G3, OU="(c) 1999 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:01,126 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=GlobalSign Root CA, OU=Root CA, O=GlobalSign nv-sa, C=BE
+12:52:01,126 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=UTN-USERFirst-Object, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:01,126 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:EMAILADDRESS=server-certs@thawte.com, CN=Thawte Server CA, OU=Certification Services Division, O=Thawte Consulting cc, L=Cape Town, ST=Western Cape, C=ZA
+12:52:01,127 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=AffirmTrust Networking, O=AffirmTrust, C=US
+12:52:01,127 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=Class 3 Public Primary Certification Authority, O="VeriSign, Inc.", C=US
+12:52:01,127 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=AffirmTrust Premium, O=AffirmTrust, C=US
+12:52:01,127 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=TC TrustCenter Class 4 CA II, OU=TC TrustCenter Class 4 CA, O=TC TrustCenter GmbH, C=DE
+12:52:01,127 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Baltimore CyberTrust Code Signing Root, OU=CyberTrust, O=Baltimore, C=IE
+12:52:01,128 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=America Online Root Certification Authority 2, O=America Online Inc., C=US
+12:52:01,128 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=LuxTrust Global Root, O=LuxTrust s.a., C=LU
+12:52:01,128 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=QuoVadis Root Certification Authority, OU=Root Certification Authority, O=QuoVadis Limited, C=BM
+12:52:01,128 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Class 3P Primary CA, O=Certplus, C=FR
+12:52:01,128 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Equifax Secure eBusiness CA-1, O=Equifax Secure Inc., C=US
+12:52:01,131 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Buypass Class 3 Root CA, O=Buypass AS-983163327, C=NO
+12:52:01,132 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=Security Communication EV RootCA1, O="SECOM Trust Systems CO.,LTD.", C=JP
+12:52:01,133 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=GeoTrust Primary Certification Authority - G3, OU=(c) 2008 GeoTrust Inc. - For authorized use only, O=GeoTrust Inc., C=US
+12:52:01,133 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=thawte Primary Root CA - G2, OU="(c) 2007 thawte, Inc. - For authorized use only", O="thawte, Inc.", C=US
+12:52:01,134 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Swisscom Root EV CA 2, OU=Digital Certificate Services, O=Swisscom, C=ch
+12:52:01,139 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=VeriSign Universal Root Certification Authority, OU="(c) 2008 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:01,140 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Chambers of Commerce Root - 2008, O=AC Camerfirma S.A., SERIALNUMBER=A82743287, L=Madrid (see current address at www.camerfirma.com/address), C=EU
+12:52:01,140 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=SwissSign Silver CA - G2, O=SwissSign AG, C=CH
+12:52:01,140 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Entrust Root Certification Authority - G2, OU="(c) 2009 Entrust, Inc. - for authorized use only", OU=See www.entrust.net/legal-terms, O="Entrust, Inc.", C=US
+12:52:01,140 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=AddTrust Class 1 CA Root, OU=AddTrust TTP Network, O=AddTrust AB, C=SE
+12:52:01,140 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=DigiCert Assured ID Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US
+12:52:01,141 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=Go Daddy Class 2 Certification Authority, O="The Go Daddy Group, Inc.", C=US
+12:52:01,143 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=AddTrust External CA Root, OU=AddTrust External TTP Network, O=AddTrust AB, C=SE
+12:52:01,143 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=T-TeleSec GlobalRoot Class 3, OU=T-Systems Trust Center, O=T-Systems Enterprise Services GmbH, C=DE
+12:52:01,143 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Global Chambersign Root - 2008, O=AC Camerfirma S.A., SERIALNUMBER=A82743287, L=Madrid (see current address at www.camerfirma.com/address), C=EU
+12:52:01,144 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:EMAILADDRESS=info@valicert.com, CN=http://www.valicert.com/, OU=ValiCert Class 1 Policy Validation Authority, O="ValiCert, Inc.", L=ValiCert Validation Network
+12:52:01,144 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=thawte Primary Root CA - G3, OU="(c) 2008 thawte, Inc. - For authorized use only", OU=Certification Services Division, O="thawte, Inc.", C=US
+12:52:01,146 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:EMAILADDRESS=premium-server@thawte.com, CN=Thawte Premium Server CA, OU=Certification Services Division, O=Thawte Consulting cc, L=Cape Town, ST=Western Cape, C=ZA
+12:52:01,147 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=GTE CyberTrust Global Root, OU="GTE CyberTrust Solutions, Inc.", O=GTE Corporation, C=US
+12:52:01,147 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=UTN-USERFirst-Client Authentication and Email, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:01,147 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Class 2 Primary CA, O=Certplus, C=FR
+12:52:01,147 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=AffirmTrust Premium ECC, O=AffirmTrust, C=US
+12:52:01,147 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=T-TeleSec GlobalRoot Class 2, OU=T-Systems Trust Center, O=T-Systems Enterprise Services GmbH, C=DE
+12:52:01,147 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=GeoTrust Global CA, O=GeoTrust Inc., C=US
+12:52:01,148 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Sonera Class1 CA, O=Sonera, C=FI
+12:52:01,148 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=SwissSign Platinum CA - G2, O=SwissSign AG, C=CH
+12:52:01,148 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 1 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
+12:52:01,148 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=KEYNECTIS ROOT CA, OU=ROOT, O=KEYNECTIS, C=FR
+12:52:01,148 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - ------- END ----
+12:52:01,148 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- sun.security.ssl.X509TrustManagerImpl --
+12:52:01,151 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - ------- END ----
+12:52:02,977 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - checkServerTrusted: chain
+12:52:02,978 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - cert IssuerCN=Google Internet Authority G2, O=Google Inc, C=US
+12:52:02,979 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - cert Subject:CN=www.google.com, O=Google Inc, L=Mountain View, ST=California, C=US
+12:52:02,985 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - cert IssuerCN=GeoTrust Global CA, O=GeoTrust Inc., C=US
+12:52:02,987 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - cert Subject:CN=Google Internet Authority G2, O=Google Inc, C=US
+12:52:02,988 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - cert IssuerOU=Equifax Secure Certificate Authority, O=Equifax, C=US
+12:52:02,989 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - cert Subject:CN=GeoTrust Global CA, O=GeoTrust Inc., C=US
+12:52:02,995 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - Found trusted chain in trustManager:sun.security.ssl.X509TrustManagerImpl  trusting ..
+12:52:02,996 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - Get Acceptable Issuers
+12:52:03,002 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- Trust Manager:sun.security.ssl.X509TrustManagerImpl
+12:52:03,002 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Equifax Secure Global eBusiness CA-1, O=Equifax Secure Inc., C=US
+12:52:03,004 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Equifax Secure Global eBusiness CA-1, O=Equifax Secure Inc., C=US
+12:52:03,004 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=SecureTrust CA, O=SecureTrust Corporation, C=US
+12:52:03,006 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=SecureTrust CA, O=SecureTrust Corporation, C=US
+12:52:03,006 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Starfield Root Certificate Authority - G2, O="Starfield Technologies, Inc.", L=Scottsdale, ST=Arizona, C=US
+12:52:03,010 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Starfield Root Certificate Authority - G2, O="Starfield Technologies, Inc.", L=Scottsdale, ST=Arizona, C=US
+12:52:03,010 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=VeriSign Class 2 Public Primary Certification Authority - G3, OU="(c) 1999 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,011 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=VeriSign Class 2 Public Primary Certification Authority - G3, OU="(c) 1999 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,012 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=Security Communication RootCA1, O=SECOM Trust.net, C=JP
+12:52:03,012 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=Security Communication RootCA1, O=SECOM Trust.net, C=JP
+12:52:03,013 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=DigiCert Global Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US
+12:52:03,013 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=DigiCert Global Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US
+12:52:03,013 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Entrust.net Certification Authority (2048), OU=(c) 1999 Entrust.net Limited, OU=www.entrust.net/CPS_2048 incorp. by ref. (limits liab.), O=Entrust.net
+12:52:03,014 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Entrust.net Certification Authority (2048), OU=(c) 1999 Entrust.net Limited, OU=www.entrust.net/CPS_2048 incorp. by ref. (limits liab.), O=Entrust.net
+12:52:03,014 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=thawte Primary Root CA, OU="(c) 2006 thawte, Inc. - For authorized use only", OU=Certification Services Division, O="thawte, Inc.", C=US
+12:52:03,015 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=thawte Primary Root CA, OU="(c) 2006 thawte, Inc. - For authorized use only", OU=Certification Services Division, O="thawte, Inc.", C=US
+12:52:03,016 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:EMAILADDRESS=info@valicert.com, CN=http://www.valicert.com/, OU=ValiCert Class 2 Policy Validation Authority, O="ValiCert, Inc.", L=ValiCert Validation Network
+12:52:03,016 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:EMAILADDRESS=info@valicert.com, CN=http://www.valicert.com/, OU=ValiCert Class 2 Policy Validation Authority, O="ValiCert, Inc.", L=ValiCert Validation Network
+12:52:03,017 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Go Daddy Root Certificate Authority - G2, O="GoDaddy.com, Inc.", L=Scottsdale, ST=Arizona, C=US
+12:52:03,017 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Go Daddy Root Certificate Authority - G2, O="GoDaddy.com, Inc.", L=Scottsdale, ST=Arizona, C=US
+12:52:03,018 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:EMAILADDRESS=personal-freemail@thawte.com, CN=Thawte Personal Freemail CA, OU=Certification Services Division, O=Thawte Consulting, L=Cape Town, ST=Western Cape, C=ZA
+12:52:03,018 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:EMAILADDRESS=personal-freemail@thawte.com, CN=Thawte Personal Freemail CA, OU=Certification Services Division, O=Thawte Consulting, L=Cape Town, ST=Western Cape, C=ZA
+12:52:03,018 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=GeoTrust Primary Certification Authority, O=GeoTrust Inc., C=US
+12:52:03,019 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=GeoTrust Primary Certification Authority, O=GeoTrust Inc., C=US
+12:52:03,019 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=VeriSign Class 1 Public Primary Certification Authority - G3, OU="(c) 1999 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,019 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=VeriSign Class 1 Public Primary Certification Authority - G3, OU="(c) 1999 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,020 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=VeriSign Class 3 Public Primary Certification Authority - G4, OU="(c) 2007 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,020 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=VeriSign Class 3 Public Primary Certification Authority - G4, OU="(c) 2007 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,020 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Entrust Root Certification Authority, OU="(c) 2006 Entrust, Inc.", OU=www.entrust.net/CPS is incorporated by reference, O="Entrust, Inc.", C=US
+12:52:03,024 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Entrust Root Certification Authority, OU="(c) 2006 Entrust, Inc.", OU=www.entrust.net/CPS is incorporated by reference, O="Entrust, Inc.", C=US
+12:52:03,025 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=Security Communication RootCA2, O="SECOM Trust Systems CO.,LTD.", C=JP
+12:52:03,025 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=Security Communication RootCA2, O="SECOM Trust Systems CO.,LTD.", C=JP
+12:52:03,025 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 3 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
+12:52:03,025 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 3 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
+12:52:03,026 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=ePKI Root Certification Authority, O="Chunghwa Telecom Co., Ltd.", C=TW
+12:52:03,026 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=ePKI Root Certification Authority, O="Chunghwa Telecom Co., Ltd.", C=TW
+12:52:03,026 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=AffirmTrust Commercial, O=AffirmTrust, C=US
+12:52:03,026 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=AffirmTrust Commercial, O=AffirmTrust, C=US
+12:52:03,027 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=TC TrustCenter Universal CA I, OU=TC TrustCenter Universal CA, O=TC TrustCenter GmbH, C=DE
+12:52:03,027 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=TC TrustCenter Universal CA I, OU=TC TrustCenter Universal CA, O=TC TrustCenter GmbH, C=DE
+12:52:03,027 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Certum Trusted Network CA, OU=Certum Certification Authority, O=Unizeto Technologies S.A., C=PL
+12:52:03,027 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Certum Trusted Network CA, OU=Certum Certification Authority, O=Unizeto Technologies S.A., C=PL
+12:52:03,027 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Certum CA, O=Unizeto Sp. z o.o., C=PL
+12:52:03,028 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Certum CA, O=Unizeto Sp. z o.o., C=PL
+12:52:03,028 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=XRamp Global Certification Authority, O=XRamp Security Services Inc, OU=www.xrampsecurity.com, C=US
+12:52:03,028 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=XRamp Global Certification Authority, O=XRamp Security Services Inc, OU=www.xrampsecurity.com, C=US
+12:52:03,029 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=AddTrust Qualified CA Root, OU=AddTrust TTP Network, O=AddTrust AB, C=SE
+12:52:03,029 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=AddTrust Qualified CA Root, OU=AddTrust TTP Network, O=AddTrust AB, C=SE
+12:52:03,029 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Buypass Class 2 Root CA, O=Buypass AS-983163327, C=NO
+12:52:03,029 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Buypass Class 2 Root CA, O=Buypass AS-983163327, C=NO
+12:52:03,029 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=TC TrustCenter Class 2 CA II, OU=TC TrustCenter Class 2 CA, O=TC TrustCenter GmbH, C=DE
+12:52:03,030 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=TC TrustCenter Class 2 CA II, OU=TC TrustCenter Class 2 CA, O=TC TrustCenter GmbH, C=DE
+12:52:03,030 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Sonera Class2 CA, O=Sonera, C=FI
+12:52:03,030 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Sonera Class2 CA, O=Sonera, C=FI
+12:52:03,030 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=America Online Root Certification Authority 1, O=America Online Inc., C=US
+12:52:03,031 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=America Online Root Certification Authority 1, O=America Online Inc., C=US
+12:52:03,031 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=GeoTrust Primary Certification Authority - G2, OU=(c) 2007 GeoTrust Inc. - For authorized use only, O=GeoTrust Inc., C=US
+12:52:03,031 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=GeoTrust Primary Certification Authority - G2, OU=(c) 2007 GeoTrust Inc. - For authorized use only, O=GeoTrust Inc., C=US
+12:52:03,031 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=SwissSign Gold CA - G2, O=SwissSign AG, C=CH
+12:52:03,031 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=SwissSign Gold CA - G2, O=SwissSign AG, C=CH
+12:52:03,032 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=UTN - DATACorp SGC, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:03,032 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=UTN - DATACorp SGC, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:03,032 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=QuoVadis Root CA 2, O=QuoVadis Limited, C=BM
+12:52:03,033 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=QuoVadis Root CA 2, O=QuoVadis Limited, C=BM
+12:52:03,034 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Deutsche Telekom Root CA 2, OU=T-TeleSec Trust Center, O=Deutsche Telekom AG, C=DE
+12:52:03,034 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Deutsche Telekom Root CA 2, OU=T-TeleSec Trust Center, O=Deutsche Telekom AG, C=DE
+12:52:03,034 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=Equifax Secure Certificate Authority, O=Equifax, C=US
+12:52:03,034 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=Equifax Secure Certificate Authority, O=Equifax, C=US
+12:52:03,035 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=Class 1 Public Primary Certification Authority, O="VeriSign, Inc.", C=US
+12:52:03,035 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=Class 1 Public Primary Certification Authority, O="VeriSign, Inc.", C=US
+12:52:03,035 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=DigiCert High Assurance EV Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US
+12:52:03,035 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=DigiCert High Assurance EV Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US
+12:52:03,036 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 2 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
+12:52:03,036 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 2 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
+12:52:03,036 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=VeriSign Class 3 Public Primary Certification Authority - G5, OU="(c) 2006 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,037 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=VeriSign Class 3 Public Primary Certification Authority - G5, OU="(c) 2006 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,037 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=GlobalSign, O=GlobalSign, OU=GlobalSign Root CA - R2
+12:52:03,037 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=GlobalSign, O=GlobalSign, OU=GlobalSign Root CA - R2
+12:52:03,037 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=QuoVadis Root CA 3, O=QuoVadis Limited, C=BM
+12:52:03,038 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=QuoVadis Root CA 3, O=QuoVadis Limited, C=BM
+12:52:03,038 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=GeoTrust Universal CA, O=GeoTrust Inc., C=US
+12:52:03,038 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=GeoTrust Universal CA, O=GeoTrust Inc., C=US
+12:52:03,038 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=GlobalSign, O=GlobalSign, OU=GlobalSign Root CA - R3
+12:52:03,038 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=GlobalSign, O=GlobalSign, OU=GlobalSign Root CA - R3
+12:52:03,039 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Starfield Services Root Certificate Authority - G2, O="Starfield Technologies, Inc.", L=Scottsdale, ST=Arizona, C=US
+12:52:03,039 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Starfield Services Root Certificate Authority - G2, O="Starfield Technologies, Inc.", L=Scottsdale, ST=Arizona, C=US
+12:52:03,039 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Baltimore CyberTrust Root, OU=CyberTrust, O=Baltimore, C=IE
+12:52:03,039 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Baltimore CyberTrust Root, OU=CyberTrust, O=Baltimore, C=IE
+12:52:03,040 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=Starfield Class 2 Certification Authority, O="Starfield Technologies, Inc.", C=US
+12:52:03,040 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=Starfield Class 2 Certification Authority, O="Starfield Technologies, Inc.", C=US
+12:52:03,040 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Thawte Timestamping CA, OU=Thawte Certification, O=Thawte, L=Durbanville, ST=Western Cape, C=ZA
+12:52:03,040 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Thawte Timestamping CA, OU=Thawte Certification, O=Thawte, L=Durbanville, ST=Western Cape, C=ZA
+12:52:03,041 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=AAA Certificate Services, O=Comodo CA Limited, L=Salford, ST=Greater Manchester, C=GB
+12:52:03,041 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=AAA Certificate Services, O=Comodo CA Limited, L=Salford, ST=Greater Manchester, C=GB
+12:52:03,041 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=UTN-USERFirst-Hardware, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:03,042 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=UTN-USERFirst-Hardware, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:03,042 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Chambers of Commerce Root, OU=http://www.chambersign.org, O=AC Camerfirma SA CIF A82743287, C=EU
+12:52:03,045 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Chambers of Commerce Root, OU=http://www.chambersign.org, O=AC Camerfirma SA CIF A82743287, C=EU
+12:52:03,046 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Swisscom Root CA 2, OU=Digital Certificate Services, O=Swisscom, C=ch
+12:52:03,046 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Swisscom Root CA 2, OU=Digital Certificate Services, O=Swisscom, C=ch
+12:52:03,047 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=VeriSign Class 3 Public Primary Certification Authority - G3, OU="(c) 1999 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,047 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=VeriSign Class 3 Public Primary Certification Authority - G3, OU="(c) 1999 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,048 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=GlobalSign Root CA, OU=Root CA, O=GlobalSign nv-sa, C=BE
+12:52:03,048 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=GlobalSign Root CA, OU=Root CA, O=GlobalSign nv-sa, C=BE
+12:52:03,049 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=UTN-USERFirst-Object, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:03,049 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=UTN-USERFirst-Object, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:03,051 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:EMAILADDRESS=server-certs@thawte.com, CN=Thawte Server CA, OU=Certification Services Division, O=Thawte Consulting cc, L=Cape Town, ST=Western Cape, C=ZA
+12:52:03,052 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:EMAILADDRESS=server-certs@thawte.com, CN=Thawte Server CA, OU=Certification Services Division, O=Thawte Consulting cc, L=Cape Town, ST=Western Cape, C=ZA
+12:52:03,052 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=AffirmTrust Networking, O=AffirmTrust, C=US
+12:52:03,053 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=AffirmTrust Networking, O=AffirmTrust, C=US
+12:52:03,053 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=Class 3 Public Primary Certification Authority, O="VeriSign, Inc.", C=US
+12:52:03,053 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=Class 3 Public Primary Certification Authority, O="VeriSign, Inc.", C=US
+12:52:03,054 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=AffirmTrust Premium, O=AffirmTrust, C=US
+12:52:03,054 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=AffirmTrust Premium, O=AffirmTrust, C=US
+12:52:03,054 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=TC TrustCenter Class 4 CA II, OU=TC TrustCenter Class 4 CA, O=TC TrustCenter GmbH, C=DE
+12:52:03,055 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=TC TrustCenter Class 4 CA II, OU=TC TrustCenter Class 4 CA, O=TC TrustCenter GmbH, C=DE
+12:52:03,056 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Baltimore CyberTrust Code Signing Root, OU=CyberTrust, O=Baltimore, C=IE
+12:52:03,056 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Baltimore CyberTrust Code Signing Root, OU=CyberTrust, O=Baltimore, C=IE
+12:52:03,057 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=America Online Root Certification Authority 2, O=America Online Inc., C=US
+12:52:03,057 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=America Online Root Certification Authority 2, O=America Online Inc., C=US
+12:52:03,057 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=LuxTrust Global Root, O=LuxTrust s.a., C=LU
+12:52:03,057 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=LuxTrust Global Root, O=LuxTrust s.a., C=LU
+12:52:03,058 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=QuoVadis Root Certification Authority, OU=Root Certification Authority, O=QuoVadis Limited, C=BM
+12:52:03,058 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=QuoVadis Root Certification Authority, OU=Root Certification Authority, O=QuoVadis Limited, C=BM
+12:52:03,058 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Class 3P Primary CA, O=Certplus, C=FR
+12:52:03,058 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Class 3P Primary CA, O=Certplus, C=FR
+12:52:03,058 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Equifax Secure eBusiness CA-1, O=Equifax Secure Inc., C=US
+12:52:03,059 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Equifax Secure eBusiness CA-1, O=Equifax Secure Inc., C=US
+12:52:03,059 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Buypass Class 3 Root CA, O=Buypass AS-983163327, C=NO
+12:52:03,059 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Buypass Class 3 Root CA, O=Buypass AS-983163327, C=NO
+12:52:03,059 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=Security Communication EV RootCA1, O="SECOM Trust Systems CO.,LTD.", C=JP
+12:52:03,060 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=Security Communication EV RootCA1, O="SECOM Trust Systems CO.,LTD.", C=JP
+12:52:03,060 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=GeoTrust Primary Certification Authority - G3, OU=(c) 2008 GeoTrust Inc. - For authorized use only, O=GeoTrust Inc., C=US
+12:52:03,060 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=GeoTrust Primary Certification Authority - G3, OU=(c) 2008 GeoTrust Inc. - For authorized use only, O=GeoTrust Inc., C=US
+12:52:03,060 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=thawte Primary Root CA - G2, OU="(c) 2007 thawte, Inc. - For authorized use only", O="thawte, Inc.", C=US
+12:52:03,061 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=thawte Primary Root CA - G2, OU="(c) 2007 thawte, Inc. - For authorized use only", O="thawte, Inc.", C=US
+12:52:03,061 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Swisscom Root EV CA 2, OU=Digital Certificate Services, O=Swisscom, C=ch
+12:52:03,061 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Swisscom Root EV CA 2, OU=Digital Certificate Services, O=Swisscom, C=ch
+12:52:03,061 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=VeriSign Universal Root Certification Authority, OU="(c) 2008 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,061 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=VeriSign Universal Root Certification Authority, OU="(c) 2008 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:03,062 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Chambers of Commerce Root - 2008, O=AC Camerfirma S.A., SERIALNUMBER=A82743287, L=Madrid (see current address at www.camerfirma.com/address), C=EU
+12:52:03,062 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Chambers of Commerce Root - 2008, O=AC Camerfirma S.A., SERIALNUMBER=A82743287, L=Madrid (see current address at www.camerfirma.com/address), C=EU
+12:52:03,062 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=SwissSign Silver CA - G2, O=SwissSign AG, C=CH
+12:52:03,063 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=SwissSign Silver CA - G2, O=SwissSign AG, C=CH
+12:52:03,063 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Entrust Root Certification Authority - G2, OU="(c) 2009 Entrust, Inc. - for authorized use only", OU=See www.entrust.net/legal-terms, O="Entrust, Inc.", C=US
+12:52:03,063 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Entrust Root Certification Authority - G2, OU="(c) 2009 Entrust, Inc. - for authorized use only", OU=See www.entrust.net/legal-terms, O="Entrust, Inc.", C=US
+12:52:03,063 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=AddTrust Class 1 CA Root, OU=AddTrust TTP Network, O=AddTrust AB, C=SE
+12:52:03,064 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=AddTrust Class 1 CA Root, OU=AddTrust TTP Network, O=AddTrust AB, C=SE
+12:52:03,064 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=DigiCert Assured ID Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US
+12:52:03,064 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=DigiCert Assured ID Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US
+12:52:03,064 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=Go Daddy Class 2 Certification Authority, O="The Go Daddy Group, Inc.", C=US
+12:52:03,065 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=Go Daddy Class 2 Certification Authority, O="The Go Daddy Group, Inc.", C=US
+12:52:03,065 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=AddTrust External CA Root, OU=AddTrust External TTP Network, O=AddTrust AB, C=SE
+12:52:03,065 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=AddTrust External CA Root, OU=AddTrust External TTP Network, O=AddTrust AB, C=SE
+12:52:03,065 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=T-TeleSec GlobalRoot Class 3, OU=T-Systems Trust Center, O=T-Systems Enterprise Services GmbH, C=DE
+12:52:03,066 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=T-TeleSec GlobalRoot Class 3, OU=T-Systems Trust Center, O=T-Systems Enterprise Services GmbH, C=DE
+12:52:03,066 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Global Chambersign Root - 2008, O=AC Camerfirma S.A., SERIALNUMBER=A82743287, L=Madrid (see current address at www.camerfirma.com/address), C=EU
+12:52:03,066 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Global Chambersign Root - 2008, O=AC Camerfirma S.A., SERIALNUMBER=A82743287, L=Madrid (see current address at www.camerfirma.com/address), C=EU
+12:52:03,066 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:EMAILADDRESS=info@valicert.com, CN=http://www.valicert.com/, OU=ValiCert Class 1 Policy Validation Authority, O="ValiCert, Inc.", L=ValiCert Validation Network
+12:52:03,067 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:EMAILADDRESS=info@valicert.com, CN=http://www.valicert.com/, OU=ValiCert Class 1 Policy Validation Authority, O="ValiCert, Inc.", L=ValiCert Validation Network
+12:52:03,067 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=thawte Primary Root CA - G3, OU="(c) 2008 thawte, Inc. - For authorized use only", OU=Certification Services Division, O="thawte, Inc.", C=US
+12:52:03,067 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=thawte Primary Root CA - G3, OU="(c) 2008 thawte, Inc. - For authorized use only", OU=Certification Services Division, O="thawte, Inc.", C=US
+12:52:03,067 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:EMAILADDRESS=premium-server@thawte.com, CN=Thawte Premium Server CA, OU=Certification Services Division, O=Thawte Consulting cc, L=Cape Town, ST=Western Cape, C=ZA
+12:52:03,068 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:EMAILADDRESS=premium-server@thawte.com, CN=Thawte Premium Server CA, OU=Certification Services Division, O=Thawte Consulting cc, L=Cape Town, ST=Western Cape, C=ZA
+12:52:03,068 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=GTE CyberTrust Global Root, OU="GTE CyberTrust Solutions, Inc.", O=GTE Corporation, C=US
+12:52:03,068 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=GTE CyberTrust Global Root, OU="GTE CyberTrust Solutions, Inc.", O=GTE Corporation, C=US
+12:52:03,068 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=UTN-USERFirst-Client Authentication and Email, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:03,071 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=UTN-USERFirst-Client Authentication and Email, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:03,071 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Class 2 Primary CA, O=Certplus, C=FR
+12:52:03,072 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Class 2 Primary CA, O=Certplus, C=FR
+12:52:03,072 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=AffirmTrust Premium ECC, O=AffirmTrust, C=US
+12:52:03,073 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=AffirmTrust Premium ECC, O=AffirmTrust, C=US
+12:52:03,075 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=T-TeleSec GlobalRoot Class 2, OU=T-Systems Trust Center, O=T-Systems Enterprise Services GmbH, C=DE
+12:52:03,075 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=T-TeleSec GlobalRoot Class 2, OU=T-Systems Trust Center, O=T-Systems Enterprise Services GmbH, C=DE
+12:52:03,076 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=GeoTrust Global CA, O=GeoTrust Inc., C=US
+12:52:03,076 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=GeoTrust Global CA, O=GeoTrust Inc., C=US
+12:52:03,076 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=Sonera Class1 CA, O=Sonera, C=FI
+12:52:03,077 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=Sonera Class1 CA, O=Sonera, C=FI
+12:52:03,077 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=SwissSign Platinum CA - G2, O=SwissSign AG, C=CH
+12:52:03,078 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=SwissSign Platinum CA - G2, O=SwissSign AG, C=CH
+12:52:03,079 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 1 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
+12:52:03,079 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 1 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
+12:52:03,080 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- IssuerDN:CN=KEYNECTIS ROOT CA, OU=ROOT, O=KEYNECTIS, C=FR
+12:52:03,080 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- SubjectDN:CN=KEYNECTIS ROOT CA, OU=ROOT, O=KEYNECTIS, C=FR
+12:52:03,081 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - ------ End----
+12:52:03,083 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- Trust Manager:sun.security.ssl.X509TrustManagerImpl
+12:52:03,083 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - ------ End----
+12:52:04,424 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - ------------- END test SSLWithCustomKeyStore ---------
+12:52:04,425 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - ------------- BEGIN test Provider ---------
+12:52:04,426 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 -  -- Before add Provider
+12:52:04,426 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SUN
+12:52:04,426 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunRsaSign
+12:52:04,427 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunEC
+12:52:04,427 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunJSSE
+12:52:04,427 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunJCE
+12:52:04,427 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunJGSS
+12:52:04,428 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunSASL
+12:52:04,428 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:XMLDSig
+12:52:04,428 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunPCSC
+12:52:04,429 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunMSCAPI
+12:52:04,429 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:BC
+12:52:04,429 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SSIT
+12:52:04,429 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - --
+12:52:04,430 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Default Type: jks
+12:52:04,430 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SUN
+12:52:04,430 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunRsaSign
+12:52:04,430 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunEC
+12:52:04,431 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunJSSE
+12:52:04,431 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunJCE
+12:52:04,431 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunJGSS
+12:52:04,431 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunSASL
+12:52:04,431 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:XMLDSig
+12:52:04,432 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunPCSC
+12:52:04,432 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SunMSCAPI
+12:52:04,432 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:BC
+12:52:04,432 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - Provider:SSIT
+12:52:04,435 - DEBUG com.eis.b2bmb.jca.SmartShipItKeyStore - engineLoad
+12:52:04,436 - DEBUG com.eis.b2bmb.jca.SmartShipItKeyStore - engineContainsAlias called with alias:something
+12:52:04,436 - DEBUG com.eis.b2bmb.jca.SmartShipItKeyStore - returning:false
+12:52:04,436 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - ------------- END test Provider ---------
+12:52:04,448 - INFO org.apache.activemq.broker.BrokerService - Apache ActiveMQ 5.7.0 (localhost, ID:user-PC-64503-1452016302769-0:1) is shutting down
+12:52:04,488 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) is shutting down
+12:52:04,535 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) uptime 17.780 seconds
+12:52:04,535 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) is shutdown in 0.047 seconds
+12:52:04,587 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) is shutting down
+12:52:04,589 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) uptime 7.201 seconds
+12:52:04,589 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) is shutdown in 0.001 seconds
+12:52:04,596 - INFO com.eis.util.AS2Initiator - ********** Shutting down AS2 Server !!!!
+12:52:04,603 - INFO com.eis.util.AS2Initiator - ** AS2 Server shutting down.
+12:52:04,612 - INFO com.eis.util.AS2Initiator - ********** Shutting down AS2 Server !!!!
+12:52:04,613 - INFO com.eis.util.AS2Initiator - ** AS2 Server shutting down.
+12:52:04,622 - INFO org.apache.activemq.broker.TransportConnector - Connector vm://localhost Stopped
+12:52:04,623 - INFO com.eis.util.AS2Initiator - ********** Shutting down AS2 Server !!!!
+12:52:04,624 - INFO com.eis.util.AS2Initiator - ** AS2 Server shutting down.
+12:52:04,631 - INFO com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServer - **** Shutting down SFTP Server 
+12:52:04,633 - INFO com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServer - > Idle server shutting down
+12:52:04,636 - INFO org.apache.activemq.store.kahadb.plist.PListStore - PListStore:[D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\activemq-data\localhost\tmp_storage] stopped
+12:52:04,637 - INFO org.apache.activemq.store.kahadb.KahaDBStore - Stopping async queue tasks
+12:52:04,637 - INFO org.apache.activemq.store.kahadb.KahaDBStore - Stopping async topic tasks
+12:52:04,637 - INFO org.apache.activemq.store.kahadb.KahaDBStore - Stopped KahaDB
+12:52:04,666 - INFO org.apache.shiro.session.mgt.AbstractValidatingSessionManager - Disabled session validation scheduler.
+12:52:04,676 - INFO com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServer - **** Shutting down SFTP Server 
+12:52:04,676 - INFO com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServer - > Idle server shutting down
+12:52:04,685 - INFO com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServer - **** Shutting down SFTP Server 
+12:52:04,685 - INFO com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServer - > Idle server shutting down
+12:52:04,693 - INFO org.apache.shiro.session.mgt.AbstractValidatingSessionManager - Disabled session validation scheduler.
+12:52:05,040 - INFO org.apache.activemq.broker.BrokerService - Apache ActiveMQ 5.7.0 (localhost, ID:user-PC-64503-1452016302769-0:1) uptime 23.235 seconds
+12:52:05,040 - INFO org.apache.activemq.broker.BrokerService - Apache ActiveMQ 5.7.0 (localhost, ID:user-PC-64503-1452016302769-0:1) is shutdown

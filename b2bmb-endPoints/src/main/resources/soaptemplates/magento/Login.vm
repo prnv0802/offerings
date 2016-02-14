@@ -1,0 +1,4 @@
+        <ns1:login xmlns:ns1="urn:Magento">
+            <ns1:username>$username</ns1:username>
+            <ns1:apiKey>$apikey</ns1:apiKey>
+        </ns1:login>

@@ -1,0 +1,11 @@
+<ns1:salesOrderShipmentAddTrack
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                                xmlns:ns1="urn:Magento">
+    <sessionId xsi:type="xsd:string">$sessionId</sessionId>
+    <shipmentIncrementId xsi:type="xsd:string">$shipmentIncrementId</shipmentIncrementId>
+    <carrier xsi:type="xsd:string">$carrier</carrier>
+    <title xsi:type="xsd:string">$title</title>
+    <trackNumber xsi:type="xsd:string">$trackingNumber</trackNumber>
+</ns1:salesOrderShipmentAddTrack>

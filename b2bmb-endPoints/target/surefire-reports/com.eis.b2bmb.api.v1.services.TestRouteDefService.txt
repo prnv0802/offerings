@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.eis.b2bmb.api.v1.services.TestRouteDefService
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.36 sec

@@ -1,0 +1,545 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+    <groupId>com.eis.apps.b2bmb</groupId>
+    <artifactId>b2bmb-endPoints</artifactId>
+    <version>1.4.0-SNAPSHOT</version>
+
+    <name>B2BMB::${project.artifactId}</name>
+    <description>Endpoints for b2bmailbox</description>
+
+    <parent>
+        <groupId>com.eis.apps</groupId>
+        <artifactId>b2bmb</artifactId>
+        <version>1.4.0-SNAPSHOT</version>
+    </parent>
+
+    <repositories>
+        <repository>
+            <id>enspireCommerce</id>
+            <name>enspireCommerce</name>
+            <url>https://nexus.envistacorp.com/nexus/content/repositories/enspireCommerce</url>
+        </repository>
+        <repository>
+            <id>b2bmb-licensed-sftware</id>
+            <url>https://nexus.envistacorp.com/nexus/content/repositories/b2bmb-licensed-sftware</url>
+        </repository>
+        <repository>
+            <id>spring-maven-release</id>
+            <name>Spring Maven Release Repository</name>
+            <url>http://maven.springframework.org/release</url>
+        </repository>
+        <repository>
+            <id>spring-maven-milestone</id>
+            <name>Spring Maven Milestone Repository</name>
+            <url>http://maven.springframework.org/milestone</url>
+        </repository>
+        <repository>
+            <id>JBoss Repo</id>
+            <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+            <name>JBoss Repo</name>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>enspireCommerce</id>
+            <name>enspireCommerce</name>
+            <url>https://nexus.envistacorp.com/nexus/content/repositories/enspireCommerce</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-maven-release</id>
+            <name>Spring Maven Release Repository</name>
+            <url>http://maven.springframework.org/release</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-maven-milestone</id>
+            <name>Spring Maven Milestone Repository</name>
+            <url>http://maven.springframework.org/milestone</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>smtp</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>${spring.mongo.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- Quartz framework -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${quartz.version}</version>
+        </dependency>
+
+        <!-- Spring Batch dependencies -->
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-core</artifactId>
+            <version>${spring.batch.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.jettison</groupId>
+                    <artifactId>jettison</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-infrastructure</artifactId>
+            <version>${spring.batch.version}</version>
+        </dependency>
+
+
+        <!-- Apache Camel -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+            <version>${camel-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jms</artifactId>
+            <version>${camel-jms.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring-ws</artifactId>
+            <version>${camel-spring-ws.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-core</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-camel</artifactId>
+            <version>${activemq-camel.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-http</artifactId>
+            <version>${camel-core.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-servlet_3.0_spec</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xbean</groupId>
+            <artifactId>xbean-spring</artifactId>
+            <version>${apache-xbean.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-ftp</artifactId>
+            <version>${camel-ftp.version}</version>
+        </dependency>
+
+        <!--
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-dropbox</artifactId>
+            <version>${camel-core.version}</version>
+
+        </dependency>
+        -->
+        <!-- <dependency>
+             <groupId>org.apache.camel</groupId>
+             <artifactId>camel-optaplanner</artifactId>
+             <version>2.13.1</version>
+         </dependency> -->
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mail</artifactId>
+            <version>${camel-mail.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dropbox.core</groupId>
+            <artifactId>dropbox-core-sdk</artifactId>
+            <version>[1.7,1.8)</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--  <dependency>
+              <groupId>org.apache.activemq</groupId>
+              <artifactId>activemq-all</artifactId>
+              <version>5.8.0</version>
+          </dependency>  -->
+
+        <!-- Apache SSHD -->
+        <dependency>
+            <groupId>org.apache.sshd</groupId>
+            <artifactId>sshd-sftp</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
+        <!-- Apache FTP -->
+        <dependency>
+            <groupId>org.apache.ftpserver</groupId>
+            <artifactId>ftpserver-core</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+
+        <!-- Apache HTTP -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.3.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.4</version>
+        </dependency>
+
+        <!-- <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-ext-jdk15on</artifactId>
+            <version>1.48</version>
+        </dependency> -->
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk16</artifactId>
+            <version>1.45</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mozilla</groupId>
+            <artifactId>rhino</artifactId>
+            <version>1.7R4</version>
+        </dependency>
+        <!-- commons-pool -->
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+            <version>${commons-pool.version}</version>
+        </dependency>
+
+        <!-- Apache common io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-sns</artifactId>
+            <version>1.9.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>1.8.8</version>
+        </dependency>
+
+        <!-- B2BMB-Dependencies -->
+
+        <dependency>
+            <groupId>com.eis.apps.base</groupId>
+            <artifactId>base-build-resources</artifactId>
+            <version>1.4.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eis.apps.base</groupId>
+            <artifactId>base-models</artifactId>
+            <version>1.4.0-SNAPSHOT</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>com.eis.apps.base</groupId>
+            <artifactId>base-map-models</artifactId>
+            <version>${base-map-models.version}</version>
+        </dependency> -->
+        <dependency>
+            <groupId>com.eis.apps.base</groupId>
+            <artifactId>base-test</artifactId>
+            <version>1.4.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.eis.apps.base</groupId>
+            <artifactId>base-license</artifactId>
+            <version>1.4.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eis.apps.base</groupId>
+            <artifactId>base-util</artifactId>
+            <version>1.4.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eis.apps.b2bmb</groupId>
+            <artifactId>b2bmb-services</artifactId>
+            <version>1.4.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eis.apps.b2bmb</groupId>
+            <artifactId>b2bmb-jca-provider</artifactId>
+            <version>1.4.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.eis.apps.b2bmb</groupId>
+            <artifactId>b2bmb-camel-dropbox</artifactId>
+            <version>1.4.0-SNAPSHOT</version>
+        </dependency>
+
+
+        <!-- Licensed Software -->
+
+        <dependency>
+            <groupId>com.eis.licensed.nsoftware</groupId>
+            <artifactId>inedi</artifactId>
+            <version>9.0.0_V5542</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.eis.licensed.nsoftware</groupId>
+            <artifactId>ipworksssh</artifactId>
+            <version>${ipworksssh.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>2.2.4</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>2.2.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.orbit</groupId>
+            <artifactId>javax.servlet</artifactId>
+            <version>3.0.0.v201112011016</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- B2BMB OpenSrc
+          <dependency>
+              <groupId>com.eis.opensrc</groupId>
+              <artifactId>servingxml</artifactId>
+              <version>1.1.2</version>
+          </dependency> -->
+
+        <!-- HazelCast -->
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <version>${hazelcast.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-spring</artifactId>
+            <version>${hazelcast.version}</version>
+        </dependency>
+
+        <!-- For As2 Server -->
+        <!--<dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency> -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${jetty.server.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.jetty.orbit</groupId>
+                    <artifactId>javax.servlet</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.plugin.version}</version>
+                <configuration>
+                    <source>${compiler.source.version}</source>
+                    <target>${compiler.target.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.13</version>
+                <!-- <configuration>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>src/main/webapp</additionalClasspathElement>
+                    </additionalClasspathElements>
+                   <runOrder>alphabetical</runOrder>
+                </configuration> -->
+            </plugin>
+
+            <!-- Perform check style analysis -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <configLocation>checkstyle/B2BMailboxCheckstyleRuleSet.xml</configLocation>
+                            <consoleOutput>true</consoleOutput>
+                            <failOnViolation>true</failOnViolation>
+                            <failsOnError>true</failsOnError>
+                            <logViolationsToConsole>true</logViolationsToConsole>
+                            <violationSeverity>warning</violationSeverity>
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Perform PMD and CPD analysis -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <failOnViolation>false</failOnViolation>
+                            <failurePriority>5</failurePriority>
+                            <verbose>true</verbose>
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Jetty Plugin for AS2 Server -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>com.eis.b2bmb.endpts.ssh.nsoftware.HttpServer</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
+
+
+</project>

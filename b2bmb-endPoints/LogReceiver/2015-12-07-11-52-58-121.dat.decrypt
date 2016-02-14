@@ -1,0 +1,33 @@
+MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha1; boundary="boundary3Uy+cw=="
+
+--boundary3Uy+cw==
+Content-Type: application/edi-x12
+Content-Disposition: Attachment; filename="test.data"
+
+Test123567890123123123123123123
+--boundary3Uy+cw==
+Content-Type: application/pkcs7-signature;  	name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIID4wYJKoZIhvcNAQcCoIID1DCCA9ACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHAaCCAjIw
+ggIuMIIBlwIgAsu1MW30haV3OsLR4gUlWb0k7y1ajeentjSYEYrnoYswDQYJKoZIhvcNAQELBQAw
+UDESMBAGA1UEAwwJc3VwcGxpZXJhMRIwEAYDVQQLDAlzdXBwbGllcmExEjAQBgNVBAoMCXN1cHBs
+aWVyYTESMBAGA1UEBhMJc3VwcGxpZXJhMB4XDTE1MTIwODE2NTI1NloXDTE2MTIwNjE2NTI1Nlow
+UDESMBAGA1UEAwwJc3VwcGxpZXJhMRIwEAYDVQQLDAlzdXBwbGllcmExEjAQBgNVBAoMCXN1cHBs
+aWVyYTESMBAGA1UEBhMJc3VwcGxpZXJhMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCOnVjm
+9sOay7gbIEUai/5PI48+CwfnE2yNhAdGJ/3ff5xvO9X4dB62oRi9JsKoY2qRsrFLRmJZ6GdxdrG9
+dDtO6G5jh90hU6QTIGI1pkrENANbjhI/mqG12SyXRO5Lvmk55AVa+TiZL1bnYLul9GAa7vTuEL0Z
+Z2jLye+3uj7sbQIDAQABMA0GCSqGSIb3DQEBCwUAA4GBAHR8ZUwgPP3lusfyGcn67yvAjNqzx+/K
+as+YqK/Us/VMQ7pDtwpVsG6m0mBO3EAFy/gBx/5dYdn4M7Ba36a5RtOQYOq8+vzeuiC7h9apytL7
+XtnOhE0PFlpJ2zcUFJmhnB3W6Dmo5O2+0NGcbf9ApU+PnxuOO1pCBq/JQ0z93guzMYIBeTCCAXUC
+AQEwdDBQMRIwEAYDVQQDDAlzdXBwbGllcmExEjAQBgNVBAsMCXN1cHBsaWVyYTESMBAGA1UECgwJ
+c3VwcGxpZXJhMRIwEAYDVQQGEwlzdXBwbGllcmECIALLtTFt9IWldzrC0eIFJVm9JO8tWo3np7Y0
+mBGK56GLMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJ
+BTEPFw0xNTEyMDcxNjUyNTdaMCMGCSqGSIb3DQEJBDEWBBTf/Og29T29oUDd9b1kPAk+V3ethDAN
+BgkqhkiG9w0BAQEFAASBgHvmfQmXAPJkNrCe8MWPdPWEjygiap+YtqL16h9tUYAHqbheLoUn+aXD
+tXXr1RAE/Zy/KxNdiQpaj6Z15VJUc390FZrIcvglJoSiJEviu06HMAUl+BjZY7xj9ReyaoP4Hcoe
+nfuLLnVYWV3Cp93Oa/kzYyOmq6PQiTPkNI3+kwIj
+
+--boundary3Uy+cw==--

@@ -1,0 +1,2 @@
+com.eis.b2bmb.camel.custom.component.BlobConverter
+com.eis.b2bmb.camel.custom.component.HttpEntityStreamConverter

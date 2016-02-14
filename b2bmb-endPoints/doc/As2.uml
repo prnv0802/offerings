@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="80.01923076923072" y="444.0">com.eis.b2bmb.api.v1.model.ExchangeDefinition</node>
+    <node x="147.62499999999997" y="844.0">com.eis.b2bmb.api.v1.model.CommunityMembership</node>
+    <node x="31.0" y="0.0">com.eis.b2bmb.api.v1.model.ProtocolConnectionConfigTemplate</node>
+    <node x="22.019230769230717" y="688.0">com.eis.b2bmb.api.v1.model.CommunityMembershipState</node>
+    <node x="0.0" y="167.0">com.eis.b2bmb.api.v1.model.ParticipantRole</node>
+    <node x="453.125" y="222.0">com.eis.b2bmb.api.v1.model.AS2ServerConnectionConfig</node>
+    <node x="394.45192307692304" y="22.0">com.eis.b2bmb.api.v1.model.ConnectionConfig</node>
+    <node x="442.625" y="378.0">com.eis.core.api.v1.model.Organization</node>
+    <node x="255.01923076923075" y="677.0">com.eis.b2bmb.api.v1.model.Community</node>
+    <node x="277.625" y="455.0">com.eis.b2bmb.api.v1.model.Relationship</node>
+    <node x="267.125" y="200.0">com.eis.b2bmb.api.v1.model.Participant</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.eis.b2bmb.api.v1.model.Relationship" target="com.eis.b2bmb.api.v1.model.Participant">
+      <point x="0.0" y="-47.5" />
+      <point x="0.0" y="47.5" />
+    </edge>
+    <edge source="com.eis.b2bmb.api.v1.model.AS2ServerConnectionConfig" target="com.eis.b2bmb.api.v1.model.ConnectionConfig">
+      <point x="0.0" y="-25.5" />
+      <point x="557.125" y="142.0" />
+      <point x="503.95192307692304" y="142.0" />
+      <point x="36.5" y="36.5" />
+    </edge>
+    <edge source="com.eis.b2bmb.api.v1.model.Participant" target="com.eis.b2bmb.api.v1.model.ConnectionConfig">
+      <point x="0.0" y="-47.5" />
+      <point x="350.125" y="142.0" />
+      <point x="430.95192307692304" y="142.0" />
+      <point x="-36.5" y="36.5" />
+    </edge>
+    <edge source="com.eis.b2bmb.api.v1.model.ParticipantRole" target="com.eis.b2bmb.api.v1.model.ProtocolConnectionConfigTemplate">
+      <point x="0.0" y="-80.5" />
+      <point x="102.5" y="142.0" />
+      <point x="95.0" y="142.0" />
+      <point x="-64.0" y="58.5" />
+    </edge>
+    <edge source="com.eis.b2bmb.api.v1.model.Community" target="com.eis.b2bmb.api.v1.model.Relationship">
+      <point x="0.0" y="-58.5" />
+      <point x="337.5192307692307" y="652.0" />
+      <point x="350.125" y="652.0" />
+      <point x="0.0" y="47.5" />
+    </edge>
+    <edge source="com.eis.b2bmb.api.v1.model.CommunityMembership" target="com.eis.core.api.v1.model.Organization">
+      <point x="135.0" y="-190.5" />
+      <point x="485.125" y="819.0" />
+      <point x="656.375" y="819.0" />
+      <point x="71.25000000000003" y="124.5" />
+    </edge>
+    <edge source="com.eis.b2bmb.api.v1.model.ExchangeDefinition" target="com.eis.b2bmb.api.v1.model.ProtocolConnectionConfigTemplate">
+      <point x="41.25" y="-58.5" />
+      <point x="203.76923076923072" y="353.0" />
+      <point x="215.49999999999997" y="353.0" />
+      <point x="215.49999999999997" y="142.0" />
+      <point x="223.0" y="142.0" />
+      <point x="64.0" y="58.5" />
+    </edge>
+    <edge source="com.eis.b2bmb.api.v1.model.CommunityMembership" target="com.eis.b2bmb.api.v1.model.CommunityMembershipState">
+      <point x="-135.0" y="-190.5" />
+      <point x="215.12499999999997" y="819.0" />
+      <point x="128.51923076923072" y="819.0" />
+      <point x="0.0" y="47.5" />
+    </edge>
+    <edge source="com.eis.b2bmb.api.v1.model.ExchangeDefinition" target="com.eis.b2bmb.api.v1.model.ParticipantRole">
+      <point x="-41.25" y="-58.5" />
+      <point x="121.26923076923072" y="353.0" />
+      <point x="102.5" y="353.0" />
+      <point x="0.0" y="80.5" />
+    </edge>
+    <edge source="com.eis.b2bmb.api.v1.model.CommunityMembership" target="com.eis.b2bmb.api.v1.model.Community">
+      <point x="0.0" y="-190.5" />
+      <point x="350.125" y="819.0" />
+      <point x="337.5192307692307" y="819.0" />
+      <point x="0.0" y="58.5" />
+    </edge>
+    <edge source="com.eis.b2bmb.api.v1.model.Community" target="com.eis.b2bmb.api.v1.model.ExchangeDefinition">
+      <point x="-55.0" y="-58.5" />
+      <point x="282.5192307692307" y="652.0" />
+      <point x="162.51923076923072" y="652.0" />
+      <point x="0.0" y="58.5" />
+    </edge>
+    <edge source="com.eis.b2bmb.api.v1.model.Community" target="com.eis.core.api.v1.model.Organization">
+      <point x="55.0" y="-58.5" />
+      <point x="392.5192307692307" y="652.0" />
+      <point x="513.875" y="652.0" />
+      <point x="-71.25" y="124.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="512.0" y="420.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,40 @@
+<html>
+
+<body>
+
+    <table>
+    <tr>
+        <td>$companyAddress</td>
+
+        <td>Order No $orderNo<br/>DATE $orderDate<br/>Customer Id $customerId </td>
+    </tr>
+</table>
+
+<br/>
+<table>
+<tr><td valign="top"><b>TO</b></td>
+<td>$billToAddress</td>
+
+<td valign="top"><b>SHIP TO</b></td>
+<td>$shipToAddress
+</td></tr>
+</table>
+<br/>
+<B>$lineItemList.size() Items found  </B>
+<table border="1">
+    <tr bgcolor="blue"><th>QTY</th><th>ITEM No</th><th>DESCRIPTION</th><th>UNIT PRICE</th><th>DISCOUNT</th><th>LINE TOTAL</th></tr>
+
+    \#foreach( $item in $lineItemList )
+        <tr>
+            <td>$item.qty</td>
+            <td>$item.item</td>
+            <td>$item.description</td>
+            <td>$item.unitPrice</td>
+            <td>$item.discount</td>
+            <td>$item.lineTotal</td>
+        </tr>
+    \#end
+</table>
+
+</body>
+</html>

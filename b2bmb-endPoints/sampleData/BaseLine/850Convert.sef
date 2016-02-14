@@ -1,0 +1,15 @@
+.VER 1.61
+.INI
+850Convert,,004 010,X,X12-4010,*
+.PRIVATE Stylus Studio
+.SCENARIO
+.NAME Scenario1
+.INPUT file:////psf/Host/Volumes/MacintoshHD/Users/mingardia/dev/envistaInteractive/offerings/b2bmailbox/b2bmb-endPoints/sampleData/BaseLine/850.x12
+.OUTPUT file:///c:/Users/mingardia/convertedXML/convertedXML.xmlfile:///c:/Users/mingardia/convertedXML/convertedXML.xml
+.RELATIVE_PATH FALSE
+.EXTERNAL_PREVIEW FALSE
+.CURRENT
+.PUBLIC
+.PRIVATE DataDirect XML Converter
+.URL converter:EDI
+.PUBLIC

@@ -1,0 +1,4 @@
+Content-Type: application/edi-x12
+Content-Disposition: Attachment; filename="test.data"
+
+Test123567890123123123123123123

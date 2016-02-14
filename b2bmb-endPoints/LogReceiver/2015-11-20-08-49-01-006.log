@@ -1,0 +1,7 @@
+---TIMESTAMP Fri, 20 Nov 2015 08:49:01 EST [1448027341019]---
+
+Signature: application/pkcs7-signature
+
+Encryption: application/pkcs7-mime
+
+Filename: test.data

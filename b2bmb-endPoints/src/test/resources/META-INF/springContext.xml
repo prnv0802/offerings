@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:hz="http://www.hazelcast.com/schema/spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/batch
+	http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/data/mongo
+    http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-4.1.xsd
+    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    http://www.hazelcast.com/schema/spring
+    http://www.hazelcast.com/schema/spring/hazelcast-spring-3.2.xsd">
+
+
+    <bean id="springApplicationContext" class="com.eis.spring.util.SpringApplicationContext"/>
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="searchSystemEnvironment" value="true" />
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    </bean>
+
+    <mongo:mapping-converter id="gridfsConverter" db-factory-ref="blobGfsDbFactory"/>
+
+    <mongo:mapping-converter id="springConverter" db-factory-ref="springMongoDbFactory">
+        <mongo:custom-converters>
+            <mongo:converter>
+                <bean class="com.eis.core.api.v1.dao.impl.sprngmongo.converters.ObjectReferenceWriteConverter" />
+            </mongo:converter>
+        </mongo:custom-converters>
+    </mongo:mapping-converter>
+
+    <mongo:mongo-client id="mongo" host="${MONGO_HOST:localhost}" port="${MONGO_PORT:27017}">
+        <mongo:client-options connections-per-host="10"
+                              threads-allowed-to-block-for-connection-multiplier="5"
+                              connect-timeout="4000"
+                              max-wait-time="5000"
+                              socket-keep-alive="true"
+                              socket-timeout="0"
+                />
+    </mongo:mongo-client>
+
+    <mongo:db-factory id="blobGfsDbFactory" dbname="${MONGO_BLOB_DBNAME:blobGfsDb}" mongo-ref="mongo"/>
+    <mongo:db-factory id="springMongoDbFactory" dbname="${MONGO_APP_DBNAME:spring-database}" mongo-ref="mongo" />
+
+    <bean class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
+        <constructor-arg ref="blobGfsDbFactory"/>
+        <constructor-arg ref="gridfsConverter"/>
+
+    </bean>
+
+    <bean class="com.eis.blobstore.gridfs.GridFsBlobStore" name="blobStore">
+        <property name="mongoDbFactory" ref="blobGfsDbFactory"/>
+    </bean>
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg ref="springMongoDbFactory"/>
+        <constructor-arg ref="springConverter" />
+        <property name="writeConcern">
+            <util:constant static-field="com.mongodb.WriteConcern.SAFE"></util:constant>
+        </property>
+    </bean>
+
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:ehcache.xml"/>
+        <property name="shared" value="true"/>
+    </bean>
+
+    <!-- Shiro configuration -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <bean id="multiTenantSubjectFactory" class="com.eis.security.multitenancy.shiro.MultiTenantSubjectFactory"/>
+
+    <bean id="hashedPasswordMatcher" class="com.eis.security.multitenancy.shiro.HashedPasswordMatcher"/>
+
+    <bean id="multiTenantRealm" class="com.eis.security.multitenancy.shiro.MultiTenantRealm">
+        <property name="credentialsMatcher" ref="hashedPasswordMatcher"/>
+        <!-- <property name="authenticationCachingEnabled" value="true" /> -->
+    </bean>
+
+    <bean id="securityManagerHelper" class="com.eis.security.multitenancy.shiro.MultiTenantSecurityManagerHelper">
+        <property name="auditEventDAO" ref="auditEventDAO"/>
+    </bean>
+
+    <bean id="securityManager" class="com.eis.security.multitenancy.shiro.MultiTenantSecurityManager">
+        <qualifier value="multi-tenant"/>
+        <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
+        <constructor-arg ref="multiTenantRealm"/>
+        <property name="subjectFactory" ref="multiTenantSubjectFactory"/>
+        <property name="helper" ref="securityManagerHelper"/>
+
+        <!--  <property name="cacheManager" ref="shiroCacheManager" /> -->
+        <!-- <property name="cacheManager" ref="cacheManager" />
+         By default the servlet container sessions will be used.  Uncomment this line
+             to use shiro's native sessions (see the JavaDoc for more): -->
+        <!-- <property name="sessionMode" value="native"/> -->
+    </bean>
+
+
+    <bean id="multiTenantRealmCache" class="net.sf.ehcache.Cache" factory-bean="cacheManager" factory-method="getCache">
+        <constructor-arg value="multiTenantRealm.authorizationCache"/>
+    </bean>
+
+    <bean id="sprnCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+
+    <bean id="sfCacheManager" class="net.sf.ehcache.CacheManager" factory-bean="sprnCacheManager"
+          factory-method="getCacheManager"/>
+
+
+    <bean id="fileSystemFactory" class="com.eis.b2bmb.endpts.ssh.apache.B2bmbFilesystemFactory"/>
+
+    <bean id="blobDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.BlobDAOImpl"/>
+
+    <bean id="blobService" class="com.eis.blobstore.gridfs.GFSBlobServiceImpl">
+        <property name="blobDAO" ref="blobDAO"/>
+    </bean>
+
+    <bean id="userProfileDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.UserProfileImpl2"/>
+
+    <bean id="userGroupDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.UserGroupDAOImpl"/>
+
+    <bean id="roleDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.RoleDAOImpl"/>
+
+    <bean id="routeDefDAO" class="com.eis.b2bmb.api.v1.dao.sprngmongo.RouteDefDAOImpl"/>
+
+    <bean id="scriptDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.ScriptDAOImpl"/>
+    <bean id="scriptTypeDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.ScriptTypeDAOImpl"/>
+    <bean id="scriptSecurityPolicyDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.ScriptSecurityPolicyDAOImpl"/>
+
+
+    <bean id="routeDefService" class="com.eis.b2bmb.api.v1.services.impl.RouteDefServiceImpl">
+        <property name="routeDefDAO" ref="routeDefDAO"/>
+    </bean>
+    <bean id="routeExecuterService" class="com.eis.b2bmb.api.v1.services.impl.RouteExecuterServiceImpl"/>
+
+    <bean id="capabilityDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.CapabilityDAOImpl"/>
+
+
+    <bean id="functionalPermissionDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.FunctionalPermissionDAOImpl"/>
+
+    <bean id="functionalDomainDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.FunctionalDomainDAOImpl"/>
+
+    <bean id="dataDomainPolicyDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.DataDomainPolicyDAOImpl"/>
+
+    <bean id="contactDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.ContactDAOImpl"/>
+
+    <bean id="organizationDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.OrganizationDAOImpl"/>
+
+    <bean id="relationshipDAO" class="com.eis.b2bmb.api.v1.dao.sprngmongo.RelationshipDAOImpl"/>
+
+    <bean id="applicationDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.ApplicationDAOImpl"/>
+
+    <bean id="accountPreferencesDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.AccountPreferencesDAOImpl"/>
+
+    <bean id="accountDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.AccountDAOImpl"/>
+
+    <bean id="mailboxDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.MailboxDAOImpl"/>
+
+    <bean id="mercuryGateShipmentDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.MercuryGateShipmentDAOImpl"/>
+
+    <bean id="sequenceDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.SequenceDAOImpl"/>
+
+    <bean id="availableDocumentDAO" class="com.eis.b2bmb.api.v1.dao.sprngmongo.AvailableDocumentDAOImpl"/>
+
+
+
+    <!-- <bean id="shippingProfileDAO" class="com.eis.ssit.api.v1.dao.sprngmongo.ShippingProfileDAOImpl"/> -->
+
+    <bean id="mailboxEntryDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.MailboxEntryDAOImpl"/>
+
+    <bean id="mailboxRuleDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.MailboxRuleDAOImpl"/>
+
+    <bean id="mailboxRuleChainDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.MailboxRuleChainDAOImpl"/>
+
+    <bean id="transmissionDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.TransmissionDAOImpl"/>
+
+    <bean id="transmissionEventDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.TransmissionEventDAOImpl"/>
+
+    <bean id="auditEventDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.AuditEventDAOImpl"/>
+
+    <!-- b2bmb-endpoint -->
+    <bean id="routeExecuterHelper" class="com.eis.b2bmb.api.v1.services.impl.RouteExecuterHelperImpl"/>
+
+    <bean id="fileSystemEntryDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.FileSystemEntryDAOImpl"/>
+
+    <bean id="fileSystemEntryLockDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.FileSystemEntryLockDAOImpl"/>
+
+    <bean id="fileSystemEntryService" class="com.eis.core.api.v1.service.impl.FileSystemEntryServiceImpl">
+        <property name="fileSystemEntryDAO" ref="fileSystemEntryDAO"/>
+    </bean>
+    <bean id="mailboxService" class="com.eis.core.api.v1.service.impl.MailboxServiceImpl">
+        <property name="mailboxDAO" ref="mailboxDAO"/>
+    </bean>
+    <bean id="mailboxEntryService" class="com.eis.core.api.v1.service.impl.MailboxEntryServiceImpl">
+        <property name="mailboxDAO" ref="mailboxDAO"/>
+        <property name="mailboxEntryDAO" ref="mailboxEntryDAO"/>
+        <property name="mailboxRuleDAO" ref="mailboxRuleDAO"/>
+        <property name="mailboxRuleChainDAO" ref="mailboxRuleChainDAO"/>
+        <property name="blobStore" ref="blobStore"/>
+        <property name="localEventPublisher" ref="localEventPublisher"/>
+    </bean>
+    <bean id="userProfileService" class="com.eis.core.api.v1.service.impl.UserProfileService2Impl">
+        <property name="userProfileDAO" ref="userProfileDAO"/>
+        <property name="accountDAO" ref="accountDAO"/>
+        <property name="passwordEncryptionService" ref="encryptionService"/>
+    </bean>
+
+    <bean id="encryptionService" class="com.eis.crypto.EncryptionServiceImpl">
+    </bean>
+
+    <bean id="tenancyManagerService" class="com.eis.core.api.v1.service.impl.TenancyManagerServiceImpl">
+        <property name="applicationRefName" value="SmartShipItApp"/>
+    </bean>
+
+    <!-- Spring Batch and Quartz Config -->
+
+    <!-- spring batch context and set up -->
+    <bean id="jobRepository"
+          class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.batch.support.transaction.ResourcelessTransactionManager"/>
+
+    <bean id="jobLauncher"
+          class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <property name="jobRepository" ref="jobRepository"/>
+    </bean>
+
+    <bean
+            class="org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor">
+        <property name="jobRegistry" ref="jobRegistry"/>
+    </bean>
+
+    <bean id="jobRegistry"
+          class="org.springframework.batch.core.configuration.support.MapJobRegistry"/>
+
+
+    <!-- run every 10 seconds
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+                <property name="jobDetail" ref="jobDetail" />
+                <property name="cronExpression" value="*/10 * * * * ?" />
+            </bean>
+        </property>
+    </bean> -->
+
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.eis.b2bmb.batch.job.JobLauncherDetails"/>
+        <property name="group" value="quartz-batch"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="jobName" value="reportJob"/>
+                <entry key="jobLocator" value-ref="jobRegistry"/>
+                <entry key="jobLauncher" value-ref="jobLauncher"/>
+                <entry key="param1" value="mkyong1"/>
+                <entry key="param2" value="mkyong2"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- spring batch job context -->
+
+    <bean id="report" class="com.eis.b2bmb.examples.springBatch.Report" scope="prototype"/>
+
+    <bean id="customWriter" class="com.eis.b2bmb.examples.springBatch.CustomWriter"/>
+
+    <batch:job id="reportJob">
+        <batch:step id="step1">
+            <batch:tasklet>
+                <batch:chunk reader="cvsFileItemReader" writer="customWriter"
+                             commit-interval="10">
+                </batch:chunk>
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
+
+    <bean id="cvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+
+        <!-- Read a csv file -->
+        <property name="resource" value="classpath:sampleData/csv/input/report.csv"/>
+
+        <property name="lineMapper">
+            <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+                <property name="lineTokenizer">
+                    <bean
+                            class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+                        <property name="names" value="id,impressions"/>
+                    </bean>
+                </property>
+                <property name="fieldSetMapper">
+                    <bean
+                            class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+                        <property name="prototypeBeanName" value="report"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+
+    </bean>
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring" id="camelContext">
+        <jmxAgent id="agent" disabled="true"/>
+    </camelContext>
+
+    <bean id="multipartFormbuilderProcessor" class="com.eis.b2bmb.camel.custom.processor.MapForceMapServerProcessor"/>
+
+    <!-- Event Infrastructure -->
+    <bean id="localEventPublisher" class="com.eis.core.api.v1.events.LocalEventPublisher"/>
+
+    <bean id="catalogChangeEventListener" class="com.eis.core.api.v1.events.CatalogChangeEventListener"/>
+
+
+    <!-- Interceptor Example -->
+    <bean id="defaultInterceptor" class="com.eis.b2bmb.examples.interceptor.DefaultInterceptor"/>
+
+    <bean id="myInterceptor" class="com.eis.b2bmb.examples.interceptor.MyInterceptor"/>
+
+
+    <util:list id="systemDefaultInterceptors" value-type="com.eis.b2bmb.examples.interceptor.Interceptor">
+        <ref bean="defaultInterceptor"/>
+        <ref bean="myInterceptor"/>
+    </util:list>
+
+    <bean id="interceptorChain" class="com.eis.b2bmb.examples.interceptor.InterceptorChain">
+        <property name="interceptors" ref="systemDefaultInterceptors"/>
+    </bean>
+
+    <bean id="myGuard" class="com.eis.b2bmb.examples.interceptor.MyGuard" scope="prototype"/>
+
+    <util:list id="guardedInterceptors" value-type="com.eis.b2bmb.examples.interceptor.Interceptor">
+        <ref bean="myGuard"/>
+        <ref bean="defaultInterceptor"/>
+        <ref bean="myInterceptor"/>
+    </util:list>
+
+    <bean id="guardedInterceptorChain" class="com.eis.b2bmb.examples.interceptor.InterceptorChain">
+        <property name="interceptors" ref="guardedInterceptors"/>
+    </bean>
+
+    <bean id="jsInterceptor" class="com.eis.b2bmb.examples.interceptor.JSInterceptor" scope="prototype"/>
+    <bean id="correlationDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.CorrelationDAOImpl"/>
+
+    <!-- Interceptors -->
+    <bean id="fileExtensionFilterGuard" class="com.eis.core.interceptor.mailbox.FileExtensionFilterGuard"
+          scope="prototype"/>
+    <bean id="emailFilterGuard" class="com.eis.core.interceptor.mailbox.EmailFilterGuard" scope="prototype"/>
+    <bean id="edi4010to850FilterGuard" class="com.eis.core.interceptor.mailbox.EDI4010to850FilterGuard"
+          scope="prototype"/>
+
+    <bean id="ediToXML850" class="com.eis.core.interceptor.mailbox.MapForceInterceptor" scope="prototype"/>
+
+    <bean id="sFTPRestrictedIPDAO" class="com.eis.b2bmb.api.v1.dao.sprngmongo.SFTPRestrictedIPDAOImpl"/>
+
+    <bean id="sftpRealm" class="com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServerRealm">
+        <property name="name" value="sftpRealm"/>
+    </bean>
+
+    <bean id="sFTPServerUserDAO" class="com.eis.b2bmb.api.v1.dao.sprngmongo.SFTPServerUserDAOImpl"/>
+
+    <bean id="sftpSecurityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">
+        <qualifier value="sftp"/>
+        <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
+        <constructor-arg ref="sftpRealm"/>
+        <!-- <property name="cacheManager" ref="cacheManager" />
+         By default the servlet container sessions will be used.  Uncomment this line
+             to use shiro's native sessions (see the JavaDoc for more): -->
+        <!-- <property name="sessionMode" value="native"/> -->
+    </bean>
+
+    <bean id="sftpServer" class="com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServer">
+        <property name="localPort" value="2299"/>
+    </bean>
+    <!-- OpenKeyService -->
+    <bean id="openFileKeyService" class="com.eis.b2bmb.api.v1.services.OpenFileKeyService">
+        <property name="openFileKeyPool" ref="openFileKeyPool"/>
+    </bean>
+    <!-- Reconfigure with proper initial and idol pool size -->
+    <bean id="openFileKeyPool" class="org.apache.commons.pool.impl.StackObjectPool">
+        <constructor-arg name="factory" ref="objectPoolFactory"/>
+        <constructor-arg name="maxIdle" value="5"/>
+        <constructor-arg name="initIdleCapacity" value="5"/>
+    </bean>
+    <bean id="objectPoolFactory" class="com.eis.b2bmb.api.v1.util.ObjectPoolFactory" factory-method="newInstance">
+        <constructor-arg index="0" type="java.lang.String">
+            <value>com.eis.b2bmb.endpts.ssh.nsoftware.OpenFileKey</value>
+        </constructor-arg>
+    </bean>
+    <!-- SFTP Server Configuration -->
+    <bean id="sftpServerHelper" class="com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServerHelper">
+        <property name="blobDAO" ref="blobDAO"/>
+        <property name="fileSystemEntryDAO" ref="fileSystemEntryDAO"/>
+        <property name="userProfileDAO" ref="userProfileDAO"/>
+        <property name="manager" ref="sftpSecurityManager"/>
+        <property name="serverUserDAO" ref="sFTPServerUserDAO"/>
+        <property name="openFileKeyService" ref="openFileKeyService"></property>
+
+    </bean>
+
+    <bean id="sftpListener" class="com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServerListener">
+        <constructor-arg ref="sftpServer"/>
+        <property name="fileSystemEntryDAO" ref="fileSystemEntryDAO"/>
+        <property name="SFTPServerHelper" ref="sftpServerHelper"/>
+        <!-- <property name="manager" ref="sftpSecurityManager" /> -->
+
+    </bean>
+
+
+    <!-- AS2 Server Configuration -->
+
+    <bean id="as2Client" class="com.eis.b2bmb.endpts.as2.AS2ClientImpl" />
+    <bean id="transmissionRecorder" class="com.eis.b2bmb.util.TransmissionRecorder" />
+
+    <bean id="as2ServerConnectionConfigDAO"
+          class="com.eis.b2bmb.api.v1.dao.sprngmongo.AS2ServerConnectionConfigDAOImpl" />
+
+    <bean id="as2ClientConnectionConfigDAO"
+          class="com.eis.b2bmb.api.v1.dao.sprngmongo.AS2ClientConnectionConfigDAOImpl" />
+
+    <bean id="server" class="org.eclipse.jetty.server.Server">
+        <constructor-arg value="8181"/>
+    </bean>
+
+    <bean id="as2Server" class="com.eis.b2bmb.endpts.as2.AS2ReceiverImpl" />
+
+    <bean id="httpServer" class="com.eis.b2bmb.endpts.as2.HttpServer">
+        <constructor-arg name="as2Server" ref="as2Server"/>
+        <constructor-arg name="server" ref="server"/>
+    </bean>
+
+
+    <bean id="as2Initiator" class="com.eis.util.AS2Initiator" >
+       <constructor-arg name="server" ref="httpServer"/>
+    </bean>
+
+    <bean id="shutdownHook" class="com.eis.util.ShutdownHook" />
+    <!--
+    <bean id="as2Realm" class="com.eis.b2bmb.endpts.ssh.nsoftware.AS2ServerRealm">
+        <property name="name" value="as2Realm"/>
+    </bean>
+
+    <bean id="as2SecurityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">
+        <qualifier value="as2"/>
+        <constructor-arg ref="as2Realm"/>
+    </bean>
+
+
+    <bean id="as2receiver" class="inedi.As2receiver"/>
+
+    <bean id="as2Listener" class="com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.AS2ReceiverEventListener">
+        <constructor-arg ref="as2receiver"/>
+        <property name="fileSystemEntryService" ref="fileSystemEntryService"/>
+        <property name="blobService" ref="blobService"/>
+    </bean>
+    <bean id="httpServer" class="com.eis.b2bmb.endpts.ssh.nsoftware.HttpServer">
+        <constructor-arg name="as2Server" ref="as2Server"/>
+        <constructor-arg name="server" ref="server"/>
+
+    </bean>
+
+    <bean id="server" class="org.eclipse.jetty.server.Server">
+        <constructor-arg value="8181"/>
+    </bean>
+
+    <bean id="as2SenderHelper" class="com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.As2SenderHelper">
+        <property name="blobService" ref="blobService"/>
+        <property name="mailboxService" ref="mailboxService"/>
+        <property name="entryService" ref="mailboxEntryService"/>
+
+    </bean>
+
+    <bean id="as2Sender" class="inedi.As2sender"/>
+
+    <bean id="senderEventListener" class="com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.SenderEventListener">
+        <constructor-arg ref="as2Sender"/>
+    </bean>
+    <bean id="as2Client" class="com.eis.b2bmb.endpoints.nsoftware.as2.serviceImpl.AS2ClientImpl">
+        <constructor-arg ref="as2Sender"/>
+        <property name="certificateHelper" ref="certificateHelper"/>
+    </bean>
+
+    <bean id="as2Server" class="com.eis.b2bmb.endpoints.nsoftware.as2.serviceImpl.AS2ReceiverImpl">
+        <constructor-arg ref="as2receiver"/>
+        <property name="as2ServerHelper" ref="as2ServerHelper"/>
+        <property name="certificateHelper" ref="certificateHelper"/>
+
+    </bean>
+
+
+    <bean id="as2ServerHelper" class="com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.AS2ServerHelper">
+        <property name="blobDAO" ref="blobDAO"/>
+        <property name="fileSystemEntryDAO" ref="fileSystemEntryDAO"/>
+        <property name="relationshipDAO" ref="relationshipDAO"/>
+    </bean>  -->
+
+
+
+    <!-- Certificate specific beans -->
+    <bean id="trustedCertificateDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.TrustedCertificateDAOImpl"/>
+
+    <bean id="keyPairDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.KeyPairDAOImpl"/>
+
+
+    <bean id="publicCertificateDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.PublicCertificateDAOImpl"/>
+
+    <bean id="passwordDAO" class="com.eis.core.api.v1.dao.impl.sprngmongo.PasswordDAOImpl"/>
+    <bean id="aS2RelationShipEntryDAO" class="com.eis.b2bmb.api.v1.dao.sprngmongo.AS2RelationShipEntryDAOImpl"/>
+    <bean id="exchangeDefinitionDAO" class="com.eis.b2bmb.api.v1.dao.sprngmongo.ExchangeDefinitionDAOImpl"/>
+
+    <bean id="exchangeDefinitionService" class="com.eis.b2bmb.api.v1.services.impl.ExchangeDefinitionServiceImpl">
+        <property name="exchangeDefinitionDAO" ref="exchangeDefinitionDAO"/>
+    </bean>
+
+
+    <bean id="aS2RelationShipEntryService" class="com.eis.b2bmb.api.v1.services.impl.AS2RelationShipEntryServiceImpl">
+        <property name="aS2RelationShipEntryDAO" ref="aS2RelationShipEntryDAO"/>
+    </bean>
+    <bean id="trustedCertificateService" class="com.eis.core.api.v1.service.impl.TrustedCertificateServiceImpl">
+        <property name="trustedCertificateDAO" ref="trustedCertificateDAO"/>
+    </bean>
+
+    <bean id="keyPairService" class="com.eis.core.api.v1.service.impl.KeyPairServiceImpl">
+        <property name="keyPairDAO" ref="keyPairDAO"/>
+    </bean>
+
+    <bean id="publicCertificateService" class="com.eis.core.api.v1.service.impl.PublicCertificateServiceImpl">
+        <property name="publicCertificateDAO" ref="publicCertificateDAO"/>
+    </bean>
+
+
+    <bean id="passwordService" class="com.eis.core.api.v1.service.impl.PasswordServiceImpl">
+        <property name="passwordDAO" ref="passwordDAO"/>
+    </bean>
+
+
+    <bean id="certificateHelper" class="com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper">
+    </bean>
+
+
+    <!-- JAXB Object Builders -->
+    <bean id="build4010-850ModelObject" class="com.eis.b2bmb.objectbuilders.po_4010_850.PurchaseOrder4010Builder"
+          scope="prototype">
+    </bean>
+    <bean id="build4010-810ModelObject" class="com.eis.b2bmb.objectbuilders.invoice_4010_810.Invoice4010Builder"
+          scope="prototype">
+    </bean>
+
+
+    <bean id="mapEDIDocuments" class="com.eis.core.interceptor.mailbox.MapForceInterceptor" scope="prototype"/>
+    <bean id="validateXMLSchema" class="com.eis.core.interceptor.mailbox.SchemaValidationInterceptor"
+          scope="prototype"/>
+    <bean id="envelopeDocument" class="com.eis.core.interceptor.mailbox.EnvelopeXMLInterceptor" scope="prototype"/>
+
+
+    <bean class="com.hazelcast.spring.mongodb.MongoMapStore" id="mongomapstoreMailboxRuleChain">
+        <property name="mongoTemplate" ref="mongoTemplate"/>
+    </bean>
+
+    <bean class="com.hazelcast.spring.mongodb.MongoMapStore" id="mongomapstoreMailboxRule">
+        <property name="mongoTemplate" ref="mongoTemplate"/>
+    </bean>
+
+    <bean class="com.hazelcast.spring.mongodb.MongoMapStore" id="mongomapstoreScript">
+        <property name="mongoTemplate" ref="mongoTemplate"/>
+    </bean>
+
+    <hz:hazelcast id="instance" lazy-init="true">
+        <hz:config>
+            <hz:group name="dev" password="dev"/>
+            <hz:properties>
+                <hz:property name="hazelcast.merge.first.run.delay.seconds">5</hz:property>
+                <hz:property name="hazelcast.merge.next.run.delay.seconds">5</hz:property>
+            </hz:properties>
+
+            <hz:network port="5701" port-auto-increment="true">
+                <hz:join>
+                    <hz:multicast enabled="false"/>
+                </hz:join>
+            </hz:network>
+
+            <hz:map name="mailboxInterceptorRegistryMap">
+
+            </hz:map>
+
+            <hz:map name="mailboxRouterMap">
+
+            </hz:map>
+            <hz:map name="mailboxRuleChain">
+                <hz:map-store enabled="true" implementation="mongomapstoreMailboxRuleChain"
+                              write-delay-seconds="0">
+                </hz:map-store>
+                <hz:indexes>
+                    <hz:index attribute="parentMailboxId"/>
+                    <hz:index attribute="scriptId"/>
+                </hz:indexes>
+            </hz:map>
+            <hz:map name="mailboxRule">
+                <hz:map-store enabled="true" implementation="mongomapstoreMailboxRule"
+                              write-delay-seconds="0">
+                </hz:map-store>
+                <hz:indexes>
+                    <hz:index attribute="parentMailboxRuleChainId"/>
+                    <hz:index attribute="scriptId"/>
+                </hz:indexes>
+            </hz:map>
+            <hz:map name="script">
+                <hz:map-store enabled="true" implementation="mongomapstoreScript"
+                              write-delay-seconds="0">
+                </hz:map-store>
+            </hz:map>
+        </hz:config>
+    </hz:hazelcast>
+
+    <hz:map instance-ref="instance" id="mailboxRuleMap" name="mailboxRule" lazy-init="true"/>
+    <hz:map instance-ref="instance" id="mailboxRuleChainMap" name="mailboxRuleChain" lazy-init="true"/>
+    <hz:map instance-ref="instance" id="scriptMap" name="script" lazy-init="true"/>
+    <hz:map instance-ref="instance" id="mailboxInterceptorRegistry" name="mailboxInterceptorRegistryMap"
+            lazy-init="true"/>
+    <hz:map instance-ref="instance" id="mailboxRouterRegistry" name="mailboxRouterMap" lazy-init="true"/>
+    <bean id="envelopingService" class="com.eis.core.router.EnvelopingService" lazy-init="true"/>
+
+
+    <!-- Always should be last -->
+    <!-- this is here mainly for development.  Remove the constructor and the -->
+    <!-- the passphrase will be required to be entered before the server will start -->
+    <bean id="CaptureSystemPassword" class="com.eis.crypto.CaptureSystemPassword">
+
+        <!-- if you comment this out then the server will ask you to enter the password before starting another
+        server -->
+        <constructor-arg name="systemPassPhrase" value="changeMeBeforeGoingToProduction"/>
+    </bean>
+
+    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="vm://localhost"/>
+    </bean>
+
+    <!-- JMS ConnectionFactory-->
+    <bean id="jmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <constructor-arg ref="connectionFactory"/>
+    </bean>
+
+    <bean id="emailSenderQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0" value="send.email.queue"/>
+    </bean>
+
+
+    <bean id="emailSendingJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+        <property name="defaultDestination" ref="emailSenderQueue"/>
+    </bean>
+
+    <bean id="emailMessageService" class="com.eis.b2bmb.api.v1.services.EmailMessageService"/>
+    <bean id="emailProcessor" class="com.eis.b2bmb.camel.custom.processor.EmailProcessor"/>
+
+</beans>

@@ -1,0 +1,1006 @@
+12:51:40,249 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:40,825 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:41,076 - INFO com.eis.b2bmb.api.v1.services.EmailMessageService - routeId TestEmailRoute
+12:51:41,076 - INFO com.eis.b2bmb.api.v1.services.EmailMessageService - route com.eis.b2bmb.api.v1.model.RouteDef@1e34130c
+12:51:41,080 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:41,765 - INFO org.apache.camel.spring.SpringCamelContext - Skipping starting of route com.mycompanyxyz.TestEmailRoute as its configured with autoStartup=false
+12:51:41,917 - INFO org.apache.activemq.broker.jmx.ManagementContext - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+12:51:42,003 - INFO org.apache.activemq.store.kahadb.plist.PListStore - PListStore:[D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\activemq-data\localhost\tmp_storage] started
+12:51:42,011 - INFO org.apache.activemq.broker.BrokerService - Using Persistence Adapter: KahaDBPersistenceAdapter[D:\Envista\offerings\apps\b2bmailbox\b2bmb-endPoints\activemq-data\localhost\KahaDB]
+12:51:42,677 - INFO org.apache.activemq.store.kahadb.MessageDatabase - KahaDB is version 4
+12:51:42,729 - INFO org.apache.activemq.store.kahadb.MessageDatabase - Recovering from the journal ...
+12:51:42,731 - INFO org.apache.activemq.store.kahadb.MessageDatabase - Recovery replayed 1 operations from the journal in 0.042 seconds.
+12:51:42,927 - INFO org.apache.activemq.broker.BrokerService - Apache ActiveMQ 5.7.0 (localhost, ID:user-PC-64503-1452016302769-0:1) is starting
+12:51:43,034 - INFO org.apache.activemq.broker.BrokerService - Apache ActiveMQ 5.7.0 (localhost, ID:user-PC-64503-1452016302769-0:1) started
+12:51:43,035 - INFO org.apache.activemq.broker.BrokerService - For help or more information please see: http://activemq.apache.org
+12:51:43,046 - INFO org.apache.activemq.broker.TransportConnector - Connector vm://localhost Started
+12:51:43,099 - INFO org.apache.camel.spring.SpringCamelContext - Route: com.mycompanyxyz.TestEmailRoute started and consuming from: Endpoint[activemq://queue:send.email.queue]
+12:51:44,249 - INFO com.eis.b2bmb.camel.custom.processor.EmailProcessor - Domain  com.mycompanyxyz
+12:51:44,250 - INFO com.eis.b2bmb.camel.custom.processor.EmailProcessor - templateName  salesorder_html.vm
+12:51:44,251 - INFO com.eis.b2bmb.camel.custom.processor.EmailProcessor - body  null
+12:51:44,269 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:44,280 - INFO com.eis.b2bmb.camel.custom.processor.EmailProcessor - result ******** [{ "metadata" : { "path" : "templateFolder/salesorder_html.vm" , "dataDomain" : [ "com.mycompanyxyz"] , "ownerId" : "4a58711d-89f4-4ebe-9478-0c2950a4b66c" , "txId" :  null } , "filename" : "salesorder_html.vm" , "aliases" :  null  , "chunkSize" : 261120 , "uploadDate" : { "$date" : "2016-01-05T17:51:39.862Z"} , "length" : 838 , "_id" : { "$oid" : "568c02abff73391ab3db2966"} , "contentType" : "application/octet-stream; name=salesorder_html.vm" , "md5" : "44cecf712c36f6b1c8150a49aec17db4"}]
+12:51:44,280 - INFO com.eis.b2bmb.camel.custom.processor.EmailProcessor - No Of Template Files  1
+12:51:44,325 - INFO com.eis.b2bmb.camel.custom.processor.EmailProcessor - Body after applying template  <html>
+
+<body>
+
+    <table>
+    <tr>
+        <td>4567 Main St. <br>Buffalo, NY, 98052<br>555-0111</td>
+
+        <td>Order No 1001<br/>DATE January 10,2015<br/>Customer Id 123456 </td>
+    </tr>
+</table>
+
+<br/>
+<table>
+<tr><td valign="top"><b>TO</b></td>
+<td>Zeyad Rajabi<br>Adventure Works<br>424 Main St.<br>Buffalo. NY, 98052<br>555-0101</td>
+
+<td valign="top"><b>SHIP TO</b></td>
+<td>Wedy Kahn, <br>Coho Vineayard<br>500 Main St.<br>Buffalo, NY 98044<br>555-0999
+</td></tr>
+</table>
+<br/>
+<B>2 Items found  </B>
+<table border="1">
+    <tr bgcolor="blue"><th>QTY</th><th>ITEM No</th><th>DESCRIPTION</th><th>UNIT PRICE</th><th>DISCOUNT</th><th>LINE TOTAL</th></tr>
+
+            <tr>
+            <td>1.00</td>
+            <td>100</td>
+            <td>Mountain Bike</td>
+            <td>$ 450.00</td>
+            <td>$ 25.00</td>
+            <td>$ 425.00</td>
+        </tr>
+            <tr>
+            <td>2.00</td>
+            <td>555</td>
+            <td>Helmet</td>
+            <td>$ 35.00</td>
+            <td></td>
+            <td>$ 70.00</td>
+        </tr>
+    </table>
+
+</body>
+</html>
+12:51:46,300 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:46,315 - DEBUG com.eis.b2bmb.endpts.ssh.apache.B2bmbFilesystemFactory - **** B2bmbFilesystemFactory Created..
+12:51:46,348 - INFO org.apache.camel.core.xml.AbstractCamelContextFactoryBean - JMXAgent disabled
+12:51:46,477 - INFO com.eis.b2bmb.examples.interceptor.InterceptorChain - Adding interceptor:com.eis.b2bmb.examples.interceptor.DefaultInterceptor to chain
+12:51:46,477 - INFO com.eis.b2bmb.examples.interceptor.InterceptorChain - Adding interceptor:com.eis.b2bmb.examples.interceptor.MyInterceptor to chain
+12:51:46,481 - INFO com.eis.b2bmb.examples.interceptor.InterceptorChain - Adding interceptor:com.eis.b2bmb.examples.interceptor.MyGuard to chain
+12:51:46,482 - INFO com.eis.b2bmb.examples.interceptor.InterceptorChain - Adding interceptor:com.eis.b2bmb.examples.interceptor.DefaultInterceptor to chain
+12:51:46,483 - INFO com.eis.b2bmb.examples.interceptor.InterceptorChain - Adding interceptor:com.eis.b2bmb.examples.interceptor.MyInterceptor to chain
+12:51:46,495 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:46,503 - DEBUG com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServer - SFTP Instance Created ...
+12:51:46,553 - DEBUG com.eis.b2bmb.endpts.as2.HttpServer - HttpServer 2 para constructor invoked >>> 
+12:51:46,556 - INFO com.eis.util.AS2Initiator - ********** Starting AS2 Server !!!!
+12:51:46,557 - INFO com.eis.b2bmb.endpts.as2.HttpServer -  *** Starting AS2 server ..
+12:51:46,557 - INFO org.eclipse.jetty.server.Server - jetty-8.1.16.v20140903
+12:51:46,564 - WARN org.eclipse.jetty.util.component.AbstractLifeCycle - FAILED SelectChannelConnector@0.0.0.0:8181: java.net.BindException: Address already in use: bind
+java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:437)
+	at sun.nio.ch.Net.bind(Net.java:429)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:187)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:316)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:265)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:293)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.b2bmb.endpts.as2.HttpServer.doStart(HttpServer.java:66)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.util.AS2Initiator.startServer(AS2Initiator.java:77)
+	at com.eis.util.AS2Initiator.<init>(AS2Initiator.java:31)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:147)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:267)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:838)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:208)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:158)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:95)
+12:51:46,571 - WARN org.eclipse.jetty.util.component.AbstractLifeCycle - FAILED org.eclipse.jetty.server.Server@6d4a05f7: java.net.BindException: Address already in use: bind
+java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:437)
+	at sun.nio.ch.Net.bind(Net.java:429)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:187)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:316)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:265)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:293)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.b2bmb.endpts.as2.HttpServer.doStart(HttpServer.java:66)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.util.AS2Initiator.startServer(AS2Initiator.java:77)
+	at com.eis.util.AS2Initiator.<init>(AS2Initiator.java:31)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:147)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:267)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:838)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:208)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:158)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:95)
+12:51:46,583 - WARN org.eclipse.jetty.util.component.AbstractLifeCycle - FAILED com.eis.b2bmb.endpts.as2.HttpServer@51d8f2f2: java.net.BindException: Address already in use: bind
+java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:437)
+	at sun.nio.ch.Net.bind(Net.java:429)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:187)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:316)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:265)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:293)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.b2bmb.endpts.as2.HttpServer.doStart(HttpServer.java:66)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.util.AS2Initiator.startServer(AS2Initiator.java:77)
+	at com.eis.util.AS2Initiator.<init>(AS2Initiator.java:31)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:147)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:267)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:838)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:208)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:158)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:95)
+12:51:46,589 - ERROR com.eis.util.AS2Initiator - Exception occurred while starting the server Address already in use: bind
+12:51:46,756 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) is starting
+12:51:46,757 - INFO org.apache.camel.management.DefaultManagementStrategy - JMX is disabled
+12:51:46,769 - INFO org.apache.camel.impl.converter.DefaultTypeConverter - Loaded 205 type converters
+12:51:46,770 - INFO org.apache.camel.spring.SpringCamelContext - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+12:51:46,771 - INFO org.apache.camel.spring.SpringCamelContext - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+12:51:46,772 - INFO org.apache.camel.spring.SpringCamelContext - Total 0 routes, of which 0 is started.
+12:51:46,772 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) started in 0.017 seconds
+12:51:47,162 - WARN com.eis.security.multitenancy.model.SecureSession - ** Uncleared Secure Session being over written old value:mingardia@mycompanyxyz.com:com.mycompanyxyz new value:mingardia@mycompanyxyz.com:com.mycompanyxyz
+12:51:47,169 - WARN com.eis.security.multitenancy.model.SecureSession -  -- Channel:null
+12:51:47,170 - WARN com.eis.security.multitenancy.model.SecureSession -  -- IPAddress:null
+12:51:47,170 - WARN com.eis.security.multitenancy.model.SecureSession - -- Session:e997f9eb-0ea1-4457-8f98-67942bea1462
+12:51:47,171 - WARN com.eis.security.multitenancy.model.SecureSession - -- TxId:null
+12:51:47,554 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:47,928 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:48,373 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:48,604 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:48,973 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:49,218 - INFO org.apache.shiro.session.mgt.AbstractValidatingSessionManager - Enabling session validation scheduler...
+12:51:49,354 - WARN com.eis.core.api.v1.dao.impl.sprngmongo.OrganizationDAOImpl - Organization with refName:SupplierA primary contact with refName:mikessupplier data domain is null  assuming the data domain of the organization:com.mycompanyxyz
+12:51:49,988 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:50,421 - DEBUG com.eis.b2bmb.endpts.as2.TestAS2Stack - IssueDate:06-Jan-2016 17:51:50
+12:51:50,421 - DEBUG com.eis.b2bmb.endpts.as2.TestAS2Stack - ExpireDate:04-Jan-2017 17:51:50
+12:51:50,422 - DEBUG com.eis.b2bmb.endpts.as2.TestAS2Stack - Subject:CN=suppliera, OU=suppliera, O=suppliera, C=suppliera
+12:51:50,422 - DEBUG com.eis.b2bmb.endpts.as2.TestAS2Stack - Serial:19D4373EE26183FA7DC1B1A4584FA6C7236D57BD824BA295B0B8321B12DDBCC2
+12:51:50,598 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:51,162 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - getPublicCertificateWithPrivateKey method started in >> com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper
+12:51:51,162 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - Getting public certificate for refName::  SupplierA:SigningCert   dataDomain ::com.mycompanyxyz
+12:51:51,165 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - Getting key pair  for refName  ::   suppliera  dataDomain ::com.mycompanyxyz
+12:51:51,181 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - Found pem decrypted private key
+12:51:51,195 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - Certificate including public key and private key created successfully >>>>>>>
+12:51:51,195 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - getpublicCertificate method completed successfully>> com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper
+12:51:51,196 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - getpublicCertificate method started in >> com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper
+12:51:51,196 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper -  Looking for Cert:RetailerA:EncryptionCert in data Domain:com.mycompanyxyz
+12:51:51,200 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - Creating InEDI Certificate object>>>>>>>> >> -----BEGIN CERTIFICATE-----
+MIICLjCCAZcCIARtpyQodsKKOxIDF1JQoJl5vxhoSt2xRj2ZxtcCFp2rMA0GCSqG
+SIb3DQEBCwUAMFAxEjAQBgNVBAMMCXJldGFpbGVyYTESMBAGA1UECwwJcmV0YWls
+ZXJhMRIwEAYDVQQKDAlyZXRhaWxlcmExEjAQBgNVBAYTCXJldGFpbGVyYTAeFw0x
+NjAxMDYxNzUxNTBaFw0xNzAxMDQxNzUxNTBaMFAxEjAQBgNVBAMMCXJldGFpbGVy
+YTESMBAGA1UECwwJcmV0YWlsZXJhMRIwEAYDVQQKDAlyZXRhaWxlcmExEjAQBgNV
+BAYTCXJldGFpbGVyYTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAisE8+dtp
+NRvAReVLPsu++0M0JoGTZBBjCrnZ3a48NW8cNRia5NmWU0llGgKk6/GiJlskSbrC
+XsoLSsNJPkSpZaw5p2IMV0DJd/9DCE+dveHaHQq5cXAGf44XawqE2u4jCpEAnYXS
+p1aF82JvTndPr0Bs2X/TOtANgybaSm5yenMCAwEAATANBgkqhkiG9w0BAQsFAAOB
+gQB2uQ0yfFCxvGVJm8I7cjhL4N3OEhxobqiepyvUtjFhA7Hpram8YAAevdd6/diX
+zszjiNtMGYXSum50tkuMqaWEpYmElssFukOlYHNcWwXoz91LtxSGhGRcuB49vBiL
+teLblTkJgcjWGZAwQiS8QRiSAKH3/4hokHHt45KyXHLPww==
+-----END CERTIFICATE-----
+
+12:51:51,208 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - getpublicCertificate method completed in >> com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper
+12:51:51,235 - INFO com.eis.b2bmb.endpts.as2.AS2ClientImpl - Posting message with id:131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ffb@131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ffa
+12:51:51,399 - ERROR org.apache.camel.processor.DefaultErrorHandler - Failed delivery for (MessageId: ID-user-PC-64493-1452016294321-0-2 on ExchangeId: ID-user-PC-64493-1452016294321-0-1). Exhausted after delivery attempt: 1 caught: javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/ContinueSignIn?sarp=1&scc=1&plt=AKgnsbvWa
+534-5.7.14 e6BQtVmt7ydslqlhkZePr_qu1roM_Ie7mmWUpASXoXQHwVmnoykivr-V6_zGv9tqZkKvgk
+534-5.7.14 WZSdZ2gZBBBGYLl82p-zE0narpqxxNxlpDszug-ybCtt5i2ZDCBhArs9I6dt3Bpxi5xHJS
+534-5.7.14 9oC-gyU4xRnkzr5H21wXXhDzQQqyMOZ3-3um1vgo4ncFPOBMvrx7niVV8I5CgHyou5JHPJ
+534-5.7.14 QsGImP260WLw9BY44Eg88DIExKGE> Please log in via your web browser and
+534-5.7.14 then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 m11sm36859037oif.19 - gsmtp
+
+
+Message History
+---------------------------------------------------------------------------------------------------------------------------------------
+RouteId              ProcessorId          Processor                                                                        Elapsed (ms)
+[com.mycompanyxyz.T] [com.mycompanyxyz.T] [activemq://queue:send.email.queue                                             ] [      7154]
+[com.mycompanyxyz.T] [process1          ] [ref:emailProcessor                                                            ] [        86]
+[com.mycompanyxyz.T] [to1               ] [smtps://smtp.gmail.com:465?username=testdummyuser1&password=xxxxxx            ] [      7005]
+
+Exchange
+---------------------------------------------------------------------------------------------------------------------------------------
+Exchange[
+	Id                  ID-user-PC-64493-1452016294321-0-1
+	ExchangePattern     InOnly
+	Headers             {CamelRedelivered=false, CamelRedeliveryCounter=0, Content-Type=text/html, From=orders@b2mb.eis.com, Subject=You super cool order Email, To=ntadipatri@envistacorp.com}
+	BodyType            String
+	Body                <html>
+
+<body>
+
+    <table>
+    <tr>
+        <td>4567 Main St. <br>Buffalo, NY, 98052<br>555-0111</td>
+
+        <td>Order No 1001<br/>DATE January 10,2015<br/>Customer Id 123456 </td>
+    </tr>
+</table>
+
+<br/>
+<table>
+<tr><td valign="top"><b>TO</b></td>
+<td>Zeyad Rajabi<br>Adventure Works<br>424 Main St.<br>Buffalo. NY, 98052<br>555-0101</td>
+
+<td valign="top"><b>SHIP TO</b></td>
+<td>Wedy Kahn, <br>Coho Vineayard<br>500 Main St.<br>Buffalo, NY 98044<br>555-0999
+</td></tr>
+</table>
+<br/>
+<B>2 Items found  </B>
+<table border="1">
+    <tr bgcolor="blue"><th>QTY</th><th>ITEM No</th><th>DESCRIPTION</th><th>UNIT PRICE</th><th>DISCOUNT</th><th>LINE TOTAL</th></tr>
+
+            <tr>
+            <td>1.00</td>
+            <td>100</td>
+            <td>Mountain Bike</td>
+            <td>$ 450.00</td>
+            <td>$ 25.00</td>
+            <td>$ 425.00</td>
+        </tr>
+            <tr>
+            <td>2.00</td>
+            <td>555</td>
+            <td>Helmet</td>
+            <td>$ 35.00</td>
+            <td></td>
+            <td>$ 70.00</td>
+        </tr>
+    </table>
+
+</body>
+</html>
+]
+
+Stacktrace
+---------------------------------------------------------------------------------------------------------------------------------------
+javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/ContinueSignIn?sarp=1&scc=1&plt=AKgnsbvWa
+534-5.7.14 e6BQtVmt7ydslqlhkZePr_qu1roM_Ie7mmWUpASXoXQHwVmnoykivr-V6_zGv9tqZkKvgk
+534-5.7.14 WZSdZ2gZBBBGYLl82p-zE0narpqxxNxlpDszug-ybCtt5i2ZDCBhArs9I6dt3Bpxi5xHJS
+534-5.7.14 9oC-gyU4xRnkzr5H21wXXhDzQQqyMOZ3-3um1vgo4ncFPOBMvrx7niVV8I5CgHyou5JHPJ
+534-5.7.14 QsGImP260WLw9BY44Eg88DIExKGE> Please log in via your web browser and
+534-5.7.14 then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 m11sm36859037oif.19 - gsmtp
+
+	at com.sun.mail.smtp.SMTPTransport$Authenticator.authenticate(SMTPTransport.java:823)
+	at com.sun.mail.smtp.SMTPTransport.authenticate(SMTPTransport.java:756)
+	at com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:673)
+	at javax.mail.Service.connect(Service.java:317)
+	at org.apache.camel.component.mail.DefaultJavaMailSender.send(DefaultJavaMailSender.java:112)
+	at org.apache.camel.component.mail.MailProducer.process(MailProducer.java:63)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor$2.doInAsyncProducer(SendProcessor.java:157)
+	at org.apache.camel.impl.ProducerCache.doInAsyncProducer(ProducerCache.java:312)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:152)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:190)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:190)
+	at org.apache.camel.util.AsyncProcessorHelper.process(AsyncProcessorHelper.java:109)
+	at org.apache.camel.processor.DelegateAsyncProcessor.process(DelegateAsyncProcessor.java:87)
+	at org.apache.camel.component.jms.EndpointMessageListener.onMessage(EndpointMessageListener.java:103)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:699)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:637)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:605)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:308)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:246)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1144)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1136)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1033)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+12:51:51,624 - WARN org.apache.camel.component.jms.EndpointMessageListener - Execution of JMS message listener failed. Caused by: [org.apache.camel.RuntimeCamelException - javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/ContinueSignIn?sarp=1&scc=1&plt=AKgnsbvWa
+534-5.7.14 e6BQtVmt7ydslqlhkZePr_qu1roM_Ie7mmWUpASXoXQHwVmnoykivr-V6_zGv9tqZkKvgk
+534-5.7.14 WZSdZ2gZBBBGYLl82p-zE0narpqxxNxlpDszug-ybCtt5i2ZDCBhArs9I6dt3Bpxi5xHJS
+534-5.7.14 9oC-gyU4xRnkzr5H21wXXhDzQQqyMOZ3-3um1vgo4ncFPOBMvrx7niVV8I5CgHyou5JHPJ
+534-5.7.14 QsGImP260WLw9BY44Eg88DIExKGE> Please log in via your web browser and
+534-5.7.14 then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 m11sm36859037oif.19 - gsmtp
+]
+org.apache.camel.RuntimeCamelException: javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/ContinueSignIn?sarp=1&scc=1&plt=AKgnsbvWa
+534-5.7.14 e6BQtVmt7ydslqlhkZePr_qu1roM_Ie7mmWUpASXoXQHwVmnoykivr-V6_zGv9tqZkKvgk
+534-5.7.14 WZSdZ2gZBBBGYLl82p-zE0narpqxxNxlpDszug-ybCtt5i2ZDCBhArs9I6dt3Bpxi5xHJS
+534-5.7.14 9oC-gyU4xRnkzr5H21wXXhDzQQqyMOZ3-3um1vgo4ncFPOBMvrx7niVV8I5CgHyou5JHPJ
+534-5.7.14 QsGImP260WLw9BY44Eg88DIExKGE> Please log in via your web browser and
+534-5.7.14 then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 m11sm36859037oif.19 - gsmtp
+
+	at org.apache.camel.util.ObjectHelper.wrapRuntimeCamelException(ObjectHelper.java:1619)
+	at org.apache.camel.component.jms.EndpointMessageListener$EndpointMessageListenerAsyncCallback.done(EndpointMessageListener.java:186)
+	at org.apache.camel.component.jms.EndpointMessageListener.onMessage(EndpointMessageListener.java:107)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:699)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:637)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:605)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:308)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:246)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1144)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1136)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1033)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/ContinueSignIn?sarp=1&scc=1&plt=AKgnsbvWa
+534-5.7.14 e6BQtVmt7ydslqlhkZePr_qu1roM_Ie7mmWUpASXoXQHwVmnoykivr-V6_zGv9tqZkKvgk
+534-5.7.14 WZSdZ2gZBBBGYLl82p-zE0narpqxxNxlpDszug-ybCtt5i2ZDCBhArs9I6dt3Bpxi5xHJS
+534-5.7.14 9oC-gyU4xRnkzr5H21wXXhDzQQqyMOZ3-3um1vgo4ncFPOBMvrx7niVV8I5CgHyou5JHPJ
+534-5.7.14 QsGImP260WLw9BY44Eg88DIExKGE> Please log in via your web browser and
+534-5.7.14 then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 m11sm36859037oif.19 - gsmtp
+
+	at com.sun.mail.smtp.SMTPTransport$Authenticator.authenticate(SMTPTransport.java:823)
+	at com.sun.mail.smtp.SMTPTransport.authenticate(SMTPTransport.java:756)
+	at com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:673)
+	at javax.mail.Service.connect(Service.java:317)
+	at org.apache.camel.component.mail.DefaultJavaMailSender.send(DefaultJavaMailSender.java:112)
+	at org.apache.camel.component.mail.MailProducer.process(MailProducer.java:63)
+	at org.apache.camel.util.AsyncProcessorConverterHelper$ProcessorToAsyncProcessorBridge.process(AsyncProcessorConverterHelper.java:61)
+	at org.apache.camel.processor.SendProcessor$2.doInAsyncProducer(SendProcessor.java:157)
+	at org.apache.camel.impl.ProducerCache.doInAsyncProducer(ProducerCache.java:312)
+	at org.apache.camel.processor.SendProcessor.process(SendProcessor.java:152)
+	at org.apache.camel.processor.RedeliveryErrorHandler.process(RedeliveryErrorHandler.java:448)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:190)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:118)
+	at org.apache.camel.processor.Pipeline.process(Pipeline.java:80)
+	at org.apache.camel.processor.CamelInternalProcessor.process(CamelInternalProcessor.java:190)
+	at org.apache.camel.util.AsyncProcessorHelper.process(AsyncProcessorHelper.java:109)
+	at org.apache.camel.processor.DelegateAsyncProcessor.process(DelegateAsyncProcessor.java:87)
+	at org.apache.camel.component.jms.EndpointMessageListener.onMessage(EndpointMessageListener.java:103)
+	... 11 more
+12:51:51,412 - INFO com.eis.b2bmb.endpts.as2.As2ClientListener - AS2 connected:http://localhost:8181 Status:0 description:OK
+12:51:51,682 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Staring Transmission...
+12:51:51,684 - INFO com.eis.b2bmb.endpts.as2.As2ClientListener - >> Transferred:2196 bytes
+12:51:51,685 - INFO com.eis.b2bmb.endpts.as2.As2ClientListener -  Percent Complete:100
+12:51:51,686 - INFO com.eis.b2bmb.endpts.as2.As2ClientListener - Transfer Complete
+12:51:51,848 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl - Receiving AS2 Request:
+12:51:51,849 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -   AS2To:RetailerA
+12:51:51,850 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -   AS2From:SupplierA
+12:51:51,850 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -   MessageId:<131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ffb@131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ffa>
+12:51:51,851 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -   MDNTo:suppliera@mycompanyxyz.com
+12:51:51,851 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -   Request Headers:
+12:51:51,858 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:Connection Value:close
+12:51:51,858 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:AS2-Version Value:1.2
+12:51:51,858 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:Disposition-Notification-Options Value:signed-receipt-protocol=optional, pkcs7-signature; signed-receipt-micalg=optional, sha1
+12:51:51,859 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:AS2-From Value:SupplierA
+12:51:51,859 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:Accept-Encoding Value:gzip, deflate
+12:51:51,859 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:Date Value:Tue, 05 Jan 2016 17:51:51 GMT
+12:51:51,859 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:User-Agent Value:EDI Integrator Component - www.nsoftware.com
+12:51:51,859 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:Message-Id Value:<131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ffb@131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ffa>
+12:51:51,860 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:EDIINT-Features Value:multiple-attachments, AS2-Reliability
+12:51:51,860 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:Content-Type Value:application/pkcs7-mime; smime-type=enveloped-data; name="smime.p7m"
+12:51:51,860 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:Content-Disposition Value:attachment; filename="smime.p7m"
+12:51:51,860 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:Content-Length Value:2196
+12:51:51,861 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:AS2-To Value:RetailerA
+12:51:51,861 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:Disposition-Notification-To Value:suppliera@mycompanyxyz.com
+12:51:51,861 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:Host Value:localhost:8181
+12:51:51,861 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -     Header:MIME-Version Value:1.0
+12:51:51,861 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -  Requested MIC Algorithms:optional, sha1
+12:51:51,862 - INFO com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -  Requested Signature Algorithm:optional, pkcs7-signature
+12:51:52,026 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - getPublicCertificateWithPrivateKey method started in >> com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper
+12:51:52,027 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - Getting public certificate for refName::  RetailerA:EncryptionCert   dataDomain ::com.mycompanyxyz
+12:51:52,042 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - Getting key pair  for refName  ::   retailera  dataDomain ::com.mycompanyxyz
+12:51:52,064 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - Found pem decrypted private key
+12:51:52,073 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - Certificate including public key and private key created successfully >>>>>>>
+12:51:52,073 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - getpublicCertificate method completed successfully>> com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper
+12:51:52,073 - DEBUG com.eis.b2bmb.endpts.as2.AS2ReceiverImpl - Using encryption certificate:RetailerA:EncryptionCert
+12:51:52,074 - DEBUG com.eis.b2bmb.endpts.as2.AS2ReceiverImpl - > Subject:CN=retailera, OU=retailera, O=retailera, C=retailera
+12:51:52,074 - DEBUG com.eis.b2bmb.endpts.as2.AS2ReceiverImpl -  > SerialNumber:046DA7242876C28A3B1203175250A09979BF18684ADDB1463D99C6D702169DAB
+12:51:52,078 - DEBUG com.eis.b2bmb.endpts.as2.AS2ReceiverImpl - Signing Cert is configured.:SupplierA:SigningCert
+12:51:52,078 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - getpublicCertificate method started in >> com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper
+12:51:52,079 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper -  Looking for Cert:SupplierA:SigningCert in data Domain:com.mycompanyxyz
+12:51:52,081 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - Creating InEDI Certificate object>>>>>>>> >> -----BEGIN CERTIFICATE-----
+MIICLjCCAZcCIBnUNz7iYYP6fcGxpFhPpscjbVe9gkuilbC4MhsS3bzCMA0GCSqG
+SIb3DQEBCwUAMFAxEjAQBgNVBAMMCXN1cHBsaWVyYTESMBAGA1UECwwJc3VwcGxp
+ZXJhMRIwEAYDVQQKDAlzdXBwbGllcmExEjAQBgNVBAYTCXN1cHBsaWVyYTAeFw0x
+NjAxMDYxNzUxNTBaFw0xNzAxMDQxNzUxNTBaMFAxEjAQBgNVBAMMCXN1cHBsaWVy
+YTESMBAGA1UECwwJc3VwcGxpZXJhMRIwEAYDVQQKDAlzdXBwbGllcmExEjAQBgNV
+BAYTCXN1cHBsaWVyYTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAkMaXR5YB
+6Ym+J7T2RlRMh1dMmzInAjQ4a+UrxDA21YRFDbOMKCHGaxZ5dBhlrZP/bHy/sC3B
+sElE4jpjnY1y0lwtr1gRpB7g9k3MQIn7yWn/a0UYnpaULZYrr9MDFbFRUHlm2Gc8
+KU1SCKM0oESOfmNXKNifMqoGslEsp/XwF9kCAwEAATANBgkqhkiG9w0BAQsFAAOB
+gQBIIm5q0SMmmp5OmL3aH9nrfh90FD2pk76SPfHvPch+dHs3rKz/s94g0s2npQOs
+52kGuOZr4PI96X2gPRHt06IoqVCro5AqdL5nTUUrH1B69votZpY9hhoyEGY2me4x
+RZOdfyzlerWvq+BJurrDJbSXeqdpiVVxeCzfhFiim2SmzA==
+-----END CERTIFICATE-----
+
+12:51:52,088 - DEBUG com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper - getpublicCertificate method completed in >> com.eis.b2bmb.endpoints.nsoftware.as2.serverHelper.CertificateHelper
+12:51:52,089 - DEBUG com.eis.b2bmb.endpts.as2.AS2ReceiverImpl - TP Signing Cert: Subject:CN=suppliera, OU=suppliera, O=suppliera, C=suppliera
+12:51:52,089 - DEBUG com.eis.b2bmb.endpts.as2.AS2ReceiverImpl - TP Signing Cert: Effective From Date:06-Jan-2016 17:51:50
+12:51:52,089 - DEBUG com.eis.b2bmb.endpts.as2.AS2ReceiverImpl - TP Signing Cert: Effective To Date:04-Jan-2017 17:51:50
+12:51:52,089 - DEBUG com.eis.b2bmb.endpts.as2.AS2ReceiverImpl - TP Signing Cert: SerialNumber19D4373EE26183FA7DC1B1A4584FA6C7236D57BD824BA295B0B8321B12DDBCC2
+12:51:52,090 - DEBUG com.eis.b2bmb.endpts.as2.AS2ReceiverImpl - TP Signing Cert: Issuer:CN=suppliera, OU=suppliera, O=suppliera, C=suppliera
+12:51:52,090 - DEBUG com.eis.b2bmb.endpts.as2.AS2ReceiverImpl - TP Signing Cert: Signature AlgorithmRSA_SHA256RSA
+12:51:52,090 - DEBUG com.eis.b2bmb.endpts.as2.AS2ReceiverImpl - TP Signing Cert: Version:V1
+12:51:52,263 - INFO com.eis.core.api.v1.dao.impl.sprngmongo.MailboxEntryDAOImpl - ID not set so generating one for refName:8b46e8a2-aab7-443f-a950-2b5532673b21SupplierA|RetailerA
+12:51:54,352 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:AS2-From : RetailerA
+12:51:54,353 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:AS2-To : SupplierA
+12:51:54,353 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:AS2-Version : 1.2
+12:51:54,353 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:EDIINT-Features : multiple-attachments
+12:51:54,353 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:Subject : Message Disposition Notification
+12:51:54,354 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:Content-Description : MIME Message
+12:51:54,354 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:Message-ID : <131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ff9@SupplierA>
+12:51:54,354 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:MIME-Version : 1.0
+12:51:54,354 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:Content-Length : 2392
+12:51:54,354 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:Content-Type : multipart/signed; protocol="application/pkcs7-signature"; micalg=sha1; boundary="boundaryh8w+Bw==";charset=ISO-8859-1
+12:51:54,355 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:Connection : close
+12:51:54,355 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Header:Server : Jetty(8.1.16.v20140903)
+12:51:54,355 - DEBUG com.eis.b2bmb.endpts.as2.As2ClientListener - Staring Transmission...
+12:51:54,355 - INFO com.eis.b2bmb.endpts.as2.As2ClientListener - << Transferred:2048 bytes
+12:51:54,356 - INFO com.eis.b2bmb.endpts.as2.As2ClientListener -  Percent Complete:85
+12:51:54,356 - INFO com.eis.b2bmb.endpts.as2.As2ClientListener - << Transferred:2392 bytes
+12:51:54,356 - INFO com.eis.b2bmb.endpts.as2.As2ClientListener -  Percent Complete:100
+12:51:54,358 - INFO com.eis.b2bmb.endpts.as2.As2ClientListener - Transfer Complete
+12:51:54,408 - INFO com.eis.b2bmb.endpts.as2.As2ClientListener - AS2 disconnected:http://localhost:8181 Status:0 description:OK
+12:51:54,452 - INFO com.eis.b2bmb.endpts.as2.AS2ClientImpl - Receipt Received:
+12:51:54,452 - INFO com.eis.b2bmb.endpts.as2.AS2ClientImpl -  Signing Protocol:application/pkcs7-signature
+12:51:54,453 - INFO com.eis.b2bmb.endpts.as2.AS2ClientImpl -  Message:The incoming message from SupplierA to RetailerA with Id <131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ffb@131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ffa> was received successfully. This is not a guarantee that the message has been processed by the receiving translator.
+
+12:51:54,453 - INFO com.eis.b2bmb.endpts.as2.AS2ClientImpl -  MDN:Original-Recipient: rfc822;RetailerA
+Final-Recipient: rfc822;RetailerA
+Original-Message-ID: <131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ffb@131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ffa>
+Disposition: automatic-action/MDN-sent-automatically; processed
+Received-Content-MIC: 3/zoNvU9vaFA3fW9ZDwJPld3rYQ=, sha1
+
+12:51:54,454 - INFO com.eis.b2bmb.endpts.as2.AS2ClientImpl -  MIC:3/zoNvU9vaFA3fW9ZDwJPld3rYQ=, sha1
+12:51:54,454 - INFO com.eis.b2bmb.endpts.as2.AS2ClientImpl -  Headers:AS2-From: RetailerA
+AS2-To: SupplierA
+AS2-Version: 1.2
+EDIINT-Features: multiple-attachments
+Subject: Message Disposition Notification
+Content-Description: MIME Message
+Message-ID: <131be91f5bc0e74a_-75f80bca_15212ea76f6_-7ff9@SupplierA>
+MIME-Version: 1.0
+Content-Length: 2392
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha1; boundary="boundaryh8w+Bw==";charset=ISO-8859-1
+Connection: close
+Server: Jetty(8.1.16.v20140903)
+
+12:51:54,478 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:54,935 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:55,511 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:55,948 - INFO com.eis.b2bmb.util.EDITransactionListener - Done, file id: 568c02bbff73391ab3db2976
+12:51:56,062 - INFO com.eis.b2bmb.util.EDITransactionListener - Done, file id: 568c02bcff73391ab3db2978
+12:51:56,080 - INFO com.eis.b2bmb.util.EDITransactionListener - Done, file id: 568c02bcff73391ab3db297a
+12:51:56,096 - INFO com.eis.b2bmb.util.EDITransactionListener - Done, file id: 568c02bcff73391ab3db297c
+12:51:56,114 - INFO com.eis.b2bmb.util.EDITransactionListener - Done, file id: 568c02bcff73391ab3db297e
+12:51:56,217 - WARN com.eis.core.api.v1.dao.impl.sprngmongo.MailboxEntryDAOImpl - Deleting 0 entries for mailbox with id:39a1cce0-6e55-4061-8058-dfc26bb3b370 refName:TestEDIMailbox dataDomain:com.mycompanyxyz
+12:51:56,219 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:56,950 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:56,963 - DEBUG com.eis.b2bmb.endpts.ssh.apache.B2bmbFilesystemFactory - **** B2bmbFilesystemFactory Created..
+12:51:57,001 - INFO org.apache.camel.core.xml.AbstractCamelContextFactoryBean - JMXAgent disabled
+12:51:57,145 - INFO com.eis.b2bmb.examples.interceptor.InterceptorChain - Adding interceptor:com.eis.b2bmb.examples.interceptor.DefaultInterceptor to chain
+12:51:57,146 - INFO com.eis.b2bmb.examples.interceptor.InterceptorChain - Adding interceptor:com.eis.b2bmb.examples.interceptor.MyInterceptor to chain
+12:51:57,149 - INFO com.eis.b2bmb.examples.interceptor.InterceptorChain - Adding interceptor:com.eis.b2bmb.examples.interceptor.MyGuard to chain
+12:51:57,150 - INFO com.eis.b2bmb.examples.interceptor.InterceptorChain - Adding interceptor:com.eis.b2bmb.examples.interceptor.DefaultInterceptor to chain
+12:51:57,151 - INFO com.eis.b2bmb.examples.interceptor.InterceptorChain - Adding interceptor:com.eis.b2bmb.examples.interceptor.MyInterceptor to chain
+12:51:57,163 - INFO org.apache.shiro.realm.AuthorizingRealm - No cache or cacheManager properties have been set.  Authorization cache cannot be obtained.
+12:51:57,167 - DEBUG com.eis.b2bmb.endpts.ssh.nsoftware.SFTPServer - SFTP Instance Created ...
+12:51:57,207 - DEBUG com.eis.b2bmb.endpts.as2.HttpServer - HttpServer 2 para constructor invoked >>> 
+12:51:57,209 - INFO com.eis.util.AS2Initiator - ********** Starting AS2 Server !!!!
+12:51:57,209 - INFO com.eis.b2bmb.endpts.as2.HttpServer -  *** Starting AS2 server ..
+12:51:57,210 - INFO org.eclipse.jetty.server.Server - jetty-8.1.16.v20140903
+12:51:57,248 - WARN org.eclipse.jetty.util.component.AbstractLifeCycle - FAILED SelectChannelConnector@0.0.0.0:8181: java.net.BindException: Address already in use: bind
+java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:437)
+	at sun.nio.ch.Net.bind(Net.java:429)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:187)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:316)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:265)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:293)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.b2bmb.endpts.as2.HttpServer.doStart(HttpServer.java:66)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.util.AS2Initiator.startServer(AS2Initiator.java:77)
+	at com.eis.util.AS2Initiator.<init>(AS2Initiator.java:31)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:147)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:267)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:838)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:208)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:158)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:95)
+12:51:57,251 - WARN org.eclipse.jetty.util.component.AbstractLifeCycle - FAILED org.eclipse.jetty.server.Server@773c7147: java.net.BindException: Address already in use: bind
+java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:437)
+	at sun.nio.ch.Net.bind(Net.java:429)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:187)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:316)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:265)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:293)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.b2bmb.endpts.as2.HttpServer.doStart(HttpServer.java:66)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.util.AS2Initiator.startServer(AS2Initiator.java:77)
+	at com.eis.util.AS2Initiator.<init>(AS2Initiator.java:31)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:147)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:267)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:838)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:208)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:158)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:95)
+12:51:57,253 - WARN org.eclipse.jetty.util.component.AbstractLifeCycle - FAILED com.eis.b2bmb.endpts.as2.HttpServer@5abc5854: java.net.BindException: Address already in use: bind
+java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:437)
+	at sun.nio.ch.Net.bind(Net.java:429)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:187)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:316)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:265)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:293)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.b2bmb.endpts.as2.HttpServer.doStart(HttpServer.java:66)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:64)
+	at com.eis.util.AS2Initiator.startServer(AS2Initiator.java:77)
+	at com.eis.util.AS2Initiator.<init>(AS2Initiator.java:31)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:147)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:122)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:267)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1143)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1046)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:838)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:208)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:158)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:86)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:95)
+12:51:57,255 - ERROR com.eis.util.AS2Initiator - Exception occurred while starting the server Address already in use: bind
+12:51:57,388 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) is starting
+12:51:57,389 - INFO org.apache.camel.management.DefaultManagementStrategy - JMX is disabled
+12:51:57,399 - INFO org.apache.camel.impl.converter.DefaultTypeConverter - Loaded 205 type converters
+12:51:57,400 - INFO org.apache.camel.spring.SpringCamelContext - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+12:51:57,401 - INFO org.apache.camel.spring.SpringCamelContext - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+12:51:57,402 - INFO org.apache.camel.spring.SpringCamelContext - Total 0 routes, of which 0 is started.
+12:51:57,402 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) started in 0.015 seconds
+12:51:57,820 - INFO org.apache.camel.spring.SpringCamelContext - Route: test-jms-fromXML started and consuming from: Endpoint[test-jms://queue:test.queue]
+12:51:57,821 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) is starting
+12:51:57,822 - INFO org.apache.camel.spring.SpringCamelContext - Total 2 routes, of which 2 is started.
+12:51:57,823 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) started in 0.001 seconds
+12:51:58,531 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) is shutting down
+12:51:58,533 - INFO org.apache.camel.impl.DefaultShutdownStrategy - Starting to graceful shutdown 2 routes (timeout 300 seconds)
+12:51:59,502 - INFO org.apache.camel.impl.DefaultShutdownStrategy - Route: test-jms-fromXML shutdown complete, was consuming from: Endpoint[test-jms://queue:test.queue]
+12:51:59,515 - INFO org.apache.camel.impl.DefaultShutdownStrategy - Route: com.mycompanyxyz.TestEmailRoute shutdown complete, was consuming from: Endpoint[activemq://queue:send.email.queue]
+12:51:59,526 - INFO org.apache.camel.impl.DefaultShutdownStrategy - Graceful shutdown of 2 routes completed in 0 seconds
+12:51:59,529 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) uptime 1.708 seconds
+12:51:59,530 - INFO org.apache.camel.spring.SpringCamelContext - Apache Camel 2.15.4 (CamelContext: camelContext) is shutdown in 0.998 seconds
+12:51:59,550 - INFO com.eis.b2bmb.examples.interceptor.ExampleTest - --- Autowired Example ---
+12:51:59,552 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:Before Object:null
+12:51:59,553 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - << MyOnBeforeAction:exampleMailbox.addString
+12:51:59,553 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:After Object:Test1
+12:51:59,555 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - >> MyOnAfterActionexampleMailbox.addString
+12:51:59,555 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:Before Object:Test1
+12:51:59,556 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - << MyOnBeforeAction:exampleMailbox.deleteString
+12:51:59,556 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:After Object:Test1
+12:51:59,556 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - >> MyOnAfterActionexampleMailbox.deleteString
+12:51:59,558 - INFO com.eis.b2bmb.examples.interceptor.ExampleTest - --- Loading the guard class multiple times ---
+12:51:59,561 - INFO com.eis.b2bmb.examples.interceptor.ExampleTest - --- Chain Example ---
+12:51:59,617 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:Before Object:null
+12:51:59,618 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - << MyOnBeforeAction:exampleMailbox.addString
+12:51:59,618 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:Before Object:null
+12:51:59,619 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - << MyOnBeforeAction:exampleMailbox.addString
+12:51:59,619 - INFO com.eis.b2bmb.examples.interceptor.MyGuard - My Guard Called
+12:51:59,619 - INFO com.eis.b2bmb.examples.interceptor.MyGuard - My Guard Called
+12:51:59,620 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:Before Object:null
+12:51:59,620 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - << MyOnBeforeAction:exampleMailbox.addString
+12:51:59,620 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:After Object:Test1
+12:51:59,620 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - >> MyOnAfterActionexampleMailbox.addString
+12:51:59,621 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:After Object:Test1
+12:51:59,635 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - >> MyOnAfterActionexampleMailbox.addString
+12:51:59,636 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:After Object:Test1
+12:51:59,636 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - >> MyOnAfterActionexampleMailbox.addString
+12:51:59,636 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:Before Object:Test1
+12:51:59,636 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - << MyOnBeforeAction:exampleMailbox.deleteString
+12:51:59,637 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:Before Object:Test1
+12:51:59,637 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - << MyOnBeforeAction:exampleMailbox.deleteString
+12:51:59,637 - INFO com.eis.b2bmb.examples.interceptor.MyGuard - My Guard Called
+12:51:59,637 - INFO com.eis.b2bmb.examples.interceptor.MyGuard - My Guard Called
+12:51:59,637 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:Before Object:Test1
+12:51:59,638 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - << MyOnBeforeAction:exampleMailbox.deleteString
+12:51:59,638 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:After Object:Test1
+12:51:59,638 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - >> MyOnAfterActionexampleMailbox.deleteString
+12:51:59,638 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:After Object:Test1
+12:51:59,639 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - >> MyOnAfterActionexampleMailbox.deleteString
+12:51:59,639 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:After Object:Test1
+12:51:59,639 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - >> MyOnAfterActionexampleMailbox.deleteString
+12:51:59,640 - INFO com.eis.b2bmb.examples.interceptor.ExampleTest - --- Guarded Example ---
+12:51:59,641 - INFO com.eis.b2bmb.examples.interceptor.MyGuard - My Guard Called
+12:51:59,641 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:Before Object:null
+12:51:59,641 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - << MyOnBeforeAction:exampleMailbox.addString
+12:51:59,642 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:After Object:Test1
+12:51:59,642 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - >> MyOnAfterActionexampleMailbox.addString
+12:51:59,642 - INFO com.eis.b2bmb.examples.interceptor.MyGuard - My Guard Called
+12:51:59,643 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:Before Object:Test1
+12:51:59,643 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - << MyOnBeforeAction:exampleMailbox.deleteString
+12:51:59,643 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:After Object:Test1
+12:51:59,643 - INFO com.eis.b2bmb.examples.interceptor.MyInterceptor - >> MyOnAfterActionexampleMailbox.deleteString
+12:51:59,645 - INFO com.eis.b2bmb.examples.interceptor.ExampleTest - --- Simple ---
+12:51:59,645 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:Before Object:null
+12:51:59,645 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.addString:After Object:Test1
+12:51:59,645 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:Before Object:Test1
+12:51:59,646 - INFO com.eis.b2bmb.examples.interceptor.DefaultInterceptor - exampleMailbox.deleteString:After Object:Test1
+12:51:59,648 - INFO com.eis.b2bmb.examples.javascript.TestScriptEngine - --- Executing testInterface ---
+12:52:00,015 - INFO com.eis.b2bmb.examples.javascript.TestScriptEngine - It worked !!!
+12:52:00,028 - INFO com.eis.b2bmb.examples.javascript.TestScriptEngine - Returned Site RefName:fromJavaSite
+12:52:00,029 - INFO com.eis.b2bmb.examples.javascript.TestScriptEngine - --- Done Executing testInterface ---
+12:52:01,042 - DEBUG com.eis.b2bmb.jca.TestCompositeX509 - ------------- BEGIN test SSLWithCustomKeyStore ---------
+12:52:01,050 - DEBUG com.eis.b2bmb.jca.SmartShipItKeyStore - engineLoad
+12:52:01,054 - DEBUG com.eis.b2bmb.jca.SmartShipItKeyStore - engineAliases
+12:52:01,077 - DEBUG com.eis.b2bmb.jca.SmartShipItKeyStore - engineAliases
+12:52:01,091 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509KeyManager - Initializing CompositeX509KeyManager
+12:52:01,092 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509KeyManager -  -- Key Managers --
+12:52:01,092 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509KeyManager - -- sun.security.ssl.SunX509KeyManagerImpl --
+12:52:01,093 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509KeyManager - -- sun.security.ssl.SunX509KeyManagerImpl --
+12:52:01,094 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - Initializing CompositeX509TrustManager
+12:52:01,095 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  -- Trust Managers --
+12:52:01,095 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager - -- sun.security.ssl.X509TrustManagerImpl --
+12:52:01,096 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Equifax Secure Global eBusiness CA-1, O=Equifax Secure Inc., C=US
+12:52:01,097 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=SecureTrust CA, O=SecureTrust Corporation, C=US
+12:52:01,098 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Starfield Root Certificate Authority - G2, O="Starfield Technologies, Inc.", L=Scottsdale, ST=Arizona, C=US
+12:52:01,100 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=VeriSign Class 2 Public Primary Certification Authority - G3, OU="(c) 1999 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:01,101 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=Security Communication RootCA1, O=SECOM Trust.net, C=JP
+12:52:01,103 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=DigiCert Global Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US
+12:52:01,104 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Entrust.net Certification Authority (2048), OU=(c) 1999 Entrust.net Limited, OU=www.entrust.net/CPS_2048 incorp. by ref. (limits liab.), O=Entrust.net
+12:52:01,105 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=thawte Primary Root CA, OU="(c) 2006 thawte, Inc. - For authorized use only", OU=Certification Services Division, O="thawte, Inc.", C=US
+12:52:01,106 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:EMAILADDRESS=info@valicert.com, CN=http://www.valicert.com/, OU=ValiCert Class 2 Policy Validation Authority, O="ValiCert, Inc.", L=ValiCert Validation Network
+12:52:01,106 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Go Daddy Root Certificate Authority - G2, O="GoDaddy.com, Inc.", L=Scottsdale, ST=Arizona, C=US
+12:52:01,107 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:EMAILADDRESS=personal-freemail@thawte.com, CN=Thawte Personal Freemail CA, OU=Certification Services Division, O=Thawte Consulting, L=Cape Town, ST=Western Cape, C=ZA
+12:52:01,107 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=GeoTrust Primary Certification Authority, O=GeoTrust Inc., C=US
+12:52:01,108 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=VeriSign Class 1 Public Primary Certification Authority - G3, OU="(c) 1999 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:01,109 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=VeriSign Class 3 Public Primary Certification Authority - G4, OU="(c) 2007 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:01,109 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Entrust Root Certification Authority, OU="(c) 2006 Entrust, Inc.", OU=www.entrust.net/CPS is incorporated by reference, O="Entrust, Inc.", C=US
+12:52:01,110 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=Security Communication RootCA2, O="SECOM Trust Systems CO.,LTD.", C=JP
+12:52:01,110 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 3 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
+12:52:01,110 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=ePKI Root Certification Authority, O="Chunghwa Telecom Co., Ltd.", C=TW
+12:52:01,110 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=AffirmTrust Commercial, O=AffirmTrust, C=US
+12:52:01,111 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=TC TrustCenter Universal CA I, OU=TC TrustCenter Universal CA, O=TC TrustCenter GmbH, C=DE
+12:52:01,111 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Certum Trusted Network CA, OU=Certum Certification Authority, O=Unizeto Technologies S.A., C=PL
+12:52:01,111 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Certum CA, O=Unizeto Sp. z o.o., C=PL
+12:52:01,111 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=XRamp Global Certification Authority, O=XRamp Security Services Inc, OU=www.xrampsecurity.com, C=US
+12:52:01,111 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=AddTrust Qualified CA Root, OU=AddTrust TTP Network, O=AddTrust AB, C=SE
+12:52:01,112 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Buypass Class 2 Root CA, O=Buypass AS-983163327, C=NO
+12:52:01,112 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=TC TrustCenter Class 2 CA II, OU=TC TrustCenter Class 2 CA, O=TC TrustCenter GmbH, C=DE
+12:52:01,112 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Sonera Class2 CA, O=Sonera, C=FI
+12:52:01,112 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=America Online Root Certification Authority 1, O=America Online Inc., C=US
+12:52:01,113 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=GeoTrust Primary Certification Authority - G2, OU=(c) 2007 GeoTrust Inc. - For authorized use only, O=GeoTrust Inc., C=US
+12:52:01,113 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=SwissSign Gold CA - G2, O=SwissSign AG, C=CH
+12:52:01,113 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=UTN - DATACorp SGC, OU=http://www.usertrust.com, O=The USERTRUST Network, L=Salt Lake City, ST=UT, C=US
+12:52:01,113 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=QuoVadis Root CA 2, O=QuoVadis Limited, C=BM
+12:52:01,113 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Deutsche Telekom Root CA 2, OU=T-TeleSec Trust Center, O=Deutsche Telekom AG, C=DE
+12:52:01,113 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=Equifax Secure Certificate Authority, O=Equifax, C=US
+12:52:01,114 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=Class 1 Public Primary Certification Authority, O="VeriSign, Inc.", C=US
+12:52:01,114 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=DigiCert High Assurance EV Root CA, OU=www.digicert.com, O=DigiCert Inc, C=US
+12:52:01,114 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 2 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
+12:52:01,114 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=VeriSign Class 3 Public Primary Certification Authority - G5, OU="(c) 2006 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+12:52:01,114 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=GlobalSign, O=GlobalSign, OU=GlobalSign Root CA - R2
+12:52:01,115 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=QuoVadis Root CA 3, O=QuoVadis Limited, C=BM
+12:52:01,120 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=GeoTrust Universal CA, O=GeoTrust Inc., C=US
+12:52:01,121 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=GlobalSign, O=GlobalSign, OU=GlobalSign Root CA - R3
+12:52:01,121 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Starfield Services Root Certificate Authority - G2, O="Starfield Technologies, Inc.", L=Scottsdale, ST=Arizona, C=US
+12:52:01,121 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Baltimore CyberTrust Root, OU=CyberTrust, O=Baltimore, C=IE
+12:52:01,121 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:OU=Starfield Class 2 Certification Authority, O="Starfield Technologies, Inc.", C=US
+12:52:01,122 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=Thawte Timestamping CA, OU=Thawte Certification, O=Thawte, L=Durbanville, ST=Western Cape, C=ZA
+12:52:01,122 - DEBUG com.eis.b2bmb.endpts.ssl.compositemanager.CompositeX509TrustManager -  X509 Issuer:CN=AAA Certificate Services, O=Comodo CA Limited, L=Salford, ST=Greater Manchester, C=GB

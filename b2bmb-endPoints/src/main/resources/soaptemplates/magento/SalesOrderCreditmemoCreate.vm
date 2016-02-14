@@ -1,0 +1,27 @@
+<ns1:salesOrderCreditmemoCreate
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+        xmlns:ns1="urn:Magento">
+    <sessionId xsi:type="xsd:string">$sessionId</sessionId>
+    <orderIncrementId xsi:type="xsd:string">$orderIncrementId</orderIncrementId>
+    <creditmemoData xsi:type="ns1:salesOrderCreditmemoData">
+        <qtys soapenc:arrayType="ns1:orderItemIdQty[$orderItemIds.size()]" xsi:type="soapenc:Array"
+              xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            #foreach($item in $orderItemIds)
+                <qtys xsi:type="ns1:orderItemIdQty">
+                    <order_item_id xsi:type="xsd:int">${item.orderItemId}</order_item_id>
+                    <qty xsi:type="xsd:double">${item.quantity}</qty>
+                </qtys>
+            #end
+        </qtys>
+        <shipping_amount xsi:type="xsd:double" xsi:nil="true"/>
+        <adjustment_positive xsi:type="xsd:double" xsi:nil="true"/>
+        <adjustment_negative xsi:type="xsd:double" xsi:nil="true"/>
+    </creditmemoData>
+    <comment xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"></comment>
+    <notifyCustomer xsi:type="xsd:int">$notifyCustomer</notifyCustomer>
+    <includeComment xsi:type="xsd:int">$includeComment</includeComment>
+    <refundToStoreCreditAmount xsi:type="xsd:string"></refundToStoreCreditAmount>
+</ns1:salesOrderCreditmemoCreate>
